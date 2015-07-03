@@ -22,7 +22,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,next" />
+  <meta name="keywords" content="Foundation," />
 
 
 
@@ -45,7 +45,7 @@
 
 
 
-  <title> LeeHu的博客 </title>
+  <title> 探究NSUserDefaults // LeeHu的博客 </title>
 </head>
 
 <body>
@@ -59,9 +59,7 @@
   </div>
 <![endif]-->
 
-  <div class="container one-column 
-   page-home 
-">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <div id="header" class="header">
@@ -137,9 +135,9 @@
       <div class="main-inner">
         <div id="content" class="content">
           
+
   <div id="posts" class="posts-expand">
     
-      
 
   <div class="post post-type-normal ">
     <div class="post-header">
@@ -150,9 +148,7 @@
           
           
             
-              <a class="post-title-link" href="/2015/07/03/探究NSUserDefaults/">
-                探究NSUserDefaults
-              </a>
+              探究NSUserDefaults
             
           
         </h1>
@@ -177,8 +173,7 @@
       
 
       
-        
-          <p>研究NSUserDefaults之前我们首先需要研究的是.plist文件，.plist文件首先是一种用来存储序列化后的对象的文件，对象包括objective-c中的6种基本类型（NSString、NSArray …)。当你在写程序的时候将一些关键数据使用NSUserDefaults保存之后我们会在.plist文件中一一找到它们。</p>
+        <p>研究NSUserDefaults之前我们首先需要研究的是.plist文件，.plist文件首先是一种用来存储序列化后的对象的文件，对象包括objective-c中的6种基本类型（NSString、NSArray …)。当你在写程序的时候将一些关键数据使用NSUserDefaults保存之后我们会在.plist文件中一一找到它们。</p>
 <h4 id="NSUserDefaults工作原理">NSUserDefaults工作原理</h4><p>Apple 官方文档（一）</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">At runtime, you <span class="operator"><span class="keyword">use</span> an NSUserDefaults object <span class="keyword">to</span> <span class="keyword">read</span> the defaults that your </span><br><span class="line">application uses <span class="keyword">from</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>. NSUserDefaults caches </span><br><span class="line">the information <span class="keyword">to</span> avoid <span class="keyword">having</span> <span class="keyword">to</span> <span class="keyword">open</span> the <span class="keyword">user</span>’s defaults <span class="keyword">database</span> </span><br><span class="line"><span class="keyword">each</span> <span class="keyword">time</span> you need a <span class="keyword">default</span> <span class="keyword">value</span>. The synchronize method, which <span class="keyword">is</span> </span><br><span class="line">automatically invoked <span class="keyword">at</span> periodic intervals, keeps the <span class="keyword">in</span>-memory <span class="keyword">cache</span>  </span><br><span class="line"><span class="keyword">in</span> sync <span class="keyword">with</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>.</span></span><br></pre></td></tr></table></figure>
 <p>根据文档(一)可以看出来，NSUserDefault是.plist文件的缓存，NSUserDefault会将访问到的key 缓存到内存中，下次访问时，如果缓存中有对应的key就直接访问，如果没有在从文件中载入？应用还会时不时调用</p>
@@ -211,93 +206,50 @@ strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] s
 <figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2015-07-02</span> <span class="number">14:18:46.71</span>6 TestDemo[<span class="number">2217:167621</span>]  Name = [hslinux]</span><br><span class="line"><span class="number">2015-07-02</span> <span class="number">14:18:46.71</span>9 TestDemo[<span class="number">2217:167621</span>]  Name = [?????]</span><br><span class="line"><span class="number">2015-07-02</span> <span class="number">14:18:46.72</span>0 TestDemo[<span class="number">2217:167621</span>] Default Name = [hslinux]</span><br></pre></td></tr></table></figure>
 <p>由此可以看出来setObject 和 registerDefaults 是存在NSUserdefaults中两个不同区域，我们把两个区域分别叫持久缓存区和全局临时存储区，读的时候通过key会先查找持久缓存区读取value，如果没有，然后再从全局缓存区查找。两个缓存区有各自用处，比如我们需要一些数据在app运行时需要全局持有化是需要用到registerDefaults</p>
 
-        
       
     </div>
 
     <div class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/Foundation/"> #Foundation </a>
+          
+        </div>
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/03/写博客的初衷/">写博客的初衷</a>
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </div>
   </div>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/03/写博客的初衷/">
-                写博客的初衷
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-07-03
-        </span>
-
-        
-
-        
-          
+      <div class="comments" id="comments">
         
       </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>看过很多人的博客，大家都有个习惯，开始写博客之前总需要写一篇感想，那我也谈谈。主要有以下几点</p>
-<p>1、在工作3年之际，发现自己与3年前刚毕业的自己已经完全不同了，从知识层面来看，基础知识已经学习的差不多，但是在学习的过程中总会忘记一些琐事的知识，尤其是看过别人写的一些技术博客，主要是自己没有好好的梳理这些知识。</p>
-<p>2、在做完3年的iOS开发我也有一些自己的心得，经历公司产品从起初框架的搭建到结构成型再到现在的完善，一路过来想公司一些牛逼的技术人员学到了很多。</p>
-<p>3、随着开发，发现自己使用的东西有限，一直在固定的技术上重复的写，重复的优化，有些优化并不是一下子而来的想法，我想把这些想法记录下来</p>
-<p>4、大家都会在很多地方犯错，当然这里也会梳理发错的原因</p>
-<p>5、据说写博客的人都能成为大牛，我个对技术一直有自己最求的人，学无止境，想那些牛人学习</p>
-<p>6、这里同样也记录了我生活的点滴</p>
-<p>总之，有梦就需要平台，我想这里是见证我一路追梦的见证。如果你有遇到对我写的博客有疑问可以通过邮件的方式告诉我：leehudev@gmail.com</p>
-
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
     
   </div>
 
-  
 
         </div>
 
@@ -318,6 +270,15 @@ strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] s
   <div id="sidebar" class="sidebar">
     <div class="sidebar-inner">
 
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
       
 
       <div class="site-overview">
@@ -365,6 +326,17 @@ strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] s
         
       </div>
 
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#NSUserDefaults工作原理"><span class="nav-number">1.</span> <span class="nav-text">NSUserDefaults工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性能"><span class="nav-number">2.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储"><span class="nav-number">3.</span> <span class="nav-text">存储</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
       
 
     </div>
@@ -427,6 +399,145 @@ strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] s
   <script type="text/javascript" src="/js/search-toggle.js"></script>
 
   
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.3" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
 
   <script type="text/javascript">
     $(document).ready(function () {
