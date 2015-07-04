@@ -181,37 +181,11 @@
           <p>研究NSUserDefaults之前我们首先需要研究的是.plist文件，.plist文件首先是一种用来存储序列化后的对象的文件，对象包括objective-c中的6种基本类型（NSString、NSArray …)。当你在写程序的时候将一些关键数据使用NSUserDefaults保存之后我们会在.plist文件中一一找到它们。</p>
 <h4 id="NSUserDefaults工作原理">NSUserDefaults工作原理</h4><p>Apple 官方文档（一）</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">At runtime, you <span class="operator"><span class="keyword">use</span> an NSUserDefaults object <span class="keyword">to</span> <span class="keyword">read</span> the defaults that your </span><br><span class="line">application uses <span class="keyword">from</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>. NSUserDefaults caches </span><br><span class="line">the information <span class="keyword">to</span> avoid <span class="keyword">having</span> <span class="keyword">to</span> <span class="keyword">open</span> the <span class="keyword">user</span>’s defaults <span class="keyword">database</span> </span><br><span class="line"><span class="keyword">each</span> <span class="keyword">time</span> you need a <span class="keyword">default</span> <span class="keyword">value</span>. The synchronize method, which <span class="keyword">is</span> </span><br><span class="line">automatically invoked <span class="keyword">at</span> periodic intervals, keeps the <span class="keyword">in</span>-memory <span class="keyword">cache</span>  </span><br><span class="line"><span class="keyword">in</span> sync <span class="keyword">with</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>.</span></span><br></pre></td></tr></table></figure>
-<p>根据文档(一)可以看出来，NSUserDefault是.plist文件的缓存，NSUserDefault会将访问到的key 缓存到内存中，下次访问时，如果缓存中有对应的key就直接访问，如果没有在从文件中载入？应用还会时不时调用</p>
-<!--阅读全文-->
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[defaults synchronize]</span><br></pre></td></tr></table></figure>
-<p>方法来保证内存与文件中数据的一致性。上面文档说<br>中的最后一句表明了UserDefaults是根据时间戳定时的把缓存中的数据写入本地磁盘，而非即时写入。为了防止数据丢失，我们在对重要的数据保存时使用synchornize方法强制写入。但是也要注意，不用频繁的使用synchornize，这样毕竟影响性能和效率</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</span><br></pre></td></tr></table></figure>
-<p>NSUserDefaults是单例，同时也是线程安全的 </p>
-<h4 id="性能">性能</h4><p>从性能上分析，这种缓存的机制带来了一定的性能提升，通过一些网上的文章了解到在10万个Key的情况下，通过NSUserDefaults来读取value是1ms级别的，然而当你从plist文件中直接读取，需要100ms的级别开销，但是写是个相反的结果，要是你写1个10万条数据到plist文件中是1s级别的开销，而同时写入10万条NSUserDefaults键值对则需要10s级别的延迟。我们都知道在创建key/value时，程序需要在内存中也创建一个相应的映射关系，然后系统会时不时调用“synchronsize”方法同步数据，很多的方法会导致创建key/value pair被阻塞。</p>
-<p>总的来说，使用NSUserDefaults是比较高效的,但是不能大量的将数据通过NSUserDefaults中</p>
-<h4 id="存储">存储</h4><p>NSUserDefaults中并不是所有写入都是可以写入到文件中的。</p>
-<p>Apple 官方文档（二）</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">The <span class="property">contents</span> <span class="keyword">of</span> <span class="keyword">the</span> registration domain are <span class="keyword">not</span> written <span class="keyword">to</span> disk; you need </span><br><span class="line"><span class="keyword">to</span> call this method each <span class="property">time</span> your <span class="type">application</span> starts. You can place a plist </span><br><span class="line"><span class="type">file</span> <span class="keyword">in</span> <span class="keyword">the</span> <span class="type">application</span>'s Resources directory <span class="keyword">and</span> call registerDefaults: </span><br><span class="line"><span class="keyword">with</span> <span class="keyword">the</span> <span class="property">contents</span> <span class="keyword">that</span> you <span class="command">read</span> <span class="keyword">in</span> <span class="keyword">from</span> <span class="keyword">that</span> <span class="type">file</span>.</span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];</span><br></pre></td></tr></table></figure>
-<p>文档(二)中所说的registerDefaults方法添的内容不会保存到plist文件中，只在当前生命周期内使用，下面看一个程序</p>
-<pre><code><span class="built_in">NSDictionary</span> *dicDefault = [<span class="built_in">NSDictionary</span> dictionaryWithObjectsAndKeys: <span class="string">@"hslinux"</span>, <span class="string">@"Name"</span>,<span class="literal">nil</span>];
-
-[[<span class="built_in">NSUserDefaults</span> standardUserDefaults] registerDefaults:dicDefault];  
-
-<span class="built_in">NSString</span> *strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] stringForKey:<span class="string">@"Name"</span>];
-<span class="built_in">NSLog</span>(<span class="string">@" Name = [%@]"</span>, strName);
-
-[[<span class="built_in">NSUserDefaults</span> standardUserDefaults] setObject:<span class="string">@"?????"</span> forKey:<span class="string">@"Name"</span>];
-strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] stringForKey:<span class="string">@"Name"</span>];
-<span class="built_in">NSLog</span>(<span class="string">@" Name = [%@]"</span>, strName);
-
-[[<span class="built_in">NSUserDefaults</span> standardUserDefaults] removeObjectForKey:<span class="string">@"Name"</span>];
-<span class="built_in">NSString</span> *strDefault = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] stringForKey:<span class="string">@"Name"</span>];
-<span class="built_in">NSLog</span>(<span class="string">@"Default Name = [%@]"</span>, strDefault);
-</code></pre><p>打印结果是</p>
-<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2015-07-02</span> <span class="number">14:18:46.71</span>6 TestDemo[<span class="number">2217:167621</span>]  Name = [hslinux]</span><br><span class="line"><span class="number">2015-07-02</span> <span class="number">14:18:46.71</span>9 TestDemo[<span class="number">2217:167621</span>]  Name = [?????]</span><br><span class="line"><span class="number">2015-07-02</span> <span class="number">14:18:46.72</span>0 TestDemo[<span class="number">2217:167621</span>] Default Name = [hslinux]</span><br></pre></td></tr></table></figure>
-<p>由此可以看出来setObject 和 registerDefaults 是存在NSUserdefaults中两个不同区域，我们把两个区域分别叫持久缓存区和全局临时存储区，读的时候通过key会先查找持久缓存区读取value，如果没有，然后再从全局缓存区查找。两个缓存区有各自用处，比如我们需要一些数据在app运行时需要全局持有化是需要用到registerDefaults</p>
-
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/03/探究NSUserDefaults/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -271,13 +245,12 @@ strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] s
         
           <p>看过很多人的博客，大家都有个习惯，开始写博客之前总需要写一篇感想，那我也谈谈。主要有以下几点</p>
 <p>1、在工作3年之际，发现自己与3年前刚毕业的自己已经完全不同了，从知识层面来看，基础知识已经学习的差不多，但是在学习的过程中总会忘记一些琐事的知识，尤其是看过别人写的一些技术博客，主要是自己没有好好的梳理这些知识。</p>
-<p>2、在做完3年的iOS开发我也有一些自己的心得，经历公司产品从起初框架的搭建到结构成型再到现在的完善，一路过来向公司一些牛逼的技术人员学到了很多。<br><!--阅读全文--></p>
-<p>3、随着开发，发现自己使用的东西有限，一直在固定的技术上重复的写，重复的优化，有些优化并不是一下子而来的想法，我想把这些想法记录下来</p>
-<p>4、大家都会在很多地方犯错，当然这里也会梳理发错的原因</p>
-<p>5、据说坚持长期写博客的人都能成为大牛，我是个对技术一直有自己追求和自己想法的开发人员，学无止境，写博客也是为了向那些牛人学习</p>
-<p>6、当然这里同样也记录了我生活的点滴</p>
-<p>总之，有梦就需要平台，我想这里是见证我一路追梦的见证。如果你有遇到对我写的博客有疑问可以通过邮件的方式告诉我：leehudev@gmail.com</p>
-
+<p>2、在做完3年的iOS开发我也有一些自己的心得，经历公司产品从起初框架的搭建到结构成型再到现在的完善，一路过来向公司一些牛逼的技术人员学到了很多。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/03/写博客的初衷/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
