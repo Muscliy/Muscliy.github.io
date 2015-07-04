@@ -182,6 +182,7 @@
 <h4 id="NSUserDefaults工作原理">NSUserDefaults工作原理</h4><p>Apple 官方文档（一）</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">At runtime, you <span class="operator"><span class="keyword">use</span> an NSUserDefaults object <span class="keyword">to</span> <span class="keyword">read</span> the defaults that your </span><br><span class="line">application uses <span class="keyword">from</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>. NSUserDefaults caches </span><br><span class="line">the information <span class="keyword">to</span> avoid <span class="keyword">having</span> <span class="keyword">to</span> <span class="keyword">open</span> the <span class="keyword">user</span>’s defaults <span class="keyword">database</span> </span><br><span class="line"><span class="keyword">each</span> <span class="keyword">time</span> you need a <span class="keyword">default</span> <span class="keyword">value</span>. The synchronize method, which <span class="keyword">is</span> </span><br><span class="line">automatically invoked <span class="keyword">at</span> periodic intervals, keeps the <span class="keyword">in</span>-memory <span class="keyword">cache</span>  </span><br><span class="line"><span class="keyword">in</span> sync <span class="keyword">with</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>.</span></span><br></pre></td></tr></table></figure>
 <p>根据文档(一)可以看出来，NSUserDefault是.plist文件的缓存，NSUserDefault会将访问到的key 缓存到内存中，下次访问时，如果缓存中有对应的key就直接访问，如果没有在从文件中载入？应用还会时不时调用</p>
+<!--阅读全文-->
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[defaults synchronize]</span><br></pre></td></tr></table></figure>
 <p>方法来保证内存与文件中数据的一致性。上面文档说<br>中的最后一句表明了UserDefaults是根据时间戳定时的把缓存中的数据写入本地磁盘，而非即时写入。为了防止数据丢失，我们在对重要的数据保存时使用synchornize方法强制写入。但是也要注意，不用频繁的使用synchornize，这样毕竟影响性能和效率</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</span><br></pre></td></tr></table></figure>
@@ -270,7 +271,7 @@ strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] s
         
           <p>看过很多人的博客，大家都有个习惯，开始写博客之前总需要写一篇感想，那我也谈谈。主要有以下几点</p>
 <p>1、在工作3年之际，发现自己与3年前刚毕业的自己已经完全不同了，从知识层面来看，基础知识已经学习的差不多，但是在学习的过程中总会忘记一些琐事的知识，尤其是看过别人写的一些技术博客，主要是自己没有好好的梳理这些知识。</p>
-<p>2、在做完3年的iOS开发我也有一些自己的心得，经历公司产品从起初框架的搭建到结构成型再到现在的完善，一路过来向公司一些牛逼的技术人员学到了很多。</p>
+<p>2、在做完3年的iOS开发我也有一些自己的心得，经历公司产品从起初框架的搭建到结构成型再到现在的完善，一路过来向公司一些牛逼的技术人员学到了很多。<br><!--阅读全文--></p>
 <p>3、随着开发，发现自己使用的东西有限，一直在固定的技术上重复的写，重复的优化，有些优化并不是一下子而来的想法，我想把这些想法记录下来</p>
 <p>4、大家都会在很多地方犯错，当然这里也会梳理发错的原因</p>
 <p>5、据说坚持长期写博客的人都能成为大牛，我是个对技术一直有自己追求和自己想法的开发人员，学无止境，写博客也是为了向那些牛人学习</p>
