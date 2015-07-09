@@ -22,7 +22,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,next" />
+  <meta name="keywords" content="UIKit," />
 
 
 
@@ -55,7 +55,7 @@
 
 
 
-  <title> LeeHu的博客 </title>
+  <title> UIScrollView滚动停止监测 // LeeHu的博客 </title>
 </head>
 
 <body>
@@ -69,9 +69,7 @@
   </div>
 <![endif]-->
 
-  <div class="container one-column 
-   page-home 
-">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <div id="header" class="header">
@@ -147,9 +145,9 @@
       <div class="main-inner">
         <div id="content" class="content">
           
+
   <div id="posts" class="posts-expand">
     
-      
 
   <div class="post post-type-normal ">
     <div class="post-header">
@@ -160,9 +158,7 @@
           
           
             
-              <a class="post-title-link" href="/2015/07/07/UIScrollView滚动停止监测/">
-                UIScrollView滚动停止监测
-              </a>
+              UIScrollView滚动停止监测
             
           
         </h1>
@@ -194,185 +190,74 @@
       
 
       
-        
-          <p>今天在做一个控件的动画，动画需求是这样的，当UICollectionView滚动开始和滚动结束的时候，一个底部控件需要做淡出淡入的效果。</p>
+        <p>今天在做一个控件的动画，动画需求是这样的，当UICollectionView滚动开始和滚动结束的时候，一个底部控件需要做淡出淡入的效果。</p>
 <p>在iOS中使用UIScrollView的子类的时候，需要知道UIScrollView滚动动画是否结束，一般我们都是通过UIScrollViewDelegate中去寻找方法。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView</span><br></pre></td></tr></table></figure>
 <p>第一眼就相中它了，在我使用的过程中发现，在拖拽UIScrollView之后动画停止的时候，这个函数根本不会触发。翻看了apple给出的文档</p>
 <pre><code><span class="type">The</span> scroll view calls this <span class="keyword">method</span> at the <span class="keyword">end</span> <span class="keyword">of</span> its implementations <span class="keyword">of</span> 
 the setContentOffset:animated: <span class="keyword">and</span> scrollRectToVisible:animated: 
 methods, but only <span class="keyword">if</span> animations are requested.
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/07/07/UIScrollView滚动停止监测/#more">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+</code></pre><a id="more"></a>
+<p>文档中说明该函数只作用于 setContentOffset:animated: 和 scrollRectToVisible:animated: 这两个函数，调用时机是动画结束之后，并且只有当animated为YES的时候。后来查了一些资料发现还有一些函数也是会被调用的。归纳有以下几个</p>
+<pre><code><span class="comment">// UIScrollView的setContentOffset:animated: </span>
+<span class="comment">// UIScrollView的scrollRectToVisible:animated:</span>
+<span class="comment">// UITableView的scrollToRowAtIndexPath:atScrollPosition:animated:</span>
+<span class="comment">// UITableView的selectRowAtIndexPath:animated:scrollPosition:</span>
+</code></pre><p>接下来我又找了下面这个函数，看上去挺像我们要找的</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView</span><br></pre></td></tr></table></figure>
+<p>从实验来看，可以到达效果，但是有个bug出现了，这个函数有点不靠谱，不是一个自然停止会调用的，在手势中断动画滚动的时候也会调用。</p>
+<p>之后在stackoverFlow上面找到了答案<a href="http://stackoverflow.com/questions/993280/how-to-detect-when-a-uiscrollview-has-finished-scrolling" target="_blank" rel="external">How to detect when a UIScrollView has finished scrolling</a></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">-</span>(void)<span class="tag">scrollViewDidScroll</span>:(UIScrollView *)<span class="tag">sender</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr_selector">[NSObject cancelPreviousPerformRequestsWithTarget:self]</span>;</span><br><span class="line">    <span class="attr_selector">[self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.1]</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">-</span>(void)<span class="tag">scrollViewDidEndScrollingAnimation</span>:(UIScrollView *)<span class="tag">scrollView</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr_selector">[NSObject cancelPreviousPerformRequestsWithTarget:self]</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的方法用的相当巧妙，至于原理就不解释了。</p>
+
       
     </div>
 
     <div class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/UIKit/"> #UIKit </a>
+          
+        </div>
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/03/探究NSUserDefaults/">探究NSUserDefaults</a>
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </div>
   </div>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/03/探究NSUserDefaults/">
-                探究NSUserDefaults
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-07-03
-        </span>
-
+      <div class="comments" id="comments">
         
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/03/探究NSUserDefaults/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/探究NSUserDefaults/"></span>
-            </a>
-          </span>
-          
+          <div class="ds-thread" data-thread-key="2015/07/07/UIScrollView滚动停止监测/"
+               data-title="UIScrollView滚动停止监测" data-url="http://yoursite.com/2015/07/07/UIScrollView滚动停止监测/">
+          </div>
         
       </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>研究NSUserDefaults之前我们首先需要研究的是.plist文件，.plist文件首先是一种用来存储序列化后的对象的文件，对象包括objective-c中的6种基本类型（NSString、NSArray …)。当你在写程序的时候将一些关键数据使用NSUserDefaults保存之后我们会在.plist文件中一一找到它们。</p>
-<h4 id="NSUserDefaults工作原理">NSUserDefaults工作原理</h4><p>Apple 官方文档（一）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">At runtime, you <span class="operator"><span class="keyword">use</span> an NSUserDefaults object <span class="keyword">to</span> <span class="keyword">read</span> the defaults that your </span><br><span class="line">application uses <span class="keyword">from</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>. NSUserDefaults caches </span><br><span class="line">the information <span class="keyword">to</span> avoid <span class="keyword">having</span> <span class="keyword">to</span> <span class="keyword">open</span> the <span class="keyword">user</span>’s defaults <span class="keyword">database</span> </span><br><span class="line"><span class="keyword">each</span> <span class="keyword">time</span> you need a <span class="keyword">default</span> <span class="keyword">value</span>. The synchronize method, which <span class="keyword">is</span> </span><br><span class="line">automatically invoked <span class="keyword">at</span> periodic intervals, keeps the <span class="keyword">in</span>-memory <span class="keyword">cache</span>  </span><br><span class="line"><span class="keyword">in</span> sync <span class="keyword">with</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>.</span></span><br></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/07/03/探究NSUserDefaults/#more">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/03/写博客的初衷/">
-                写博客的初衷
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-07-03
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/03/写博客的初衷/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/写博客的初衷/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>看过很多人的博客，大家都有个习惯，开始写博客之前总需要写一篇感想，那我也谈谈。主要有以下几点</p>
-<p>1、在工作3年之际，发现自己与3年前刚毕业的自己已经完全不同了，从知识层面来看，基础知识已经学习的差不多，但是在学习的过程中总会忘记一些琐事的知识，尤其是看过别人写的一些技术博客，主要是自己没有好好的梳理这些知识。</p>
-<p>2、在做完3年的iOS开发我也有一些自己的心得，经历公司产品从起初框架的搭建到结构成型再到现在的完善，一路过来向公司一些牛逼的技术人员学到了很多。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/07/03/写博客的初衷/#more">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
     
   </div>
 
-  
 
         </div>
 
@@ -393,6 +278,15 @@ methods, but only <span class="keyword">if</span> animations are requested.
   <div id="sidebar" class="sidebar">
     <div class="sidebar-inner">
 
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
       
 
       <div class="site-overview">
@@ -440,6 +334,17 @@ methods, but only <span class="keyword">if</span> animations are requested.
         
       </div>
 
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
       
 
     </div>
@@ -502,6 +407,145 @@ methods, but only <span class="keyword">if</span> animations are requested.
   <script type="text/javascript" src="/js/search-toggle.js"></script>
 
   
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.3" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
 
   <script type="text/javascript">
     $(document).ready(function () {
