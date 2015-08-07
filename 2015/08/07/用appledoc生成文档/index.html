@@ -22,7 +22,7 @@
 
 
 
-  <meta name="keywords" content="UIKit," />
+  <meta name="keywords" content="Hexo,next" />
 
 
 
@@ -55,7 +55,7 @@
 
 
 
-  <title> UIScrollView滚动停止监测 // LeeHu的博客 </title>
+  <title> 用appledoc生成文档 // LeeHu的博客 </title>
 </head>
 
 <body>
@@ -158,7 +158,7 @@
           
           
             
-              UIScrollView滚动停止监测
+              用appledoc生成文档
             
           
         </h1>
@@ -166,7 +166,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-07-07
+          发表于 2015-08-07
         </span>
 
         
@@ -175,8 +175,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/07/UIScrollView滚动停止监测/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/07/UIScrollView滚动停止监测/"></span>
+            <a href="/2015/08/07/用appledoc生成文档/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/07/用appledoc生成文档/"></span>
             </a>
           </span>
           
@@ -190,49 +190,36 @@
       
 
       
-        <p>今天在做一个控件的动画，动画需求是这样的，当UICollectionView滚动开始和滚动结束的时候，一个底部控件需要做淡出淡入的效果。</p>
-<p>在iOS中使用UIScrollView的子类的时候，需要知道UIScrollView滚动动画是否结束，一般我们都是通过UIScrollViewDelegate中去寻找方法。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView</span><br></pre></td></tr></table></figure>
-<p>第一眼就相中它了，在我使用的过程中发现，在拖拽UIScrollView之后动画停止的时候，这个函数根本不会触发。翻看了apple给出的文档</p>
-<pre><code><span class="type">The</span> scroll view calls this <span class="keyword">method</span> at the <span class="keyword">end</span> <span class="keyword">of</span> its implementations <span class="keyword">of</span> 
-the setContentOffset:animated: <span class="keyword">and</span> scrollRectToVisible:animated: 
-methods, but only <span class="keyword">if</span> animations are requested.
-</code></pre><a id="more"></a>
-<p>文档中说明该函数只作用于 setContentOffset:animated: 和 scrollRectToVisible:animated: 这两个函数，调用时机是动画结束之后，并且只有当animated为YES的时候。后来查了一些资料发现还有一些函数也是会被调用的。归纳有以下几个</p>
-<pre><code><span class="comment">// UIScrollView的setContentOffset:animated: </span>
-<span class="comment">// UIScrollView的scrollRectToVisible:animated:</span>
-<span class="comment">// UITableView的scrollToRowAtIndexPath:atScrollPosition:animated:</span>
-<span class="comment">// UITableView的selectRowAtIndexPath:animated:scrollPosition:</span>
-</code></pre><p>接下来我又找了下面这个函数，看上去挺像我们要找的</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView</span><br></pre></td></tr></table></figure>
-<p>从实验来看，可以到达效果，但是有个bug出现了，这个函数有点不靠谱，不是一个自然停止会调用的，在手势中断动画滚动的时候也会调用。</p>
-<p>之后在stackoverFlow上面找到了答案<a href="http://stackoverflow.com/questions/993280/how-to-detect-when-a-uiscrollview-has-finished-scrolling" target="_blank" rel="external">How to detect when a UIScrollView has finished scrolling</a></p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">-</span>(void)<span class="tag">scrollViewDidScroll</span>:(UIScrollView *)<span class="tag">sender</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr_selector">[NSObject cancelPreviousPerformRequestsWithTarget:self]</span>;</span><br><span class="line">    <span class="attr_selector">[self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.1]</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">-</span>(void)<span class="tag">scrollViewDidEndScrollingAnimation</span>:(UIScrollView *)<span class="tag">scrollView</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr_selector">[NSObject cancelPreviousPerformRequestsWithTarget:self]</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的方法用的相当巧妙，至于原理就不解释了。</p>
+        <h3 id="安装">安装</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/tomaz/appledoc.git</span><br><span class="line"><span class="keyword">cd</span> ./appledoc</span><br><span class="line">sudo <span class="keyword">sh</span> install-appledoc.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
+<p>检验是否安装成功</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ appledoc --<span class="built_in">version</span></span><br><span class="line">appledoc <span class="built_in">version</span>: <span class="number">2.2</span>.<span class="number">1</span> <span class="params">(build <span class="number">1333</span>)</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用">使用</h3><p>进入工程目录运行下面的命令</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">appledoc</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">project</span><span class="literal">-</span><span class="comment">name</span> <span class="comment">XXX</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">project</span><span class="literal">-</span><span class="comment">company</span> <span class="comment">"<span class="doctag"><span class="keyword">XXX</span></span>"</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">company</span><span class="literal">-</span><span class="comment">id</span> <span class="comment">XXX</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">output</span> <span class="comment">/tmp/doc</span> <span class="string">.</span><span class="comment">/</span></span><br><span class="line"><span class="comment">➜</span>  <span class="comment">~</span>  <span class="comment">cd</span> <span class="comment">Documents/iOS/Github/PTKit</span> </span><br><span class="line"><span class="comment">➜</span>  <span class="comment">PTKit</span> <span class="comment">git:(master)</span> <span class="comment">appledoc</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">project</span><span class="literal">-</span><span class="comment">name</span> <span class="comment">PTKit</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">project</span><span class="literal">-</span><span class="comment">company</span> <span class="comment">com</span><span class="string">.</span><span class="comment">paitao</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">output</span> <span class="string">.</span><span class="comment">/PTKitDoc</span> <span class="string">.</span><span class="comment">/</span></span><br></pre></td></tr></table></figure>
+<p>其中，XXX 的内容根据具体情况填写，—output 后面接的是文档输出路径，最后一个路径，是需要生成文档的源代码所在路径。<br><img src="http://d.pcs.baidu.com/thumbnail/b509415b9ad7b0334cd1ceba5d1a2f11?fid=2972602010-250528-215283362783865&amp;time=1438934400&amp;rt=pr&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-qc3fkUCmNHlYyLNy%2f86d166vBfM%3d&amp;expires=8h&amp;prisign=unknow&amp;chkbd=0&amp;chkv=0&amp;size=c10000_u10000&amp;quality=90" alt="icon"></p>
+<a id="more"></a>
+<p>这时候你打开Xcode中Documentation就可以看到自己生成的Docset了</p>
+<p><img src="http://d.pcs.baidu.com/thumbnail/31588deb5aebd6f95d51284d3f1f3a6a?fid=2972602010-250528-426906937628393&amp;time=1438934400&amp;rt=pr&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-Ljihq44sxH2%2bAtujJjtB8SHyETs%3d&amp;expires=8h&amp;prisign=unknow&amp;chkbd=0&amp;chkv=0&amp;size=c10000_u10000&amp;quality=90" alt="icon"></p>
+<h3 id="语法">语法</h3><p>appledoc需要生成合格的文档需要文档中的注释规范化才能被appledoc认可。<br>凡是以 “///“、”/<em>*”或”/</em>!”开头的注释块，都算所appledoc注释。下面是示例:</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/// 这是单行注释。</span><br><span class="line">/<span class="keyword">*</span><span class="keyword">*</span> 这也是单行注释 <span class="keyword">*</span>/</span><br><span class="line">/<span class="keyword">*</span>! 同样是单行注释 <span class="keyword">*</span></span><br><span class="line">/<span class="keyword">*</span><span class="keyword">*</span> 这也是单行注释，</span><br><span class="line"> <span class="keyword">*</span>  第二行会接上第一行。</span><br><span class="line"> <span class="keyword">*</span>/</span><br></pre></td></tr></table></figure>
+<p>注释块中，每一行开头的空格和”*”字符多数情况都会被appledoc忽略。<br>连续的两行(即没有间隔空行)的注释，将被合并成一个段落，并忽略换行，就像html。<br>在注释中起初我也遇到了问题，使用了下面这种格式，appledoc就无法识别了<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span> 同样是单行注释 <span class="keyword">*</span>/</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://d.pcs.baidu.com/thumbnail/f3bc4fff53b94671337ed123d462e738?fid=2972602010-250528-365329139328507&amp;time=1438938000&amp;rt=pr&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-NVmNIFY6ndaXet0U%2fyy44GCYbEA%3d&amp;expires=8h&amp;prisign=unknow&amp;chkbd=0&amp;chkv=0&amp;size=c10000_u10000&amp;quality=90" alt="icon"><br><img src="http://d.pcs.baidu.com/thumbnail/34d2abc8bf57693d5eeb183768b88654?fid=2972602010-250528-545692804689436&amp;time=1438938000&amp;rt=pr&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-K%2b9b6aEXGCrMqyvztFhfiAZ0Q%2bA%3d&amp;expires=8h&amp;prisign=unknow&amp;chkbd=0&amp;chkv=0&amp;size=c10000_u10000&amp;quality=90" alt="icon"></p>
+<p>在注释块内，appledoc支持Markdown、HTML等语法。</p>
 
       
     </div>
 
     <div class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/UIKit/"> #UIKit </a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/07/用appledoc生成文档/">用appledoc生成文档</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/03/探究NSUserDefaults/">探究NSUserDefaults</a>
+              <a href="/2015/07/07/UIScrollView滚动停止监测/">UIScrollView滚动停止监测</a>
             
           </div>
         </div>
@@ -252,8 +239,8 @@ methods, but only <span class="keyword">if</span> animations are requested.
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/07/07/UIScrollView滚动停止监测/"
-               data-title="UIScrollView滚动停止监测" data-url="http://yoursite.com/2015/07/07/UIScrollView滚动停止监测/">
+          <div class="ds-thread" data-thread-key="2015/08/07/用appledoc生成文档/"
+               data-title="用appledoc生成文档" data-url="http://yoursite.com/2015/08/07/用appledoc生成文档/">
           </div>
         
       </div>
@@ -342,7 +329,7 @@ methods, but only <span class="keyword">if</span> animations are requested.
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">3.</span> <span class="nav-text">语法</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
