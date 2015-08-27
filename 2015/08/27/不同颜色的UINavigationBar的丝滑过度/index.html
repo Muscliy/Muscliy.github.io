@@ -55,7 +55,7 @@
 
 
 
-  <title> 用appledoc生成文档 // LeeHu的博客 </title>
+  <title> 不同颜色的UINavigationBar的丝滑过度 // LeeHu的博客 </title>
 </head>
 
 <body>
@@ -158,7 +158,7 @@
           
           
             
-              用appledoc生成文档
+              不同颜色的UINavigationBar的丝滑过度
             
           
         </h1>
@@ -166,7 +166,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-08-07
+          发表于 2015-08-27
         </span>
 
         
@@ -175,8 +175,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/08/07/用appledoc生成文档/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/07/用appledoc生成文档/"></span>
+            <a href="/2015/08/27/不同颜色的UINavigationBar的丝滑过度/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/27/不同颜色的UINavigationBar的丝滑过度/"></span>
             </a>
           </span>
           
@@ -190,20 +190,24 @@
       
 
       
-        <h3 id="安装">安装</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/tomaz/appledoc.git</span><br><span class="line"><span class="keyword">cd</span> ./appledoc</span><br><span class="line">sudo <span class="keyword">sh</span> install-appledoc.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
-<p>检验是否安装成功</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ appledoc --<span class="built_in">version</span></span><br><span class="line">appledoc <span class="built_in">version</span>: <span class="number">2.2</span>.<span class="number">1</span> <span class="params">(build <span class="number">1333</span>)</span></span><br></pre></td></tr></table></figure>
-<h3 id="使用">使用</h3><p>进入工程目录运行下面的命令</p>
-<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">appledoc</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">project</span><span class="literal">-</span><span class="comment">name</span> <span class="comment">XXX</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">project</span><span class="literal">-</span><span class="comment">company</span> <span class="comment">"<span class="doctag"><span class="keyword">XXX</span></span>"</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">company</span><span class="literal">-</span><span class="comment">id</span> <span class="comment">XXX</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">output</span> <span class="comment">/tmp/doc</span> <span class="string">.</span><span class="comment">/</span></span><br><span class="line"><span class="comment">➜</span>  <span class="comment">~</span>  <span class="comment">cd</span> <span class="comment">Documents/iOS/Github/PTKit</span> </span><br><span class="line"><span class="comment">➜</span>  <span class="comment">PTKit</span> <span class="comment">git:(master)</span> <span class="comment">appledoc</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">project</span><span class="literal">-</span><span class="comment">name</span> <span class="comment">PTKit</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">project</span><span class="literal">-</span><span class="comment">company</span> <span class="comment">com</span><span class="string">.</span><span class="comment">paitao</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">output</span> <span class="string">.</span><span class="comment">/PTKitDoc</span> <span class="string">.</span><span class="comment">/</span></span><br></pre></td></tr></table></figure>
-<p>其中，XXX 的内容根据具体情况填写，—output 后面接的是文档输出路径，最后一个路径，是需要生成文档的源代码所在路径。<br><img src="http://d.pcs.baidu.com/thumbnail/b509415b9ad7b0334cd1ceba5d1a2f11?fid=2972602010-250528-215283362783865&amp;time=1438934400&amp;rt=pr&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-qc3fkUCmNHlYyLNy%2f86d166vBfM%3d&amp;expires=8h&amp;prisign=unknow&amp;chkbd=0&amp;chkv=0&amp;size=c10000_u10000&amp;quality=90" alt="icon"></p>
+        <h3 id="想法启蒙">想法启蒙</h3><p>之前在QQ的app中发现他的用户主页的NavigationBar是透明的而且与上一个有颜色的NavigationBar的过度非常丝滑<br><img src="http://d.pcs.baidu.com/thumbnail/30e8efbc35df7ab7e81499a9cf7f94ab?fid=2972602010-250528-1051718257211398&amp;time=1440637200&amp;rt=pr&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-rOCZG0nzl%2fiN0Pcacp%2b%2b4lXwn9I%3d&amp;expires=8h&amp;prisign=unknow&amp;chkbd=0&amp;chkv=0&amp;size=c10000_u10000&amp;quality=90" alt="gif"></p>
+<p>当时一直不知道这个效果怎么实现，研究了ViewController的API才发现，其实这个功能可以根据apple自己的api实现，而不需要自己封装动画效果</p>
+<p>实现效果看下面的动画<br><img src="http://d.pcs.baidu.com/thumbnail/489bb1f09e5aaa807268f39f9c38e75f?fid=2972602010-250528-688169960690943&amp;time=1440637200&amp;rt=pr&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-SKVb4NdCNk1T9LLYaohJz1NbyUE%3d&amp;expires=8h&amp;prisign=unknow&amp;chkbd=0&amp;chkv=0&amp;size=c10000_u10000&amp;quality=90" alt="gif"></p>
 <a id="more"></a>
-<p>这时候你打开Xcode中Documentation就可以看到自己生成的Docset了</p>
-<p><img src="http://d.pcs.baidu.com/thumbnail/31588deb5aebd6f95d51284d3f1f3a6a?fid=2972602010-250528-426906937628393&amp;time=1438934400&amp;rt=pr&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-Ljihq44sxH2%2bAtujJjtB8SHyETs%3d&amp;expires=8h&amp;prisign=unknow&amp;chkbd=0&amp;chkv=0&amp;size=c10000_u10000&amp;quality=90" alt="icon"></p>
-<h3 id="语法">语法</h3><p>appledoc需要生成合格的文档需要文档中的注释规范化才能被appledoc认可。<br>凡是以 “///“、”/<em>*”或”/</em>!”开头的注释块，都算所appledoc注释。下面是示例:</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/// 这是单行注释。</span><br><span class="line">/<span class="keyword">*</span><span class="keyword">*</span> 这也是单行注释 <span class="keyword">*</span>/</span><br><span class="line">/<span class="keyword">*</span>! 同样是单行注释 <span class="keyword">*</span></span><br><span class="line">/<span class="keyword">*</span><span class="keyword">*</span> 这也是单行注释，</span><br><span class="line"> <span class="keyword">*</span>  第二行会接上第一行。</span><br><span class="line"> <span class="keyword">*</span>/</span><br></pre></td></tr></table></figure>
-<p>注释块中，每一行开头的空格和”*”字符多数情况都会被appledoc忽略。<br>连续的两行(即没有间隔空行)的注释，将被合并成一个段落，并忽略换行，就像html。<br>在注释中起初我也遇到了问题，使用了下面这种格式，appledoc就无法识别了<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span> 同样是单行注释 <span class="keyword">*</span>/</span><br></pre></td></tr></table></figure></p>
-<p><img src="http://d.pcs.baidu.com/thumbnail/f3bc4fff53b94671337ed123d462e738?fid=2972602010-250528-365329139328507&amp;time=1438938000&amp;rt=pr&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-NVmNIFY6ndaXet0U%2fyy44GCYbEA%3d&amp;expires=8h&amp;prisign=unknow&amp;chkbd=0&amp;chkv=0&amp;size=c10000_u10000&amp;quality=90" alt="icon"><br><img src="http://d.pcs.baidu.com/thumbnail/34d2abc8bf57693d5eeb183768b88654?fid=2972602010-250528-545692804689436&amp;time=1438938000&amp;rt=pr&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-K%2b9b6aEXGCrMqyvztFhfiAZ0Q%2bA%3d&amp;expires=8h&amp;prisign=unknow&amp;chkbd=0&amp;chkv=0&amp;size=c10000_u10000&amp;quality=90" alt="icon"></p>
-<p>在注释块内，appledoc支持Markdown、HTML等语法。</p>
+<h3 id="探究">探究</h3><p>在仔细阅读ViewController的API的时候，发现UIViewControllerTransitionCoordinator这个类没怎么用过，看apple doc发现好像和转场动画有关系<br>An object that adopts the UIViewControllerTransitionCoordinator protocol provides support for animations associated with a view controller transition.<br>这个协议中有个UIViewController的Category</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@interface UIViewController(UIViewControllerTransitionCoordinator)&#10;- (id &#60;UIViewControllerTransitionCoordinator&#62;)transitionCoordinator NS_AVAILABLE_IOS(7_0);&#10;@end</span><br></pre></td></tr></table></figure>
+<p>apple doc是这样解释的</p>
+<p>When a presentation or dismissal is in progress, this method returns the transition coordinator object associated with that transition. If there is no in-progress transition associated with the current view controller, UIKit checks the view controller’s ancestors for a coordinator object and returns that object if it exists. You can use this object to create additional animations and synchronize them with the transition animations.</p>
+<p>Container view controllers can override this method but in most cases should not need to. If you do override this method, first check to see if there is an appropriate transition coordinator to return, and, if there is, return it. If there is no appropriate coordinator to return, call super.</p>
+<p>我的翻译功底不是太好，怕翻译错就不翻译了，主要还是看第一段的最后一句话，基本上就是说你可以利用这个object在viewController做专场动画的时候，添加一些自己的动画效果这些动画可以转场动画实现同步。之前我们做些转场动画的时候都需要在UINavigationControllerDelegate中去自定义UIViewControllerAnimatedTransitioning。</p>
+<h3 id="实现">实现</h3><p>看到这里我有些兴奋，应该彻底搞清楚UIViewControllerTransitionCoordinator这个协议了。<br>接下来我们慢慢来解读它，首先看framework中的头文件中的函数</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- animateAlongsideTransition:completion:</span><br></pre></td></tr></table></figure>
+<p>依旧看apple doc对这个函数的解释</p>
+<p>Runs the specified animations at the same time as the view controller transition animations.</p>
+<p>看到这里我想我们可以马上能解决我们上面不同颜色NavigationBar的顺滑切换了。基本思路是这样的，在两个不同颜色的NavigationBar的ViewController中实现下面的代码</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewWillAppear:(<span class="built_in">BOOL</span>)animated</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewWillAppear:animated];</span><br><span class="line">      </span><br><span class="line">    [[<span class="keyword">self</span> transitionCoordinator] animateAlongsideTransition:^(<span class="keyword">id</span>&lt;<span class="built_in">UIViewControllerTransitionCoordinatorContext</span>&gt; context) &#123;</span><br><span class="line">        <span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.navigationBar</span><span class="variable">.translucent</span> = <span class="literal">NO</span>;</span><br><span class="line">        <span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.navigationBar</span><span class="variable">.barStyle</span> = <span class="built_in">UIBarStyleDefault</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// text color</span></span><br><span class="line">        [<span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.navigationBar</span> setTitleTextAttributes:@&#123;<span class="built_in">NSForegroundColorAttributeName</span> : [<span class="built_in">UIColor</span> whiteColor]&#125;];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// navigation items and bar button items color</span></span><br><span class="line">        <span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.navigationBar</span><span class="variable">.tintColor</span> = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// background color</span></span><br><span class="line">        <span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.navigationBar</span><span class="variable">.barTintColor</span> = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">    &#125; completion:<span class="literal">nil</span>];   </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>当然你需要把两个navigationBar.barTintColor设置为不同的颜色才能出现上面gif中的效果了。</p>
+<h3 id="深究">深究</h3><p>UIViewControllerTransitionCoordinatorContext 的深入研究将重新开一篇blog。</p>
 
       
     </div>
@@ -215,13 +219,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/27/不同颜色的UINavigationBar的丝滑过度/">不同颜色的UINavigationBar的丝滑过度</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/07/UIScrollView滚动停止监测/">UIScrollView滚动停止监测</a>
+              <a href="/2015/08/07/用appledoc生成文档/">用appledoc生成文档</a>
             
           </div>
         </div>
@@ -241,8 +243,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/08/07/用appledoc生成文档/"
-               data-title="用appledoc生成文档" data-url="http://yoursite.com/2015/08/07/用appledoc生成文档/">
+          <div class="ds-thread" data-thread-key="2015/08/27/不同颜色的UINavigationBar的丝滑过度/"
+               data-title="不同颜色的UINavigationBar的丝滑过度" data-url="http://yoursite.com/2015/08/27/不同颜色的UINavigationBar的丝滑过度/">
           </div>
         
       </div>
@@ -331,7 +333,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">3.</span> <span class="nav-text">语法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#想法启蒙"><span class="nav-number">1.</span> <span class="nav-text">想法启蒙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探究"><span class="nav-number">2.</span> <span class="nav-text">探究</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深究"><span class="nav-number">4.</span> <span class="nav-text">深究</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
