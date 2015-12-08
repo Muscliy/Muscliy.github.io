@@ -16,13 +16,17 @@
 
 
 
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
 
 <link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
 
 
+    <meta name="description" content="学习总结 思考感悟 知识管理" />
 
 
-  <meta name="keywords" content="Hexo,next" />
+
+  <meta name="keywords" content="UIKit," />
 
 
 
@@ -103,7 +107,7 @@
         <li class="menu-item menu-item-home">
           <a href="/">
             <i class="menu-item-icon icon-home"></i> <br />
-            首页
+            首頁
           </a>
         </li>
       
@@ -111,7 +115,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories">
             <i class="menu-item-icon icon-categories"></i> <br />
-            分类
+            分類
           </a>
         </li>
       
@@ -119,7 +123,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags">
             <i class="menu-item-icon icon-tags"></i> <br />
-            标签
+            標籤
           </a>
         </li>
       
@@ -127,7 +131,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about">
             <i class="menu-item-icon icon-about"></i> <br />
-            关于
+            關於
           </a>
         </li>
       
@@ -166,7 +170,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-08-27
+          發表於 2015-08-27
         </span>
 
         
@@ -190,9 +194,9 @@
       
 
       
-        <h3 id="想法启蒙">想法启蒙</h3><p>之前在QQ的app中发现他的用户主页的NavigationBar是透明的而且与上一个有颜色的NavigationBar的过度非常丝滑<br><img src="http://d.pcs.baidu.com/thumbnail/30e8efbc35df7ab7e81499a9cf7f94ab?fid=2972602010-250528-1051718257211398&amp;time=1440637200&amp;rt=pr&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-rOCZG0nzl%2fiN0Pcacp%2b%2b4lXwn9I%3d&amp;expires=8h&amp;prisign=unknow&amp;chkbd=0&amp;chkv=0&amp;size=c10000_u10000&amp;quality=90" alt="gif"></p>
+        <h3 id="想法启蒙">想法启蒙</h3><p>之前在QQ的app中发现他的用户主页的NavigationBar是透明的而且与上一个有颜色的NavigationBar的过度非常丝滑<br><img src="/images/2015-8-27-qq-navgationBar.gif" alt="gif"></p>
 <p>当时一直不知道这个效果怎么实现，研究了ViewController的API才发现，其实这个功能可以根据apple自己的api实现，而不需要自己封装动画效果</p>
-<p>实现效果看下面的动画<br><img src="http://d.pcs.baidu.com/thumbnail/489bb1f09e5aaa807268f39f9c38e75f?fid=2972602010-250528-688169960690943&amp;time=1440637200&amp;rt=pr&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-SKVb4NdCNk1T9LLYaohJz1NbyUE%3d&amp;expires=8h&amp;prisign=unknow&amp;chkbd=0&amp;chkv=0&amp;size=c10000_u10000&amp;quality=90" alt="gif"></p>
+<p>实现效果看下面的动画<br><img src="/images/2015-8-27-navigationBar.gif" alt="gif"></p>
 <a id="more"></a>
 <h3 id="探究">探究</h3><p>在仔细阅读ViewController的API的时候，发现UIViewControllerTransitionCoordinator这个类没怎么用过，看apple doc发现好像和转场动画有关系<br>An object that adopts the UIViewControllerTransitionCoordinator protocol provides support for animations associated with a view controller transition.<br>这个协议中有个UIViewController的Category</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@interface UIViewController(UIViewControllerTransitionCoordinator)&#10;- (id &#60;UIViewControllerTransitionCoordinator&#62;)transitionCoordinator NS_AVAILABLE_IOS(7_0);&#10;@end</span><br></pre></td></tr></table></figure>
@@ -205,7 +209,7 @@
 <p>依旧看apple doc对这个函数的解释</p>
 <p>Runs the specified animations at the same time as the view controller transition animations.</p>
 <p>看到这里我想我们可以马上能解决我们上面不同颜色NavigationBar的顺滑切换了。基本思路是这样的，在两个不同颜色的NavigationBar的ViewController中实现下面的代码</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewWillAppear:(<span class="built_in">BOOL</span>)animated</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewWillAppear:animated];</span><br><span class="line">      </span><br><span class="line">    [[<span class="keyword">self</span> transitionCoordinator] animateAlongsideTransition:^(<span class="keyword">id</span>&lt;<span class="built_in">UIViewControllerTransitionCoordinatorContext</span>&gt; context) &#123;</span><br><span class="line">        <span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.navigationBar</span><span class="variable">.translucent</span> = <span class="literal">NO</span>;</span><br><span class="line">        <span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.navigationBar</span><span class="variable">.barStyle</span> = <span class="built_in">UIBarStyleDefault</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// text color</span></span><br><span class="line">        [<span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.navigationBar</span> setTitleTextAttributes:@&#123;<span class="built_in">NSForegroundColorAttributeName</span> : [<span class="built_in">UIColor</span> whiteColor]&#125;];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// navigation items and bar button items color</span></span><br><span class="line">        <span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.navigationBar</span><span class="variable">.tintColor</span> = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// background color</span></span><br><span class="line">        <span class="keyword">self</span><span class="variable">.navigationController</span><span class="variable">.navigationBar</span><span class="variable">.barTintColor</span> = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">    &#125; completion:<span class="literal">nil</span>];   </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewWillAppear:(BOOL)animated&#10;&#123;&#10;    [super viewWillAppear:animated];&#10;      &#10;    [[self transitionCoordinator] animateAlongsideTransition:^(id&#60;UIViewControllerTransitionCoordinatorContext&#62; context) &#123;&#10;        self.navigationController.navigationBar.translucent = NO;&#10;        self.navigationController.navigationBar.barStyle = UIBarStyleDefault;&#10;        &#10;        // text color&#10;        [self.navigationController.navigationBar setTitleTextAttributes:@&#123;NSForegroundColorAttributeName : [UIColor whiteColor]&#125;];&#10;        &#10;        // navigation items and bar button items color&#10;        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];&#10;        &#10;        // background color&#10;        self.navigationController.navigationBar.barTintColor = [UIColor redColor];&#10;    &#125; completion:nil];   &#10; &#125;</span><br></pre></td></tr></table></figure>
 <p>当然你需要把两个navigationBar.barTintColor设置为不同的颜色才能出现上面gif中的效果了。</p>
 <h3 id="深究">深究</h3><p>UIViewControllerTransitionCoordinatorContext 的深入研究将重新开一篇blog。</p>
 
@@ -214,10 +218,18 @@
 
     <div class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/UIKit/"> #UIKit </a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/07/Objective-C消息机制/">Objective-C消息机制</a>
             
           </div>
 
@@ -274,10 +286,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
+            文章目錄
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
+            本站概覽
           </li>
         </ul>
       
@@ -287,26 +299,26 @@
           <img class="site-author-image" src="/images/default_avatar.jpg" alt="LeeHu" />
           <p class="site-author-name">LeeHu</p>
         </div>
-        <p class="site-description motion-element"></p>
+        <p class="site-description motion-element">学习总结 思考感悟 知识管理</p>
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/">
-              <span class="site-state-item-count">5</span>
-              <span class="site-state-item-name">日志</span>
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">文章</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
               <span class="site-state-item-count">0</span>
-              <span class="site-state-item-name">分类</span>
+              <span class="site-state-item-name">分類</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">3</span>
-              <span class="site-state-item-name">标签</span>
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">標籤</span>
               </a>
           </div>
 
@@ -359,11 +371,11 @@
 </div>
 
 <div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
 </div>
 
 <div class="theme-info">
-  主题 -
+  主題 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
   </a>
