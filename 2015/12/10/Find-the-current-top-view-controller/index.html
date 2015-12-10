@@ -59,7 +59,7 @@
 
 
 
-  <title> UINavigationBar不同颜色的丝滑过度 // LeeHu的博客 </title>
+  <title> Find the current top view controller // LeeHu的博客 </title>
 </head>
 
 <body>
@@ -162,7 +162,7 @@
           
           
             
-              UINavigationBar不同颜色的丝滑过度
+              Find the current top view controller
             
           
         </h1>
@@ -170,7 +170,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-08-27
+          發表於 2015-12-10
         </span>
 
         
@@ -179,8 +179,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/08/27/不同颜色的UINavigationBar的丝滑过度/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/27/不同颜色的UINavigationBar的丝滑过度/"></span>
+            <a href="/2015/12/10/Find-the-current-top-view-controller/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/10/Find-the-current-top-view-controller/"></span>
             </a>
           </span>
           
@@ -194,24 +194,10 @@
       
 
       
-        <h3 id="想法启蒙">想法启蒙</h3><p>之前在QQ的app中发现他的用户主页的NavigationBar是透明的而且与上一个有颜色的NavigationBar的过度非常丝滑<br><img src="/images/2015-8-27-qq-navgationBar.gif" height="374" width="584"></p>
-<p>当时一直不知道这个效果怎么实现，研究了ViewController的API才发现，其实这个功能可以根据apple自己的api实现，而不需要自己封装动画效果</p>
-<p>实现效果看下面的动画<br><a id="more"></a><br><img src="/images/2015-8-27-navigationBar.gif" height="374" width="584"></p>
-<h3 id="探究">探究</h3><p>在仔细阅读ViewController的API的时候，发现UIViewControllerTransitionCoordinator这个类没怎么用过，看apple doc发现好像和转场动画有关系<br>An object that adopts the UIViewControllerTransitionCoordinator protocol provides support for animations associated with a view controller transition.<br>这个协议中有个UIViewController的Category</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@interface UIViewController(UIViewControllerTransitionCoordinator)&#10;- (id &#60;UIViewControllerTransitionCoordinator&#62;)transitionCoordinator NS_AVAILABLE_IOS(7_0);&#10;@end</span><br></pre></td></tr></table></figure>
-<p>apple doc是这样解释的</p>
-<p>When a presentation or dismissal is in progress, this method returns the transition coordinator object associated with that transition. If there is no in-progress transition associated with the current view controller, UIKit checks the view controller’s ancestors for a coordinator object and returns that object if it exists. You can use this object to create additional animations and synchronize them with the transition animations.</p>
-<p>Container view controllers can override this method but in most cases should not need to. If you do override this method, first check to see if there is an appropriate transition coordinator to return, and, if there is, return it. If there is no appropriate coordinator to return, call super.</p>
-<p>我的翻译功底不是太好，怕翻译错就不翻译了，主要还是看第一段的最后一句话，基本上就是说你可以利用这个object在viewController做专场动画的时候，添加一些自己的动画效果这些动画可以转场动画实现同步。之前我们做些转场动画的时候都需要在UINavigationControllerDelegate中去自定义UIViewControllerAnimatedTransitioning。</p>
-<h3 id="实现">实现</h3><p>看到这里我有些兴奋，应该彻底搞清楚UIViewControllerTransitionCoordinator这个协议了。<br>接下来我们慢慢来解读它，首先看framework中的头文件中的函数</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- animateAlongsideTransition:completion:</span><br></pre></td></tr></table></figure>
-<p>依旧看apple doc对这个函数的解释</p>
-<p>Runs the specified animations at the same time as the view controller transition animations.</p>
-<p>看到这里我想我们可以马上能解决我们上面不同颜色NavigationBar的顺滑切换了。基本思路是这样的，在两个不同颜色的NavigationBar的ViewController中实现下面的代码</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewWillAppear:(BOOL)animated&#10;&#123;&#10;    [super viewWillAppear:animated];&#10;      &#10;    [[self transitionCoordinator] animateAlongsideTransition:^(id&#60;UIViewControllerTransitionCoordinatorContext&#62; context) &#123;&#10;        self.navigationController.navigationBar.translucent = NO;&#10;        self.navigationController.navigationBar.barStyle = UIBarStyleDefault;&#10;        &#10;        // text color&#10;        [self.navigationController.navigationBar setTitleTextAttributes:@&#123;NSForegroundColorAttributeName : [UIColor whiteColor]&#125;];&#10;        &#10;        // navigation items and bar button items color&#10;        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];&#10;        &#10;        // background color&#10;        self.navigationController.navigationBar.barTintColor = [UIColor redColor];&#10;    &#125; completion:nil];   &#10; &#125;</span><br></pre></td></tr></table></figure>
-<p>当然你需要把两个navigationBar.barTintColor设置为不同的颜色才能出现上面gif中的效果了。</p>
-<h3 id="深究">深究</h3><p>UIViewControllerTransitionCoordinatorContext 的深入研究将重新开一篇blog。</p>
-
+        <p>Objective-C version</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="built_in">UIViewController</span> *)topViewController&#123;</span><br><span class="line">  <span class="keyword">return</span> [<span class="keyword">self</span> topViewController:[<span class="built_in">UIApplication</span> sharedApplication]<span class="variable">.keyWindow</span><span class="variable">.rootViewController</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIViewController</span> *)topViewController:(<span class="built_in">UIViewController</span> *)rootViewController</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (rootViewController<span class="variable">.presentedViewController</span> == <span class="literal">nil</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> rootViewController;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> ([rootViewController<span class="variable">.presentedViewController</span> isMemberOfClass:[<span class="built_in">UINavigationController</span> class]]) &#123;</span><br><span class="line">    <span class="built_in">UINavigationController</span> *navigationController = (<span class="built_in">UINavigationController</span> *)rootViewController<span class="variable">.presentedViewController</span>;</span><br><span class="line">    <span class="built_in">UIViewController</span> *lastViewController = [[navigationController viewControllers] lastObject];</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> topViewController:lastViewController];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">UIViewController</span> *presentedViewController = (<span class="built_in">UIViewController</span> *)rootViewController<span class="variable">.presentedViewController</span>;</span><br><span class="line">  <span class="keyword">return</span> [<span class="keyword">self</span> topViewController:presentedViewController];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Swift version</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">visibleViewController</span><span class="params">()</span></span> -&gt; <span class="type">UIViewController</span>? &#123;</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> rootViewController: <span class="type">UIViewController</span> = <span class="keyword">self</span>.rootViewController &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="type">UIWindow</span>.getVisibleViewControllerFrom(rootViewController)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">getVisibleViewControllerFrom</span>(<span class="title">vc</span>:<span class="title">UIViewController</span>) -&gt; <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> vc.isKindOfClass(<span class="type">UINavigationController</span>.<span class="keyword">self</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> navigationController = vc <span class="keyword">as</span> <span class="type">UINavigationController</span></span><br><span class="line">    <span class="keyword">return</span> <span class="type">UIWindow</span>.getVisibleViewControllerFrom( navigationController.visibleViewController)</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> vc.isKindOfClass(<span class="type">UITabBarController</span>.<span class="keyword">self</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> tabBarController = vc <span class="keyword">as</span> <span class="type">UITabBarController</span></span><br><span class="line">    <span class="keyword">return</span> <span class="type">UIWindow</span>.getVisibleViewControllerFrom(tabBarController.selectedViewController!)</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> presentedViewController = vc.presentedViewController &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="type">UIWindow</span>.getVisibleViewControllerFrom(presentedViewController.presentedViewController!)</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> vc;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -228,13 +214,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/07/Objective-C消息机制/">Objective-C消息机制</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/07/用appledoc生成文档/">用appledoc生成文档</a>
+              <a href="/2015/12/07/Objective-C消息机制/">Objective-C消息机制</a>
             
           </div>
         </div>
@@ -254,8 +238,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/08/27/不同颜色的UINavigationBar的丝滑过度/"
-               data-title="UINavigationBar不同颜色的丝滑过度" data-url="http://yoursite.com/2015/08/27/不同颜色的UINavigationBar的丝滑过度/">
+          <div class="ds-thread" data-thread-key="2015/12/10/Find-the-current-top-view-controller/"
+               data-title="Find the current top view controller" data-url="http://yoursite.com/2015/12/10/Find-the-current-top-view-controller/">
           </div>
         
       </div>
@@ -344,7 +328,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#想法启蒙"><span class="nav-number">1.</span> <span class="nav-text">想法启蒙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探究"><span class="nav-number">2.</span> <span class="nav-text">探究</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深究"><span class="nav-number">4.</span> <span class="nav-text">深究</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目錄</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
