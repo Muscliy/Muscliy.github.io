@@ -296,13 +296,6 @@
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*** Terminating app due <span class="keyword">to</span> uncaught exception 'NSInvalidArgumentException', reason: '-[Son <span class="property">name</span>]: unrecognized selector sent <span class="keyword">to</span> instance</span><br></pre></td></tr></table></figure>
 <p>在OC中，调用一个对象的方法，实际上是给对象发了一条消息，在编译Objective－C函数调用的语法时，会被翻译成一个C的函数调用：objc_msgSend(),例如：</p>
 <figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">[<span class="keyword">jeep</span> name]<span class="comment">;</span></span><br><span class="line">objc_msgSend<span class="list">(<span class="keyword">jeep</span>, @selector<span class="list">(<span class="keyword">name</span>)</span>)</span><span class="comment">;</span></span></span><br></pre></td></tr></table></figure>
-<p>objc_msgSend主要做了下面几件事情：</p>
-<ul>
-<li>通过object的isa指针找到它的class</li>
-<li>在class的method_list中找到name</li>
-<li>如果class中没找到name，则继续往他的superclass中查找</li>
-<li>一旦找到name这个函数，就去执行对应的方法实现(IMP)</li>
-<li>如果一直没有找到name,OC的runtime将会做消息转发：<br>那么先看转发之前，runtime的消息怎么处理。
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/07/Objective-C消息机制/#more">
               閱讀全文 &raquo;
@@ -384,8 +377,6 @@
       
         
           <h3 id="想法启蒙">想法启蒙</h3><p>之前在QQ的app中发现他的用户主页的NavigationBar是透明的而且与上一个有颜色的NavigationBar的过度非常丝滑<br><img src="/images/2015-8-27-qq-navgationBar.gif" height="374" width="584" /></p>
-<p>当时一直不知道这个效果怎么实现，研究了ViewController的API才发现，其实这个功能可以根据apple自己的api实现，而不需要自己封装动画效果</p>
-<p>实现效果看下面的动画<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/08/27/不同颜色的UINavigationBar的丝滑过度/#more">
               閱讀全文 &raquo;
@@ -469,9 +460,6 @@
           <h3 id="安装">安装</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/tomaz/appledoc.git</span><br><span class="line"><span class="keyword">cd</span> ./appledoc</span><br><span class="line">sudo <span class="keyword">sh</span> install-appledoc.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
 <p>检验是否安装成功</p>
 <figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ appledoc --<span class="built_in">version</span></span><br><span class="line">appledoc <span class="built_in">version</span>: <span class="number">2.2</span>.<span class="number">1</span> <span class="params">(build <span class="number">1333</span>)</span></span><br></pre></td></tr></table></figure>
-<h3 id="使用">使用</h3><p>进入工程目录运行下面的命令</p>
-<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">appledoc</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">project</span><span class="literal">-</span><span class="comment">name</span> <span class="comment">XXX</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">project</span><span class="literal">-</span><span class="comment">company</span> <span class="comment">"<span class="doctag"><span class="keyword">XXX</span></span>"</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">company</span><span class="literal">-</span><span class="comment">id</span> <span class="comment">XXX</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">output</span> <span class="comment">/tmp/doc</span> <span class="string">.</span><span class="comment">/</span></span><br><span class="line"><span class="comment">➜</span>  <span class="comment">~</span>  <span class="comment">cd</span> <span class="comment">Documents/iOS/Github/PTKit</span> </span><br><span class="line"><span class="comment">➜</span>  <span class="comment">PTKit</span> <span class="comment">git:(master)</span> <span class="comment">appledoc</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">project</span><span class="literal">-</span><span class="comment">name</span> <span class="comment">PTKit</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">project</span><span class="literal">-</span><span class="comment">company</span> <span class="comment">com</span><span class="string">.</span><span class="comment">paitao</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">output</span> <span class="string">.</span><span class="comment">/PTKitDoc</span> <span class="string">.</span><span class="comment">/</span></span><br></pre></td></tr></table></figure>
-<p>其中，XXX 的内容根据具体情况填写，—output 后面接的是文档输出路径，最后一个路径，是需要生成文档的源代码所在路径。<br><img src="http://d.pcs.baidu.com/thumbnail/b509415b9ad7b0334cd1ceba5d1a2f11?fid=2972602010-250528-215283362783865&amp;time=1438934400&amp;rt=pr&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-qc3fkUCmNHlYyLNy%2f86d166vBfM%3d&amp;expires=8h&amp;prisign=unknow&amp;chkbd=0&amp;chkv=0&amp;size=c10000_u10000&amp;quality=90" alt="icon"></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/08/07/用appledoc生成文档/#more">
               閱讀全文 &raquo;

@@ -206,8 +206,9 @@
 
       
         <h3 id="想法启蒙">想法启蒙</h3><p>之前在QQ的app中发现他的用户主页的NavigationBar是透明的而且与上一个有颜色的NavigationBar的过度非常丝滑<br><img src="/images/2015-8-27-qq-navgationBar.gif" height="374" width="584"></p>
+<a id="more"></a>
 <p>当时一直不知道这个效果怎么实现，研究了ViewController的API才发现，其实这个功能可以根据apple自己的api实现，而不需要自己封装动画效果</p>
-<p>实现效果看下面的动画<br><a id="more"></a><br><img src="/images/2015-8-27-navigationBar.gif" height="374" width="584"></p>
+<p>实现效果看下面的动画<br><img src="/images/2015-8-27-navigationBar.gif" height="374" width="584"></p>
 <h3 id="探究">探究</h3><p>在仔细阅读ViewController的API的时候，发现UIViewControllerTransitionCoordinator这个类没怎么用过，看apple doc发现好像和转场动画有关系<br>An object that adopts the UIViewControllerTransitionCoordinator protocol provides support for animations associated with a view controller transition.<br>这个协议中有个UIViewController的Category</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@interface UIViewController(UIViewControllerTransitionCoordinator)&#10;- (id &#60;UIViewControllerTransitionCoordinator&#62;)transitionCoordinator NS_AVAILABLE_IOS(7_0);&#10;@end</span><br></pre></td></tr></table></figure>
 <p>apple doc是这样解释的</p>
