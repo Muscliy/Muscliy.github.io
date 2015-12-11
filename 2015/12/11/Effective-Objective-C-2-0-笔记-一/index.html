@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="UIKit," />
+  <meta name="keywords" content="Objective-C," />
 
 
 
@@ -59,7 +59,7 @@
 
 
 
-  <title> Find the current top view controller // LeeHu的博客 </title>
+  <title> Effective Objective-C 2.0 笔记(一) // LeeHu的博客 </title>
 </head>
 
 <body>
@@ -162,7 +162,7 @@
           
           
             
-              Find the current top view controller
+              Effective Objective-C 2.0 笔记(一)
             
           
         </h1>
@@ -170,7 +170,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-12-10
+          發表於 2015-12-11
         </span>
 
         
@@ -190,8 +190,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/12/10/Find-the-current-top-view-controller/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/10/Find-the-current-top-view-controller/"></span>
+            <a href="/2015/12/11/Effective-Objective-C-2-0-笔记-一/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/11/Effective-Objective-C-2-0-笔记-一/"></span>
             </a>
           </span>
           
@@ -205,11 +205,33 @@
       
 
       
-        <p>Objective-C version</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="built_in">UIViewController</span> *)topViewController&#123;</span><br><span class="line">  <span class="keyword">return</span> [<span class="keyword">self</span> topViewController:[<span class="built_in">UIApplication</span> sharedApplication]<span class="variable">.keyWindow</span><span class="variable">.rootViewController</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIViewController</span> *)topViewController:(<span class="built_in">UIViewController</span> *)rootViewController</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (rootViewController<span class="variable">.presentedViewController</span> == <span class="literal">nil</span>) &#123;</span><br><span class="line">    <span class="built_in">UINavigationController</span> *navigationController =</span><br><span class="line">    (<span class="built_in">UINavigationController</span> *)rootViewController;</span><br><span class="line">    <span class="keyword">return</span> [[navigationController viewControllers] lastObject];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> ([rootViewController<span class="variable">.presentedViewController</span> isMemberOfClass:[<span class="built_in">UINavigationController</span> class]]) &#123;</span><br><span class="line">    <span class="built_in">UINavigationController</span> *navigationController = (<span class="built_in">UINavigationController</span> *)rootViewController<span class="variable">.presentedViewController</span>;</span><br><span class="line">    <span class="built_in">UIViewController</span> *lastViewController = [[navigationController viewControllers] lastObject];</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> topViewController:lastViewController];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">UIViewController</span> *presentedViewController = (<span class="built_in">UIViewController</span> *)rootViewController<span class="variable">.presentedViewController</span>;</span><br><span class="line">  <span class="keyword">return</span> [<span class="keyword">self</span> topViewController:presentedViewController];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>Swift version</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">visibleViewController</span><span class="params">()</span></span> -&gt; <span class="type">UIViewController</span>? </span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">let</span> rootViewController: <span class="type">UIViewController</span> = 	<span class="keyword">self</span>.rootViewController &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="type">UIWindow</span>.getVisibleViewControllerFrom(rootViewController)</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">getVisibleViewControllerFrom</span>(<span class="title">vc</span>:<span class="title">UIViewController</span>) -&gt; <span class="title">UIViewController</span> </span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> vc.isKindOfClass(<span class="type">UINavigationController</span>.<span class="keyword">self</span>) &#123;</span><br><span class="line">    	<span class="keyword">let</span> navigationController = vc <span class="keyword">as</span> <span class="type">UINavigationController</span></span><br><span class="line">    	<span class="keyword">return</span> <span class="type">UIWindow</span>.getVisibleViewControllerFrom( navigationController.visibleViewController)</span><br><span class="line"></span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> vc.isKindOfClass(<span class="type">UITabBarController</span>.<span class="keyword">self</span>) &#123;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">let</span> tabBarController = vc <span class="keyword">as</span> <span class="type">UITabBarController</span></span><br><span class="line">    	<span class="keyword">return</span> <span class="type">UIWindow</span>.getVisibleViewControllerFrom(tabBarController.selectedViewController!)</span><br><span class="line"></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">if</span> <span class="keyword">let</span> presentedViewController = vc.presentedViewController &#123;</span><br><span class="line"></span><br><span class="line">        	<span class="keyword">return</span> <span class="type">UIWindow</span>.getVisibleViewControllerFrom(presentedViewController.presentedViewController!)</span><br><span class="line"></span><br><span class="line">    	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        	<span class="keyword">return</span> vc;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h3 id="Objective-C_变量、对象、结构">Objective-C 变量、对象、结构</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">NSString</span> *someString = @<span class="string">"the string"</span>;</span><br><span class="line"><span class="title">someString</span> : 变量</span><br><span class="line">@<span class="string">"the string"</span> : 实例 也是对象</span><br></pre></td></tr></table></figure>
+<p><img src="/images/2015-12-10-effective-1-1.png"></p>
+<p>变量是指向NSString的指针，变量内存分配在“栈”上，对象内存分配在“堆”上，结构体的内存分布在“数据块”中（CGRect,如果改用对象，性能会受影响）</p>
+<h3 id="在类的头文件中尽量减少引用其他头文件">在类的头文件中尽量减少引用其他头文件</h3><pre><code>-<span class="ruby"> 减轻编译的负担
+</span>-<span class="ruby"> 使用<span class="variable">@class</span> <span class="constant">Employer</span>（向前声明 ）的方法</span>
+</code></pre><a id="more"></a>
+<h3 id="多用字面量意思的方法对变量赋值">多用字面量意思的方法对变量赋值</h3><p>For example:</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSArray *<span class="variable">names =</span> @[@<span class="string">"Brian"</span>, @<span class="string">"Matt"</span>, @<span class="string">"Chris"</span>, @<span class="string">"Alex"</span>, @<span class="string">"Steve"</span>, @<span class="string">"Paul"</span>];</span><br><span class="line">NSDictionary *<span class="variable">productManagers =</span> @&#123;@<span class="string">"iPhone"</span> : @<span class="string">"Kate"</span>, @<span class="string">"iPad"</span> : @<span class="string">"Kamal"</span>, @<span class="string">"Mobile Web"</span> : @<span class="string">"Bill"</span>&#125;;</span><br><span class="line">NSNumber *<span class="variable">shouldUseLiterals =</span> @YES;</span><br><span class="line">NSNumber *<span class="variable">buildingZIPCode =</span> @<span class="number">10018</span>;</span><br></pre></td></tr></table></figure>
+<p>Not:</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *names = [<span class="built_in">NSArray</span> arrayWithObjects:<span class="string">@"Brian"</span>, <span class="string">@"Matt"</span>, <span class="string">@"Chris"</span>, <span class="string">@"Alex"</span>, <span class="string">@"Steve"</span>, <span class="string">@"Paul"</span>, <span class="literal">nil</span>];</span><br><span class="line"><span class="built_in">NSDictionary</span> *productManagers = [<span class="built_in">NSDictionary</span> dictionaryWithObjectsAndKeys: <span class="string">@"Kate"</span>, <span class="string">@"iPhone"</span>, <span class="string">@"Kamal"</span>, <span class="string">@"iPad"</span>, <span class="string">@"Bill"</span>, <span class="string">@"Mobile Web"</span>, <span class="literal">nil</span>];</span><br><span class="line"><span class="built_in">NSNumber</span> *shouldUseLiterals = [<span class="built_in">NSNumber</span> numberWithBool:<span class="literal">YES</span>];</span><br><span class="line"><span class="built_in">NSNumber</span> *buildingZIPCode = [<span class="built_in">NSNumber</span> numberWithInteger:<span class="number">10018</span>];</span><br></pre></td></tr></table></figure>
+<h3 id="多用类型常量、少用#define预处理指令">多用类型常量、少用#define预处理指令</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hexcolor">#def</span>ine ANIMTION_DURATION <span class="number">0.3</span></span><br><span class="line">static const NSTimeInterval kAnimationDuration = <span class="number">0.3</span></span><br></pre></td></tr></table></figure>
+<p>define 相比常量的缺点</p>
+<ul>
+<li>没有类型信息</li>
+<li>预处理会将所有ANIMTION_DURATION 都处理成0.3，这样需要避免重命名</li>
+</ul>
+<p>在Objective-c 中常量通常是局限在于某“编译单元”（translation unit 也是就是 实现文件中），则在前面加字母k，若常量在类之外可见，则通常需要以类名为前缀.比如我们Objective-C中的UIApplication类中就有很多对外可见的变量</p>
+<p>UIApplication.h</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidEnterBackgroundNotification</span>       <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">4</span>_0);</span><br><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationWillEnterForegroundNotification</span>      <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">4</span>_0);</span><br><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidFinishLaunchingNotification</span>;</span><br><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidBecomeActiveNotification</span>;</span><br><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationWillResignActiveNotification</span>;</span><br><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidReceiveMemoryWarningNotification</span>;</span><br><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationWillTerminateNotification</span>;</span><br><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationSignificantTimeChangeNotification</span>;</span><br></pre></td></tr></table></figure>
+<p>UIApplication.m</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidEnterBackgroundNotification</span> = <span class="string">@"UIApplicationDidEnterBackgroundNotification"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationWillEnterForegroundNotification</span> = <span class="string">@"UIApplicationWillEnterForegroundNotification"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidFinishLaunchingNotification</span> = <span class="string">@"UIApplicationDidFinishLaunchingNotification"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidBecomeActiveNotification</span> = <span class="string">@"UIApplicationDidBecomeActiveNotification"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationWillResignActiveNotification</span> = <span class="string">@"UIApplicationWillResignActiveNotification"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidReceiveMemoryWarningNotification</span> = <span class="string">@"UIApplicationDidReceiveMemoryWarningNotification"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationWillTerminateNotification</span> = <span class="string">@"UIApplicationWillTerminateNotification"</span>;</span><br></pre></td></tr></table></figure>
+<p>此类变量需放在“全局符号表”中以便可以在定义常量的编译单元之外使用，还需要注意和static 和 const 位置的不同,此类常量必须要定义，而且只能定义一次，通常将其定义在与声明该常量的头文件相关的实现文件中。</p>
+<h3 id="枚举">枚举</h3><ul>
+<li>用NS_ENUM 与 NS_OPTIONS宏来定义枚举类型，并指明其底层的数据类型</li>
+<li>处理枚举类型的switch语句中不要实现default分支，这样的话，加入新枚举之后，编译器就会提示开发者：switch语句并没有处理所有枚举</li>
+</ul>
+
       
     </div>
 
@@ -217,7 +239,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/UIKit/"> #UIKit </a>
+            <a href="/tags/Objective-C/"> #Objective-C </a>
           
         </div>
       
@@ -226,13 +248,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/11/Effective-Objective-C-2-0-笔记-一/">Effective Objective-C 2.0 笔记(一)</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/07/Objective-C消息机制/">Objective-C消息机制</a>
+              <a href="/2015/12/10/Find-the-current-top-view-controller/">Find the current top view controller</a>
             
           </div>
         </div>
@@ -252,8 +272,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/12/10/Find-the-current-top-view-controller/"
-               data-title="Find the current top view controller" data-url="http://yoursite.com/2015/12/10/Find-the-current-top-view-controller/">
+          <div class="ds-thread" data-thread-key="2015/12/11/Effective-Objective-C-2-0-笔记-一/"
+               data-title="Effective Objective-C 2.0 笔记(一)" data-url="http://yoursite.com/2015/12/11/Effective-Objective-C-2-0-笔记-一/">
           </div>
         
       </div>
@@ -342,7 +362,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目錄</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Objective-C_变量、对象、结构"><span class="nav-number">1.</span> <span class="nav-text">Objective-C 变量、对象、结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在类的头文件中尽量减少引用其他头文件"><span class="nav-number">2.</span> <span class="nav-text">在类的头文件中尽量减少引用其他头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多用字面量意思的方法对变量赋值"><span class="nav-number">3.</span> <span class="nav-text">多用字面量意思的方法对变量赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多用类型常量、少用#define预处理指令"><span class="nav-number">4.</span> <span class="nav-text">多用类型常量、少用#define预处理指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举"><span class="nav-number">5.</span> <span class="nav-text">枚举</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
