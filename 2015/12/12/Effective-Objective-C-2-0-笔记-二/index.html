@@ -1,0 +1,634 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="学习总结 思考感悟 知识管理" />
+
+
+
+  <meta name="keywords" content="Objective-C," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      google: ''
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?8c7d0a701bffd6b100d7b0d874d9f6b3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> Effective Objective-C 2.0 笔记(二) // LeeHu的博客 </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">LeeHu的博客</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            關於
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Effective Objective-C 2.0 笔记(二)
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          發表於 2015-12-12
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分類於
+            
+              <a href="/categories/iOS/">iOS</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/12/12/Effective-Objective-C-2-0-笔记-二/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/12/Effective-Objective-C-2-0-笔记-二/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <h3 id="理解“属性”这一概念">理解“属性”这一概念</h3><p>“属性”是Objective-C 的一项特性，用于封装对象中的数据，Objective-C 对象通常会把其所需要的数据保存为各种实例变量。实例变量一般通过“存取方法”来访问。<br>Objective-C 中定义一个类通常使用@property语法来实现，他帮助属性自动合成（autosynthesis）”获取方法”和”设置方法”，合成方法(synthesized method)是过程的代码由编译器在编译期执行，除了生成代码代码以外，编译器还自动向类中添加适当类型的实例变量，并且在属性名前面加下划线，</p>
+<h5 id="synthesize关键字">synthesize关键字</h5><p>能指定实例变量的名字：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@implementation</span> Person</span><br><span class="line"><span class="variable">@synthesize</span> firstName = _myFirstName;</span><br><span class="line"><span class="variable">@synthesize</span> lastName = _myLastName;</span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>
+<p>他将帮助生成实例变量命名为_myFirstName和_myLastName 而不再使用默认的名字。<br>若不想令编译器自动合成存取方法，则可以自己实现，<br>如果你实现了其中的一个存取方法，那么另外一个还是会有编译器来实现合成的。<br><a id="more"></a></p>
+<h5 id="@dynamic关键字">@dynamic关键字</h5><p>能阻止编译器自动合成存取方法</p>
+<h5 id="原子性">原子性</h5><p>在默认情况下，由编译器所合成的方法会通过锁定机制保存其原子性(atomicity)。如果属性具备nonatomic特质，则不使用同步锁。请注意，尽管没有名为”atomic”的特质（如果某属性不具备nanatomic特质，那它就是”原子的”（atomic）。<br>在一般情况下，所有的属性都声明为nonatomic。这样做的历史原因：在iOS中使用同步锁的开销较大，这会带来性能问题，一般情况下并不要求属性必须是”原子的”，因为这并不能保证”线程安全”，若要实现”线程安全”的操作，还需要采用更为深层的锁定机制才行，</p>
+<h5 id="assign">assign</h5><p>“设置方法”只会执行针对”纯量类型”比如：NSInteger、CGFloat等简单赋值操作。</p>
+<h5 id="strong">strong</h5><p>此特质表明该属性定义了一种”拥有关系”。为这种属性设置新值，设置方法会先保留新值，并释放旧值，然后再将新值设置上去</p>
+<h5 id="weak">weak</h5><p>此特质表明该属性定义了一种”非拥有关系”。为这种属性设置新值时，设置方法既不保存新值也不保存旧值。此特质和assign类似，然而在属性所指的对象遭到摧毁时，属性值也会清空</p>
+<h5 id="unsafe_unretained">unsafe_unretained</h5><p>此特质的语义和assign相同，但它适用于”对象类型”，该特质表达一种”非拥有关系”，当目标对象遭到摧毁时，属性值也不会自动清空，这一点与weak有区别</p>
+<h5 id="copy">copy</h5><p>此特质所表达的所属关系与strong类似。然而设置方法并不保存新值，而是将其”拷贝”（copy）。当属性类型为NSString *时，经常用此特质来保护其封装性，因为传递给设置方法的新值有可能指向一个NSMutableString 类的实例。这个类是NSString的一个子类，表示一种可以修改其值的字符串，此时若是不拷贝字符串，那么设置完属性之后，字符串值就可能会在对象不知情的情况下遭人更改。所以，这时就要拷贝一份”不可变”的字符串，确保对象中的字符串值不会无意向变动。只要实现属性所用的对象是”可变的”，就应该在设置新属性值时拷贝一份。</p>
+<h5 id="getter=\">getter=\<name></name></h5><p>指定”获取方法”的方法名，如果属性是Boolean型，而你想为其获取方法加上”is”可以使用下面的方法：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">property</span> (nonatomic, getter=isOn) BOOL <span class="function_start"><span class="keyword">on</span></span>;</span><br></pre></td></tr></table></figure>
+<h5 id="setter=\">setter=\<name></name></h5><p>不太常见</p>
+<h3 id="在对象内部尽量直接访问实例变量">在对象内部尽量直接访问实例变量</h3><p>在写入实例变量时，通过其设置方法来做，而在读取实例变量时，则直接访问</p>
+<ul>
+<li>直接访问实例变量的速度比较快</li>
+<li>不会调用其”设置方法”，这样可以绕过为了相关属性所定义的”内存管理语义”</li>
+<li>直接访问实例变量不会触发”键值观测”通知</li>
+<li>有助于排查与之相关的错误，</li>
+</ul>
+<h3 id="理解”对象等同性”">理解”对象等同性”</h3><p>在比对两个对象的等同性”==”不一定是我们想要的结果，比如比较两个字符串是否相等，”==”只能判断两个对象对应在栈上指向变量的内存地址是否相等，而不是判断其值是否相等。<br>如果检测对象的等同性，需要提供”isEqual”和 hash方法。hash方法在其中扮演了重要的角色。我们在面试的时候经常会遇到一个问题，NSArray和NSSet的区别，大部分只能说出他们NSAarry是有序的NSSet是无序的。而忽略了他们的查询功能。</p>
+<h5 id="NSArray和NSSet的区别">NSArray和NSSet的区别</h5><ul>
+<li>NSArray存储是有序的NSSet是无序的</li>
+<li>NSSet的搜索效率比NSArray高，主要是他用到了一个算法hash。比如你存储元素A 一个hash算法直接就能找到A应该存储的位置（NSSet内部是通过hash封装了不同的数组，就像一个个字典一样），当你访问A时，一个hash过程就恩呢刚找到A存储的位置，而对于NSArry，若想要知道A到底在不在数组中，则需要遍历整个数组，效率显然很低。</li>
+<li>NSSet 千万不能存储可变类型对象，以为对象存储已将在指定的hash对应的数组中了，如果你改变可变实例的值的时候，再去查找，这时候hash已经变了，很容易造成找不到。</li>
+</ul>
+<h3 id="在既有类中使用关联对象存放自定义数据">在既有类中使用关联对象存放自定义数据</h3><p>当我们遇到无法给一个类添加一个实例，Objective-C中有一项强大的特性，可以解决此问题，就是”关联对象”（associated object），可以给某对象关联许多其他对象。<br>下列方法用于管理关联对象</p>
+<ul>
+<li>void objc_setAssociatedObject(id object, void *key, id value, objc_AssociationPolicy policy),此方法以给定的键和策略为某对象设置关联对象值</li>
+<li>id objc_getAssociatedObject(id object, void *key) 根据给定的键从对象中获取相应的关联对象</li>
+<li>void objc_removeAssociatedObjects(id object) 移除指定对象的全部关联对象</li>
+</ul>
+<p>对象关联类型表</p>
+<pre><code>关联类型                         <span class="string">| 等效的@property属性</span>
+</code></pre><p>—————————————————- | ————————————————<br>OBJC_ASSOCIATION_ASSIGN                  | assign<br>OBJC_ASSOCIATION_RETAIN_NONATOMIC      | nonatomic, retain<br>OBJC_ASSOCIATION_COPY_NONATOMIC         | nonatomic, copy<br>OBJC_ASSOCIATION_RETAIN                 | retain<br>OBJC_ASSOCIATION_COPY                     | copy</p>
+<p>For example</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> *EOCMyAlertViewKey = <span class="string">"EOCMyAlertViewKey"</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)askUserQuestion &#123;</span><br><span class="line">	<span class="built_in">UIAlertView</span> *alert =</span><br><span class="line">        [[<span class="built_in">UIAlertView</span> alloc] initWithTitle:<span class="string">@"Question"</span></span><br><span class="line">                                   message:<span class="string">@"what do you want to do"</span></span><br><span class="line">                                  delegate:<span class="keyword">self</span></span><br><span class="line">                         cancelButtonTitle:<span class="string">@"cancel"</span></span><br><span class="line">                         otherButtonTitles:<span class="string">@"continue"</span>, <span class="literal">nil</span>];</span><br><span class="line">			</span><br><span class="line">	<span class="keyword">void</span> (^block)(<span class="built_in">NSInteger</span>) = ^(<span class="built_in">NSInteger</span> buttonIndex) &#123;</span><br><span class="line">			<span class="comment">// do something</span></span><br><span class="line">	&#125;;</span><br><span class="line">	objc_setAssociatedObject(alert, EOCMyAlertViewKey, block, OBJC_ASSO<span class="built_in">CIATION_COPY</span>);</span><br><span class="line">	[alert show];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)alertView:(<span class="built_in">UIAlertView</span> *)alertView clickedButtonAtIndex:(<span class="built_in">NSInteger</span>)buttonIndex &#123;</span><br><span class="line">	<span class="keyword">void</span> (^block)(<span class="built_in">NSInteger</span>) = objc_getAssociatedObject(alertView, EOCMyAlertViewKey);</span><br><span class="line">	block(buttonIndex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="理解objc_msgSend的作用">理解objc_msgSend的作用</h3><p>函数调用方式，在C语言中使用”静态绑定”也就是说，在编译期就能决定运行时所应调用的函数，在Objective-C，使用的是”动态绑定”，所用的函数知道运行期才能确定。</p>
+<p>C语言</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printHello</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Hello, world!\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printGoodbye</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Goodbye, world!\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doTheThing</span><span class="params">(<span class="keyword">int</span> type)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(type == <span class="number">0</span>) &#123;</span><br><span class="line">		printHello();</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		printGoodbye();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Objective-C</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printHello</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Hello, world!\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printGoodbye</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Goodbye, world!\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doTheThing</span><span class="params">(<span class="keyword">int</span> type)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">void</span> (*func)();</span><br><span class="line">	<span class="keyword">if</span>(type == <span class="number">0</span>) &#123;</span><br><span class="line">		func = printHello;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		func = printGoodbye;</span><br><span class="line">	&#125;</span><br><span class="line">	func();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>id returnValue = objc_msgSend(someObject, @selector(messageName:), parameter);<br>该方法需要在接受者所属的类中搜寻其”方法列表”如果能找到与选择子名称相符的方法，就跳至其实现代码。若找不到，那就沿着继承体继续向上查找，等找到合适的方法之后在跳转，如果最终都没有找到这时候就需要走消息转发了。<br> <mark>代用一个方法似乎需要好多步骤，所幸objc_msgSend会将匹配结果缓存在”快速映射表”里面，每个类都有这样一块缓存，若稍后还向该类发送与选择子相同的消息，那么执行起来就很快了</mark></p>
+<h3 id="消息转发机制">消息转发机制</h3><p>看链接博文<a href="http://muscliy.github.io/2015/12/07/Objective-C%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/" target="_blank" rel="external">传送门</a></p>
+<h3 id="用”方法调用技术”调试”黑盒方法”">用”方法调用技术”调试”黑盒方法”</h3><p>方法调用技术（method swizzling）我们开发的时候在系统类中的category经常会用到<br><a href="https://github.com/rentzsch/jrswizzle" target="_blank" rel="external">JRSwizzle</a>这个库是我们常用到的，具体原理就不就这样带过了。但是这种方法也不能滥用。</p>
+<h3 id="理解”类对象”的用意">理解”类对象”的用意</h3><p>在runtime源码中定义id,</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_object *id;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> objc_object &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">isa_t</span> isa;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ISA() assumes this is NOT a tagged pointer object</span></span><br><span class="line">    <span class="function">Class <span class="title">ISA</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// getIsa() allows this to be a tagged pointer object</span></span><br><span class="line">    <span class="function">Class <span class="title">getIsa</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">union</span> <span class="keyword">isa_t</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">isa_t</span>() &#123; &#125;</span><br><span class="line">    <span class="keyword">isa_t</span>(<span class="keyword">uintptr_t</span> value) : bits(value) &#123; &#125;</span><br><span class="line"></span><br><span class="line">    Class cls;</span><br><span class="line">    <span class="keyword">uintptr_t</span> bits;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">objc_object::ISA() </span><br><span class="line">&#123;</span><br><span class="line">    assert(!isTaggedPointer()); </span><br><span class="line">    <span class="keyword">return</span> isa.cls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每个对象结构体的首个成员是isa_t类的变量，该变量的结构体中Class定义了对象所属的类，通常称为”is a”指针((is a)NSString， isa 指针就指向NSString)。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_class *Class;</span><br><span class="line"><span class="keyword">struct</span> objc_class : objc_object &#123;</span><br><span class="line">    Class superclass;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">uint32_t</span> version;</span><br><span class="line">    <span class="keyword">uint32_t</span> info;</span><br><span class="line">    <span class="keyword">uint32_t</span> instance_size;</span><br><span class="line">    <span class="keyword">struct</span> old_ivar_list *ivars;</span><br><span class="line">    <span class="keyword">struct</span> old_method_list **methodLists;</span><br><span class="line">    Cache cache;</span><br><span class="line">    <span class="keyword">struct</span> old_protocol_list *protocols;</span><br><span class="line">    <span class="comment">// CLS_EXT only</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">uint8_t</span> *ivar_layout;</span><br><span class="line">    <span class="keyword">struct</span> old_class_ext *ext;</span><br><span class="line">	<span class="function">Class <span class="title">getMeta</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isMetaClass()) <span class="keyword">return</span> (Class)<span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="keyword">this</span>-&gt;ISA();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>objc_class是继承objc_object的，所以子啊objc_class 第一个元素就是isa。在这个结构体中有个变量叫superclass，它定义了本类的超类。类对象所属的类型（也就是isa 中的class指针所指向的类型）是另外一个类，叫做”元类”(metaclass)，用来表述类对象本身所具备的元数据。<mark>每个类仅有一个”类对象”，而每个”类对象”仅有一个与之相关的”元类”</mark>。</p>
+<h5 id="isMemberOfClass_和_isKindOfClass">isMemberOfClass 和 isKindOfClass</h5><p>NSMutableDictionary *dict = [NSMutableDictionary new];<br>[dict isMemberOfClass:[NSDictionary class]]; //NO<br>[dict isMemberOfClass:[NSMutableDictionary class]]; //YES<br>[dic isKindOfClass:[NSDictionary class]]; //YES<br>[dic isKindOfClass:[NSArray class]]; //NO</p>
+
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Objective-C/"> #Objective-C </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/11/Effective-Objective-C-2-0-笔记-一/">Effective Objective-C 2.0 笔记(一)</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/12/12/Effective-Objective-C-2-0-笔记-二/"
+               data-title="Effective Objective-C 2.0 笔记(二)" data-url="http://yoursite.com/2015/12/12/Effective-Objective-C-2-0-笔记-二/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="LeeHu" />
+          <p class="site-author-name">LeeHu</p>
+        </div>
+        <p class="site-description motion-element">学习总结 思考感悟 知识管理</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-name">分類</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">標籤</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+        
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#理解“属性”这一概念"><span class="nav-number">1.</span> <span class="nav-text">理解“属性”这一概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#synthesize关键字"><span class="nav-number">1.0.1.</span> <span class="nav-text">synthesize关键字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#@dynamic关键字"><span class="nav-number">1.0.2.</span> <span class="nav-text">@dynamic关键字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#原子性"><span class="nav-number">1.0.3.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#assign"><span class="nav-number">1.0.4.</span> <span class="nav-text">assign</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#strong"><span class="nav-number">1.0.5.</span> <span class="nav-text">strong</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#weak"><span class="nav-number">1.0.6.</span> <span class="nav-text">weak</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#unsafe_unretained"><span class="nav-number">1.0.7.</span> <span class="nav-text">unsafe_unretained</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#copy"><span class="nav-number">1.0.8.</span> <span class="nav-text">copy</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#getter=\"><span class="nav-number">1.0.9.</span> <span class="nav-text">getter=\</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#setter=\"><span class="nav-number">1.0.10.</span> <span class="nav-text">setter=\</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在对象内部尽量直接访问实例变量"><span class="nav-number">2.</span> <span class="nav-text">在对象内部尽量直接访问实例变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理解”对象等同性”"><span class="nav-number">3.</span> <span class="nav-text">理解”对象等同性”</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#NSArray和NSSet的区别"><span class="nav-number">3.0.1.</span> <span class="nav-text">NSArray和NSSet的区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在既有类中使用关联对象存放自定义数据"><span class="nav-number">4.</span> <span class="nav-text">在既有类中使用关联对象存放自定义数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理解objc_msgSend的作用"><span class="nav-number">5.</span> <span class="nav-text">理解objc_msgSend的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息转发机制"><span class="nav-number">6.</span> <span class="nav-text">消息转发机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用”方法调用技术”调试”黑盒方法”"><span class="nav-number">7.</span> <span class="nav-text">用”方法调用技术”调试”黑盒方法”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理解”类对象”的用意"><span class="nav-number">8.</span> <span class="nav-text">理解”类对象”的用意</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#isMemberOfClass_和_isKindOfClass"><span class="nav-number">8.0.1.</span> <span class="nav-text">isMemberOfClass 和 isKindOfClass</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">LeeHu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.3"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.3"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.3" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.3" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"LeeHu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+
+</body>
+</html>
