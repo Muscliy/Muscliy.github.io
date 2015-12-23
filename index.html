@@ -109,7 +109,7 @@
         <li class="menu-item menu-item-home">
           <a href="/">
             <i class="menu-item-icon icon-home"></i> <br />
-            首頁
+            首页
           </a>
         </li>
       
@@ -117,7 +117,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories">
             <i class="menu-item-icon icon-categories"></i> <br />
-            分類
+            分类
           </a>
         </li>
       
@@ -125,7 +125,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags">
             <i class="menu-item-icon icon-tags"></i> <br />
-            標籤
+            标签
           </a>
         </li>
       
@@ -133,7 +133,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about">
             <i class="menu-item-icon icon-about"></i> <br />
-            關於
+            关于
           </a>
         </li>
       
@@ -164,6 +164,88 @@
           
           
             
+              <a class="post-title-link" href="/2015/12/21/Effective-Objective-C-2-0-笔记-三/">
+                Effective Objective-C 2.0 笔记(三)
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-12-21
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/iOS/">iOS</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/12/21/Effective-Objective-C-2-0-笔记-三/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/21/Effective-Objective-C-2-0-笔记-三/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h3 id="用前缀避免命名空间冲突">用前缀避免命名空间冲突</h3><p>如果你写程序需要放到Github给别人用，那么所有的类名应该加前缀，前缀应该由3个大写字母组成，因为apple宣称其保留使用所有“两字母前缀”,比如之前有很多人用TW作为前缀，后来apple引入了TWRequest,请求调用Twitter API。</p>
+<h3 id="提供”全能初始化方法”">提供”全能初始化方法”</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSDate</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCopying</span>, <span class="title">NSSecureCoding</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>) <span class="built_in">NSTimeInterval</span> timeIntervalSinceReferenceDate;</span><br><span class="line"></span><br><span class="line">- (instancetype)init <span class="built_in">NS_DESIGNATED_INITIALIZER</span>;</span><br><span class="line">- (instancetype)initWithTimeIntervalSinceReferenceDate:(<span class="built_in">NSTimeInterval</span>)ti <span class="built_in">NS_DESIGNATED_INITIALIZER</span>;</span><br><span class="line">- (nullable instancetype)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder <span class="built_in">NS_DESIGNATED_INITIALIZER</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/21/Effective-Objective-C-2-0-笔记-三/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/12/Effective-Objective-C-2-0-笔记-二/">
                 Effective Objective-C 2.0 笔记(二)
               </a>
@@ -174,12 +256,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-12-12
+          发表于 2015-12-12
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -216,7 +298,7 @@
 <p>他将帮助生成实例变量命名为_myFirstName和_myLastName 而不再使用默认的名字。<br>若不想令编译器自动合成存取方法，则可以自己实现，<br>如果你实现了其中的一个存取方法，那么另外一个还是会有编译器来实现合成的。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/12/Effective-Objective-C-2-0-笔记-二/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -258,12 +340,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-12-11
+          发表于 2015-12-11
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -302,7 +384,7 @@
 </code></pre>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/11/Effective-Objective-C-2-0-笔记-一/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -344,12 +426,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-12-10
+          发表于 2015-12-10
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -384,7 +466,7 @@
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="built_in">UIViewController</span> *)topViewController&#123;</span><br><span class="line">  <span class="keyword">return</span> [<span class="keyword">self</span> topViewController:[<span class="built_in">UIApplication</span> sharedApplication]<span class="variable">.keyWindow</span><span class="variable">.rootViewController</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIViewController</span> *)topViewController:(<span class="built_in">UIViewController</span> *)rootViewController</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (rootViewController<span class="variable">.presentedViewController</span> == <span class="literal">nil</span>) &#123;</span><br><span class="line">    <span class="built_in">UINavigationController</span> *navigationController =</span><br><span class="line">    (<span class="built_in">UINavigationController</span> *)rootViewController;</span><br><span class="line">    <span class="keyword">return</span> [[navigationController viewControllers] lastObject];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> ([rootViewController<span class="variable">.presentedViewController</span> isMemberOfClass:[<span class="built_in">UINavigationController</span> class]]) &#123;</span><br><span class="line">    <span class="built_in">UINavigationController</span> *navigationController = (<span class="built_in">UINavigationController</span> *)rootViewController<span class="variable">.presentedViewController</span>;</span><br><span class="line">    <span class="built_in">UIViewController</span> *lastViewController = [[navigationController viewControllers] lastObject];</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> topViewController:lastViewController];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">UIViewController</span> *presentedViewController = (<span class="built_in">UIViewController</span> *)rootViewController<span class="variable">.presentedViewController</span>;</span><br><span class="line">  <span class="keyword">return</span> [<span class="keyword">self</span> topViewController:presentedViewController];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/10/Find-the-current-top-view-controller/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -426,12 +508,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-12-07
+          发表于 2015-12-07
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -468,7 +550,7 @@
 <figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">[<span class="keyword">jeep</span> name]<span class="comment">;</span></span><br><span class="line">objc_msgSend<span class="list">(<span class="keyword">jeep</span>, @selector<span class="list">(<span class="keyword">name</span>)</span>)</span><span class="comment">;</span></span></span><br></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/07/Objective-C消息机制/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -510,12 +592,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-08-27
+          发表于 2015-08-27
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -549,7 +631,7 @@
           <h3 id="想法启蒙">想法启蒙</h3><p>之前在QQ的app中发现他的用户主页的NavigationBar是透明的而且与上一个有颜色的NavigationBar的过度非常丝滑<br><img src="/images/2015-8-27-qq-navgationBar.gif" height="374" width="584" /></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/08/27/不同颜色的UINavigationBar的丝滑过度/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -591,12 +673,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-08-07
+          发表于 2015-08-07
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -632,7 +714,7 @@
 <figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ appledoc --<span class="built_in">version</span></span><br><span class="line">appledoc <span class="built_in">version</span>: <span class="number">2.2</span>.<span class="number">1</span> <span class="params">(build <span class="number">1333</span>)</span></span><br></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/08/07/用appledoc生成文档/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -674,12 +756,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-07-07
+          发表于 2015-07-07
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -720,7 +802,7 @@ methods, but only <span class="keyword">if</span> animations are requested.
 </code></pre>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/07/07/UIScrollView滚动停止监测/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -762,12 +844,12 @@ methods, but only <span class="keyword">if</span> animations are requested.
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-07-03
+          发表于 2015-07-03
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -803,7 +885,7 @@ methods, but only <span class="keyword">if</span> animations are requested.
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">At runtime, you <span class="operator"><span class="keyword">use</span> an NSUserDefaults object <span class="keyword">to</span> <span class="keyword">read</span> the defaults that your </span><br><span class="line">application uses <span class="keyword">from</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>. NSUserDefaults caches </span><br><span class="line">the information <span class="keyword">to</span> avoid <span class="keyword">having</span> <span class="keyword">to</span> <span class="keyword">open</span> the <span class="keyword">user</span>’s defaults <span class="keyword">database</span> </span><br><span class="line"><span class="keyword">each</span> <span class="keyword">time</span> you need a <span class="keyword">default</span> <span class="keyword">value</span>. The synchronize method, which <span class="keyword">is</span> </span><br><span class="line">automatically invoked <span class="keyword">at</span> periodic intervals, keeps the <span class="keyword">in</span>-memory <span class="keyword">cache</span>  </span><br><span class="line"><span class="keyword">in</span> sync <span class="keyword">with</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>.</span></span><br></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/07/03/探究NSUserDefaults/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -845,7 +927,7 @@ methods, but only <span class="keyword">if</span> animations are requested.
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-07-03
+          发表于 2015-07-03
         </span>
 
         
@@ -875,7 +957,7 @@ methods, but only <span class="keyword">if</span> animations are requested.
 <p>2、在做完3年的iOS开发我也有一些自己的心得，经历公司产品从起初框架的搭建到结构成型再到现在的完善，一路过来向公司一些牛逼的技术人员学到了很多。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/07/03/写博客的初衷/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -930,22 +1012,22 @@ methods, but only <span class="keyword">if</span> animations are requested.
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/">
-              <span class="site-state-item-count">9</span>
-              <span class="site-state-item-name">文章</span>
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
               <span class="site-state-item-count">1</span>
-              <span class="site-state-item-name">分類</span>
+              <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">6</span>
-              <span class="site-state-item-name">標籤</span>
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">标签</span>
               </a>
           </div>
 
@@ -987,11 +1069,11 @@ methods, but only <span class="keyword">if</span> animations are requested.
 </div>
 
 <div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
-  主題 -
+  主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
   </a>
