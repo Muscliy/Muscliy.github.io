@@ -59,7 +59,7 @@
 
 
 
-  <title> 歸檔 // LeeHu的博客 </title>
+  <title> LeeHu的博客 </title>
 </head>
 
 <body>
@@ -73,7 +73,9 @@
   </div>
 <![endif]-->
 
-  <div class="container one-column  page-archive ">
+  <div class="container one-column 
+   page-home 
+">
     <div class="headband"></div>
 
     <div id="header" class="header">
@@ -149,122 +151,86 @@
       <div class="main-inner">
         <div id="content" class="content">
           
-
-  <div id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共計 11 篇文章。 繼續努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
       
 
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2015">2015</h2>
-        </div>
-      
-      
-
-      
-
-  <div class="post post-type-normal">
+  <div class="post post-type-normal ">
     <div class="post-header">
 
-      <div class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/07/UIScrollView滚动停止监测/">
-              UIScrollView滚动停止监测
-            </a>
-        
-      </div>
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/07/03/写博客的初衷/">
+                写博客的初衷
+              </a>
+            
+          
+        </h1>
+      
 
       <div class="post-meta">
-        <span class="post-time"> 07-07 </span>
-      </div>
+        <span class="post-time">
+          發表於 2015-07-03
+        </span>
 
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/03/写博客的初衷/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/写博客的初衷/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>看过许多人的博客，大家都有个习惯，开始写博客之前总需要写一篇感想，那我也谈谈。主要有以下几点</p>
+<p>1、在工作3年之际，发现自己与3年前刚毕业的自己已经完全不同了，从知识层面来看，基础知识已经学习的差不多，但是在学习的过程中总会忘记一些琐事的知识，尤其是看过别人写的一些技术博客，主要是自己没有好好的梳理这些知识。</p>
+<p>2、在做完3年的iOS开发我也有一些自己的心得，经历公司产品从起初框架的搭建到结构成型再到现在的完善，一路过来向公司一些牛逼的技术人员学到了很多。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/03/写博客的初衷/#more">
+              閱讀全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </div>
   </div>
 
 
-
     
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <div class="post post-type-normal">
-    <div class="post-header">
-
-      <div class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/03/探究NSUserDefaults/">
-              探究NSUserDefaults
-            </a>
-        
-      </div>
-
-      <div class="post-meta">
-        <span class="post-time"> 07-03 </span>
-      </div>
-
-    </div>
-  </div>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <div class="post post-type-normal">
-    <div class="post-header">
-
-      <div class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/03/写博客的初衷/">
-              写博客的初衷
-            </a>
-        
-      </div>
-
-      <div class="post-meta">
-        <span class="post-time"> 07-03 </span>
-      </div>
-
-    </div>
-  </div>
-
-
-
-    
-
   </div>
 
   
+  <div class="pagination">
+    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </div>
 
 
         </div>
@@ -376,12 +342,6 @@
 
   
   
-  
-    <script type="text/javascript">
-      postMotionOptions = {stagger: 100, drag: true};
-    </script>
-  
-
 
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
@@ -401,12 +361,6 @@
   <script type="text/javascript" src="/js/search-toggle.js"></script>
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
-
 
   <script type="text/javascript">
     $(document).ready(function () {
@@ -419,6 +373,26 @@
   
 
   
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"LeeHu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
 
   
   

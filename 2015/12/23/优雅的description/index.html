@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="Foundation," />
+  <meta name="keywords" content="Objective-C," />
 
 
 
@@ -59,7 +59,7 @@
 
 
 
-  <title> 探究NSUserDefaults // LeeHu的博客 </title>
+  <title> 优雅的description // LeeHu的博客 </title>
 </head>
 
 <body>
@@ -162,7 +162,7 @@
           
           
             
-              探究NSUserDefaults
+              优雅的description
             
           
         </h1>
@@ -170,7 +170,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-07-03
+          發表於 2015-12-23
         </span>
 
         
@@ -190,8 +190,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/03/探究NSUserDefaults/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/探究NSUserDefaults/"></span>
+            <a href="/2015/12/23/优雅的description/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/23/优雅的description/"></span>
             </a>
           </span>
           
@@ -205,39 +205,26 @@
       
 
       
-        <p>研究NSUserDefaults之前我们首先需要研究的是.plist文件，.plist文件首先是一种用来存储序列化后的对象的文件，对象包括objective-c中的6种基本类型（NSString、NSArray …)。当你在写程序的时候将一些关键数据使用NSUserDefaults保存之后我们会在.plist文件中一一找到它们。</p>
-<h4 id="NSUserDefaults工作原理">NSUserDefaults工作原理</h4><p>Apple 官方文档（一）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">At runtime, you <span class="operator"><span class="keyword">use</span> an NSUserDefaults object <span class="keyword">to</span> <span class="keyword">read</span> the defaults that your </span><br><span class="line">application uses <span class="keyword">from</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>. NSUserDefaults caches </span><br><span class="line">the information <span class="keyword">to</span> avoid <span class="keyword">having</span> <span class="keyword">to</span> <span class="keyword">open</span> the <span class="keyword">user</span>’s defaults <span class="keyword">database</span> </span><br><span class="line"><span class="keyword">each</span> <span class="keyword">time</span> you need a <span class="keyword">default</span> <span class="keyword">value</span>. The synchronize method, which <span class="keyword">is</span> </span><br><span class="line">automatically invoked <span class="keyword">at</span> periodic intervals, keeps the <span class="keyword">in</span>-memory <span class="keyword">cache</span>  </span><br><span class="line"><span class="keyword">in</span> sync <span class="keyword">with</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>.</span></span><br></pre></td></tr></table></figure>
+        <p>在开发过程中，我们经常要打印并查看对象信息，一种是通过NSLog来输出一个对象的属性。</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSLog(@<span class="string">"Person = %@"</span>,<span class="keyword">person</span>);</span><br></pre></td></tr></table></figure>
+<p>在构建打印字符串的时候，person对象会收到description消息，这个方法返回的信息就会取代格式字符串中的”%@”。另一种就是我们通过断点在控制台钟输入命令打印对象的属性</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(lldb) po <span class="keyword">person</span></span><br><span class="line">&lt;<span class="keyword">Person</span>: 0x17c39e30&gt;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<p>根据文档(一)可以看出来，NSUserDefault是.plist文件的缓存，NSUserDefault会将访问到的key 缓存到内存中，下次访问时，如果缓存中有对应的key就直接访问，如果没有在从文件中载入？应用还会时不时调用</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[defaults synchronize]</span><br></pre></td></tr></table></figure>
-<p>方法来保证内存与文件中数据的一致性。上面文档说<br>中的最后一句表明了UserDefaults是根据时间戳定时的把缓存中的数据写入本地磁盘，而非即时写入。为了防止数据丢失，我们在对重要的数据保存时使用synchornize方法强制写入。但是也要注意，不用频繁的使用synchornize，这样毕竟影响性能和效率</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</span><br></pre></td></tr></table></figure>
-<p>NSUserDefaults是单例，同时也是线程安全的 </p>
-<h4 id="性能">性能</h4><p>从性能上分析，这种缓存的机制带来了一定的性能提升，通过一些网上的文章了解到在10万个Key的情况下，通过NSUserDefaults来读取value是1ms级别的，然而当你从plist文件中直接读取，需要100ms的级别开销，但是写是个相反的结果，要是你写1个10万条数据到plist文件中是1s级别的开销，而同时写入10万条NSUserDefaults键值对则需要10s级别的延迟。我们都知道在创建key/value时，程序需要在内存中也创建一个相应的映射关系，然后系统会时不时调用“synchronsize”方法同步数据，很多的方法会导致创建key/value pair被阻塞。</p>
-<p>总的来说，使用NSUserDefaults是比较高效的,但是不能大量的将数据通过NSUserDefaults中</p>
-<h4 id="存储">存储</h4><p>NSUserDefaults中并不是所有写入都是可以写入到文件中的。</p>
-<p>Apple 官方文档（二）</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">The <span class="property">contents</span> <span class="keyword">of</span> <span class="keyword">the</span> registration domain are <span class="keyword">not</span> written <span class="keyword">to</span> disk; you need </span><br><span class="line"><span class="keyword">to</span> call this method each <span class="property">time</span> your <span class="type">application</span> starts. You can place a plist </span><br><span class="line"><span class="type">file</span> <span class="keyword">in</span> <span class="keyword">the</span> <span class="type">application</span>'s Resources directory <span class="keyword">and</span> call registerDefaults: </span><br><span class="line"><span class="keyword">with</span> <span class="keyword">the</span> <span class="property">contents</span> <span class="keyword">that</span> you <span class="command">read</span> <span class="keyword">in</span> <span class="keyword">from</span> <span class="keyword">that</span> <span class="type">file</span>.</span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];</span><br></pre></td></tr></table></figure>
-<p>文档(二)中所说的registerDefaults方法添的内容不会保存到plist文件中，只在当前生命周期内使用，下面看一个程序</p>
-<pre><code><span class="built_in">NSDictionary</span> *dicDefault = [<span class="built_in">NSDictionary</span> dictionaryWithObjectsAndKeys: <span class="string">@"hslinux"</span>, <span class="string">@"Name"</span>,<span class="literal">nil</span>];
-
-[[<span class="built_in">NSUserDefaults</span> standardUserDefaults] registerDefaults:dicDefault];  
-
-<span class="built_in">NSString</span> *strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] stringForKey:<span class="string">@"Name"</span>];
-<span class="built_in">NSLog</span>(<span class="string">@" Name = [%@]"</span>, strName);
-
-[[<span class="built_in">NSUserDefaults</span> standardUserDefaults] setObject:<span class="string">@"?????"</span> forKey:<span class="string">@"Name"</span>];
-strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] stringForKey:<span class="string">@"Name"</span>];
-<span class="built_in">NSLog</span>(<span class="string">@" Name = [%@]"</span>, strName);
-
-[[<span class="built_in">NSUserDefaults</span> standardUserDefaults] removeObjectForKey:<span class="string">@"Name"</span>];
-<span class="built_in">NSString</span> *strDefault = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] stringForKey:<span class="string">@"Name"</span>];
-<span class="built_in">NSLog</span>(<span class="string">@"Default Name = [%@]"</span>, strDefault);
-</code></pre><p>打印结果是</p>
-<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2015-07-02</span> <span class="number">14:18:46.71</span>6 TestDemo[<span class="number">2217:167621</span>]  Name = [hslinux]</span><br><span class="line"><span class="number">2015-07-02</span> <span class="number">14:18:46.71</span>9 TestDemo[<span class="number">2217:167621</span>]  Name = [?????]</span><br><span class="line"><span class="number">2015-07-02</span> <span class="number">14:18:46.72</span>0 TestDemo[<span class="number">2217:167621</span>] Default Name = [hslinux]</span><br></pre></td></tr></table></figure>
-<p>由此可以看出来setObject 和 registerDefaults 是存在NSUserdefaults中两个不同区域，我们把两个区域分别叫持久缓存区和全局临时存储区，读的时候通过key会先查找持久缓存区读取value，如果没有，然后再从全局缓存区查找。两个缓存区有各自用处，比如我们需要一些数据在app运行时需要全局持有化是需要用到registerDefaults</p>
+<p>在输入po person的时候，person对象会收到debugDescription消息，这两个消息有什么区别吗，我们可以根据apple提供的NSObject的源代码中找到相应的代码</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Replaced by CF (returns an NSString)</span></span><br><span class="line">+ (<span class="built_in">NSString</span> *)description &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Replaced by CF (returns an NSString)</span></span><br><span class="line">- (<span class="built_in">NSString</span> *)description &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">NSString</span> *)debugDescription &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> description];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)debugDescription &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> description];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其实调用的一个方法，只是方面我们在继承的类中自己实现来区别这两种打印方式所要呈现的内容。</p>
+<p>在我们程序中引入的第三方库中我们可以找到一些description的方法。下面是来自AFNetworking中一类的description方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSString</span> *)description &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"&lt;%@: %p, baseURL: %@, session: %@, operationQueue: %@&gt;"</span>, <span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> class]), <span class="keyword">self</span>, [<span class="keyword">self</span><span class="variable">.baseURL</span> absoluteString], <span class="keyword">self</span><span class="variable">.session</span>, <span class="keyword">self</span><span class="variable">.operationQueue</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你会发现，这种写法一但你有很多的类也是一件麻烦事，你需要学很多关于这种格式化的代码。我们希望输出信息需要被格式化这样看的才清晰。</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(lldb) po p</span><br><span class="line">&lt;<span class="keyword">Person</span> : 0x7fb7114d21d0, &#123;</span><br><span class="line">    firstName = <span class="string">"\U4e09"</span>;</span><br><span class="line">    lastName = <span class="string">"\U5f20"</span>;</span><br><span class="line">&#125; &gt;</span><br></pre></td></tr></table></figure>
+<p>使用NSDictionary来实现此功能,像这样：</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[NSString stringWithFormat:@<span class="string">"&lt;%@ : %p, %@ &gt;"</span>, NSStringFromClass<span class="list">(<span class="collection">[self class]</span>)</span>, self,</span><br><span class="line">                               @<span class="collection">&#123; @<span class="string">"firstName"</span> : _firstName,</span><br><span class="line">                                  @<span class="string">"lastName"</span> : _lastName &#125;</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>这种方法其实和AFNetworking一样，维护起来麻烦，那天需要添加一个属性，还需要去修改description方法。这种时候就需要依靠runtime 了， 我们需要获取所有对象中的属性和属性值，获取所有属性的方法, 可以添加一个NSObject类别来实现</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSArray</span>&lt;<span class="built_in">NSString</span> *&gt; *)ex_propertyKeys</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> outCount, i;</span><br><span class="line">	<span class="built_in">NSMutableArray</span> *keys = [@[] mutableCopy];</span><br><span class="line">	objc_property_t *properties = class_copyPropertyList([<span class="keyword">self</span> class], &amp;outCount);</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;outCount; i++) &#123;</span><br><span class="line">		objc_property_t property = properties[i];</span><br><span class="line">		<span class="built_in">NSString</span> * key = [[<span class="built_in">NSString</span> alloc]initWithCString:property_getName(property)  encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">		[keys addObject:key];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> [<span class="built_in">NSArray</span> arrayWithArray:keys];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>拿到对应的key通过kvc来获取对象的值就方便了,代码可以变成下面的实现方法，</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSString</span> *)ex_description</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSArray</span> *keys = [[<span class="keyword">self</span> class] ex_propertyKeys];</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *dict = [@&#123;&#125; mutableCopy];</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSString</span> *key <span class="keyword">in</span> keys) &#123;</span><br><span class="line">        [dict setValue:[<span class="keyword">self</span> valueForKey:key] forKey:key];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">        [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"&lt;%@ : %p, %@ &gt;"</span>, <span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> class]), <span class="keyword">self</span>, dict];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终一行搞定</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)description</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> ex_description];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -246,7 +233,7 @@ strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] s
       
         <div class="post-tags">
           
-            <a href="/tags/Foundation/"> #Foundation </a>
+            <a href="/tags/Objective-C/"> #Objective-C </a>
           
         </div>
       
@@ -255,13 +242,11 @@ strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] s
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/07/UIScrollView滚动停止监测/">UIScrollView滚动停止监测</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/03/写博客的初衷/">写博客的初衷</a>
+              <a href="/2015/12/21/Effective-Objective-C-2-0-笔记-三/">Effective Objective-C 2.0 笔记(三)</a>
             
           </div>
         </div>
@@ -281,8 +266,8 @@ strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] s
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/07/03/探究NSUserDefaults/"
-               data-title="探究NSUserDefaults" data-url="http://yoursite.com/2015/07/03/探究NSUserDefaults/">
+          <div class="ds-thread" data-thread-key="2015/12/23/优雅的description/"
+               data-title="优雅的description" data-url="http://yoursite.com/2015/12/23/优雅的description/">
           </div>
         
       </div>
@@ -371,7 +356,7 @@ strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] s
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#NSUserDefaults工作原理"><span class="nav-number">1.</span> <span class="nav-text">NSUserDefaults工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性能"><span class="nav-number">2.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储"><span class="nav-number">3.</span> <span class="nav-text">存储</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目錄</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
