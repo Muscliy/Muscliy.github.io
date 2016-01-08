@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="人生," />
+  <meta name="keywords" content="UIKit," />
 
 
 
@@ -59,7 +59,7 @@
 
 
 
-  <title> 写博客的初衷 // LeeHu的博客 </title>
+  <title> UIView和CALayer // LeeHu的博客 </title>
 </head>
 
 <body>
@@ -162,7 +162,7 @@
           
           
             
-              写博客的初衷
+              UIView和CALayer
             
           
         </h1>
@@ -170,7 +170,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-07-03
+          發表於 2015-12-30
         </span>
 
         
@@ -179,8 +179,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/03/写博客的初衷/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/写博客的初衷/"></span>
+            <a href="/2015/12/30/UIView和CALayer/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/30/UIView和CALayer/"></span>
             </a>
           </span>
           
@@ -194,15 +194,10 @@
       
 
       
-        <p>看过许多人的博客，大家都有个习惯，开始写博客之前总需要写一篇感想，那我也谈谈。主要有以下几点</p>
-<p>1、在工作3年之际，发现自己与3年前刚毕业的自己已经完全不同了，从知识层面来看，基础知识已经学习的差不多，但是在学习的过程中总会忘记一些琐事的知识，尤其是看过别人写的一些技术博客，主要是自己没有好好的梳理这些知识。</p>
-<p>2、在做完3年的iOS开发我也有一些自己的心得，经历公司产品从起初框架的搭建到结构成型再到现在的完善，一路过来向公司一些牛逼的技术人员学到了很多。<br><a id="more"></a></p>
-<p>3、随着开发，发现自己使用的东西有限，一直在固定的技术上重复的写，重复的优化，有些优化并不是一下子而来的想法，我想把这些想法记录下来</p>
-<p>4、大家都会在很多地方犯错，当然这里也会梳理发错的原因</p>
-<p>5、据说坚持长期写博客的人都能成为大牛，我是个对技术一直有自己追求和自己想法的开发人员，学无止境，写博客也是为了向那些牛人学习</p>
-<p>6、当然这里同样也记录了我生活的点滴</p>
-<p>总之，有梦就需要平台，我想这里是见证我一路追梦的见证。如果你有遇到对我写的博客有疑问可以通过邮件的方式告诉我：leehudev@gmail.com</p>
-
+        <h3 id="UIView">UIView</h3><p>在iOS界面开发中离不开UIView(视图), 所有的可视化控件基本继承来自UIView，UIView就是在屏幕上显示的一个矩形块(比如文字、图片、视频)。可以处理触摸时间，可以支持CoreGraphics绘图，可以做动画。</p>
+<h3 id="CALayer">CALayer</h3><p>CALayer(图层)在概念上和UIView类似，同样是一些被层级关系管理的矩形块，同样也可以包含(比如文字、图片、视频)这些信息。和UIView最大的不同就是不能处理用户的交互</p>
+<h3 id="关系">关系</h3><p>每一个UIView 都有一个CALayer，从代码的角度来分析，应该是试图管理者图层，所有的UIView的动画其实CALayer才是真正的始作俑者，UIView仅仅只是对它的一个封装，而UIView知识体统了iOS中处理触摸的具体功能，还有Core Animation底层方法的高级接口。在MAC开发中我们用的NSView也是如此，那么苹果为什么要在两个不同平台上去封装两个不同类，这主要是试图对用户的动作处理的区别，UIView处理的主要是用户多点触控，NSView处理的是针对对电脑键盘和鼠标的事件。</p>
+<h3 id="CALayer的能力">CALayer的能力</h3>
       
     </div>
 
@@ -210,7 +205,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/人生/"> #人生 </a>
+            <a href="/tags/UIKit/"> #UIKit </a>
           
         </div>
       
@@ -219,11 +214,13 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/03/探究NSUserDefaults/">探究NSUserDefaults</a>
+              <a href="/2016/01/07/iOS-打点统计代码实现/">iOS 打点统计代码实现</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/23/优雅的description/">优雅的description</a>
             
           </div>
         </div>
@@ -243,8 +240,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/07/03/写博客的初衷/"
-               data-title="写博客的初衷" data-url="http://yoursite.com/2015/07/03/写博客的初衷/">
+          <div class="ds-thread" data-thread-key="2015/12/30/UIView和CALayer/"
+               data-title="UIView和CALayer" data-url="http://yoursite.com/2015/12/30/UIView和CALayer/">
           </div>
         
       </div>
@@ -333,7 +330,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目錄</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#UIView"><span class="nav-number">1.</span> <span class="nav-text">UIView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CALayer"><span class="nav-number">2.</span> <span class="nav-text">CALayer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关系"><span class="nav-number">3.</span> <span class="nav-text">关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CALayer的能力"><span class="nav-number">4.</span> <span class="nav-text">CALayer的能力</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

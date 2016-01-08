@@ -164,6 +164,158 @@
           
           
             
+              <a class="post-title-link" href="/2016/01/07/iOS-打点统计代码实现/">
+                iOS 打点统计代码实现
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          發表於 2016-01-07
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分類於
+            
+              <a href="/categories/iOS/">iOS</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/01/07/iOS-打点统计代码实现/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/07/iOS-打点统计代码实现/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h3 id="启发">启发</h3><p>很早之前拜读了limboy 的<a href="http://limboy.me/ios/2015/09/09/ios-analytics.html">iOS 统计打点那些事</a>这篇文章，对我的启发很大，之后又了解了<a href="https://heapanalytics.com/docs/define-events#visualizer-for-ios-apps">heapanalytics</a>可视化全埋点。对客户端有的打点统计做了优化</p>
+<h3 id="思路">思路</h3><p>前期的简单做法是UI设计完界面后标坐标的时候同时给所有可点击控件标一个event id。 这个id可以为一个递增数字, 也可以为控件内随机点一个点后取x,y的组合, 也可以用随机数的, 只要保证唯一就可以了。 event id可以一类控件用一个id, 也可以按照界面将一类控件分成多个id。 一类控件用多个id的好处是数据组好过滤。然后开发写代码的时候将这个id写进控件里面, 然后全局拦截所有的点击事件, 加入埋点处理的代码。为了与其他端保持一致的统计方式最后实现的格式如下</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;UIView <span class="variable">page =</span> <span class="string">"XMStoreScrollPageViewController"</span> <span class="variable">pageAttribute =</span></span><br><span class="line">     &#123;<span class="string">"shopId"</span> : <span class="string">"54131c6b0364b0ed8f1ffd90"</span>&#125;&gt;&lt;PTCollectionView&gt;&lt;</span><br><span class="line">    XMHomePageRootShelfModuleItemCell <span class="variable">eventId =</span> <span class="string">"40001"</span> <span class="variable">indexPath =</span> <span class="string">"&#123;4, 0&#125;"</span> <span class="variable">rect =</span></span><br><span class="line">        <span class="string">"&#123;0, 325.5, 276, 183&#125;"</span>&gt;&lt;/ XMHomePageRootShelfModuleItemCell&gt;&lt;/ PTCollectionView&gt;&lt;/ UIView&gt;</span><br></pre></td></tr></table></figure>
+<p>我们只统计到当前ViewController的层，当然如果view没有对应的viewController 那么就使用window当根节点。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/07/iOS-打点统计代码实现/#more">
+              閱讀全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/12/30/UIView和CALayer/">
+                UIView和CALayer
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          發表於 2015-12-30
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/12/30/UIView和CALayer/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/30/UIView和CALayer/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h3 id="UIView">UIView</h3><p>在iOS界面开发中离不开UIView(视图), 所有的可视化控件基本继承来自UIView，UIView就是在屏幕上显示的一个矩形块(比如文字、图片、视频)。可以处理触摸时间，可以支持CoreGraphics绘图，可以做动画。</p>
+<h3 id="CALayer">CALayer</h3><p>CALayer(图层)在概念上和UIView类似，同样是一些被层级关系管理的矩形块，同样也可以包含(比如文字、图片、视频)这些信息。和UIView最大的不同就是不能处理用户的交互</p>
+<h3 id="关系">关系</h3><p>每一个UIView 都有一个CALayer，从代码的角度来分析，应该是试图管理者图层，所有的UIView的动画其实CALayer才是真正的始作俑者，UIView仅仅只是对它的一个封装，而UIView知识体统了iOS中处理触摸的具体功能，还有Core Animation底层方法的高级接口。在MAC开发中我们用的NSView也是如此，那么苹果为什么要在两个不同平台上去封装两个不同类，这主要是试图对用户的动作处理的区别，UIView处理的主要是用户多点触控，NSView处理的是针对对电脑键盘和鼠标的事件。</p>
+<h3 id="CALayer的能力">CALayer的能力</h3>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/23/优雅的description/">
                 优雅的description
               </a>
@@ -819,177 +971,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/07/UIScrollView滚动停止监测/">
-                UIScrollView滚动停止监测
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          發表於 2015-07-07
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分類於
-            
-              <a href="/categories/iOS/">iOS</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/07/UIScrollView滚动停止监测/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/07/UIScrollView滚动停止监测/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>今天在做一个控件的动画，动画需求是这样的，当UICollectionView滚动开始和滚动结束的时候，一个底部控件需要做淡出淡入的效果。</p>
-<p>在iOS中使用UIScrollView的子类的时候，需要知道UIScrollView滚动动画是否结束，一般我们都是通过UIScrollViewDelegate中去寻找方法。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView</span><br></pre></td></tr></table></figure>
-<p>第一眼就相中它了，在我使用的过程中发现，在拖拽UIScrollView之后动画停止的时候，这个函数根本不会触发。翻看了apple给出的文档</p>
-<pre><code><span class="type">The</span> scroll view calls this <span class="keyword">method</span> at the <span class="keyword">end</span> <span class="keyword">of</span> its implementations <span class="keyword">of</span> 
-the setContentOffset:animated: <span class="keyword">and</span> scrollRectToVisible:animated: 
-methods, but only <span class="keyword">if</span> animations are requested.
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/07/07/UIScrollView滚动停止监测/#more">
-              閱讀全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/03/探究NSUserDefaults/">
-                探究NSUserDefaults
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          發表於 2015-07-03
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分類於
-            
-              <a href="/categories/iOS/">iOS</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/03/探究NSUserDefaults/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/探究NSUserDefaults/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>研究NSUserDefaults之前我们首先需要研究的是.plist文件，.plist文件首先是一种用来存储序列化后的对象的文件，对象包括objective-c中的6种基本类型（NSString、NSArray …)。当你在写程序的时候将一些关键数据使用NSUserDefaults保存之后我们会在.plist文件中一一找到它们。</p>
-<h4 id="NSUserDefaults工作原理">NSUserDefaults工作原理</h4><p>Apple 官方文档（一）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">At runtime, you <span class="operator"><span class="keyword">use</span> an NSUserDefaults object <span class="keyword">to</span> <span class="keyword">read</span> the defaults that your </span><br><span class="line">application uses <span class="keyword">from</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>. NSUserDefaults caches </span><br><span class="line">the information <span class="keyword">to</span> avoid <span class="keyword">having</span> <span class="keyword">to</span> <span class="keyword">open</span> the <span class="keyword">user</span>’s defaults <span class="keyword">database</span> </span><br><span class="line"><span class="keyword">each</span> <span class="keyword">time</span> you need a <span class="keyword">default</span> <span class="keyword">value</span>. The synchronize method, which <span class="keyword">is</span> </span><br><span class="line">automatically invoked <span class="keyword">at</span> periodic intervals, keeps the <span class="keyword">in</span>-memory <span class="keyword">cache</span>  </span><br><span class="line"><span class="keyword">in</span> sync <span class="keyword">with</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>.</span></span><br></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/07/03/探究NSUserDefaults/#more">
-              閱讀全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1028,7 +1009,7 @@ methods, but only <span class="keyword">if</span> animations are requested.
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
@@ -1042,7 +1023,7 @@ methods, but only <span class="keyword">if</span> animations are requested.
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">標籤</span>
               </a>
           </div>
@@ -1077,7 +1058,7 @@ methods, but only <span class="keyword">if</span> animations are requested.
         <div class="copyright">
   
   &copy; &nbsp; 
-  2015
+  2016
   <span class="with-love">
     <i class="icon-heart"></i>
   </span>
