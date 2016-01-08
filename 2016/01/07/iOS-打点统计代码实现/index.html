@@ -226,7 +226,7 @@
 <li>@DDlogVerbose</li>
 </ul>
 <p>其实这种标记方式跟我们打点统计好像没有什么关系，后来我们将DDLog重新封装了下，添加一个级别 Statistic 的等级。以便之后日志分析系统方便查看和分析。</p>
-<p><img src="/images/2016-1-8-PTAnalytics-1"></p>
+<p><img src="/images/2016-1-8-PTAnalytics-1.png"></p>
 <h3 id="优化">优化</h3><p>这种打点方式的一个缺陷是在你给一个按键添加一个点击事件的时候就需要将对应的方法加入到你的文件列表中。在iOS中有这么一个函数,所有UI事件都会经过这个函数,补充: 实际测试发现对 UICollectionView, UITableView等 控件要做额外的 Hook。</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">［UIApplication <span class="string">sendAction:</span><span class="string">to:</span><span class="string">from:</span><span class="string">forEvent:</span>］</span><br></pre></td></tr></table></figure>
 <p>可以将PTAnalytics.m做如下修改</p>
