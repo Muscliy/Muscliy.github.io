@@ -211,7 +211,7 @@
 <p>控制backing image(寄宿图) 的像素和试图大小的比例，但是他总不会寄宿图有影响，如果你尝试的改变他的值，如果你设置了contentsGravity 属性为(<code>resize&#39;,</code>resizeAspect’, `resizeAspectFill’) ，那么你会发现根本没有起到任何的作用。但是并不代表放大图片就走不通了，还可以通过transform和affineTransform 属性来达到这个目的。在后面会详细做介绍。</p>
 <p>contentsScale 设置为1.0， 试图将会以每个点1个像素值来绘制图片，如果是2.0，就会按照每个点2个像素来绘制图片了，这就是我们所说的Retina屏幕和非Retain图片的区别了。Paintcode网站上这篇博文说的不错 <a href="http://www.paintcodeapp.com/news/iphone-6-screens-demystified" target="_blank" rel="external">iphone-6-screens-demystified</a></p>
 <p>因为contentsScale defaults in one 将contentsGravity 设置为center，那么我们做小面的对比，scale分别是1.0，2.0，3.0</p>
-<table><br> <tr><br>  <td><img src="/images/2016-1-15-iOS-Core-Animation-1-3.png" width="222" height="125"></td><br>  <td><img src="/images/2016-1-15-iOS-Core-Animation-1-4.png" width="222" height="125"></td><br> </tr><br> <tr><br>     <td><img src="/images/2016-1-15-iOS-Core-Animation-1-5.png" width="222" height="125"></td><br> </tr><br></table>
+<table><br> <tr><br>  <td><img src="/images/2016-1-15-iOS-Core-Animation-1-3.png" width="222" height="125"></td><br>  <td><img src="/images/2016-1-15-iOS-Core-Animation-1-4.png" width="222" height="125"></td><br>   <td><img src="/images/2016-1-15-iOS-Core-Animation-1-5.png" width="222" height="125"></td><br> </tr><br></table>
 
 
 <p>如果你要根据当前屏幕分辨率放大倍数来给contentScale赋值的话，代码如下</p>
