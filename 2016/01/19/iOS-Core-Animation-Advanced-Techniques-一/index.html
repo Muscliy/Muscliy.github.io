@@ -1,0 +1,614 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="学习总结 思考感悟 知识管理" />
+
+
+
+  <meta name="keywords" content="QuartzCore," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      google: ''
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?8c7d0a701bffd6b100d7b0d874d9f6b3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> iOS Core Animation Advanced Techniques (一) // LeeHu的博客 </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">LeeHu的博客</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            關於
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              iOS Core Animation Advanced Techniques (一)
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          發表於 2016-01-19
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/01/19/iOS-Core-Animation-Advanced-Techniques-一/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/19/iOS-Core-Animation-Advanced-Techniques-一/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <h3 id="引言">引言</h3><p>这只是一篇看完《iOS Core Animation Advanced Techniques》书的一个摘要，并不是一篇翻译，书籍的可读性非常高，很多基础不扎实的iOS 开发者都缺少的一块知识的补充。</p>
+<h3 id="UIView">UIView</h3><p>在iOS界面开发中离不开UIView(视图), 所有的可视化控件基本继承来自UIView，UIView就是在屏幕上显示的一个矩形块(比如文字、图片、视频)。可以处理触摸时间，可以支持CoreGraphics绘图，可以做动画。</p>
+<h3 id="CALayer">CALayer</h3><p>CALayer(图层)在概念上和UIView类似，同样是一些被层级关系管理的矩形块，同样也可以包含(比如文字、图片、视频)这些信息。和UIView最大的不同就是不能处理用户的交互</p>
+<h3 id="关系">关系</h3><p>每一个UIView 都有一个CALayer，从代码的角度来分析，应该是试图管理者图层，所有的UIView的动画其实CALayer才是真正的始作俑者，UIView仅仅只是对它的一个封装，而UIView知识体统了iOS中处理触摸的具体功能，还有Core Animation底层方法的高级接口。在MAC开发中我们用的NSView也是如此，那么苹果为什么要在两个不同平台上去封装两个不同类，这主要是试图对用户的动作处理的区别，UIView处理的主要是用户多点触控，NSView处理的是针对对电脑键盘和鼠标的事件。</p>
+<a id="more"></a>
+<h3 id="CALayer的能力">CALayer的能力</h3><h6 id="contents">contents</h6><hr>
+<p>contents的属性类型是id，也就意味着他可以是任何类型的对象，比如我们需要给一个layer设置一张图片的时候就可以使用下面的方式</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/* An object providing <span class="keyword">the</span> <span class="property">contents</span> <span class="keyword">of</span> <span class="keyword">the</span> layer, typically a CGImageRef,</span><br><span class="line"> * <span class="keyword">but</span> may be something <span class="keyword">else</span>. (For example, NSImage objects are</span><br><span class="line"> * supported <span class="function_start"><span class="keyword">on</span></span> Mac OS X <span class="number">10.6</span> <span class="keyword">and</span> later.) Default value <span class="keyword">is</span> nil.</span><br><span class="line"> * Animatable. */</span><br><span class="line"></span><br><span class="line">layer.<span class="property">contents</span> = (__bridge <span class="property">id</span>)image.CGImage;</span><br></pre></td></tr></table></figure>
+<p>因为cocoa部分是支持apple跨平台的，UIImage知识基于iOS系统给CGImage分装的类，但是CGImageRef并不是一个真正的Cocoa对象，而是一个Core Foundation类型，，如果你没有使用ARC模式，就不需要转换，如果是ARC模式他们之间可以通过__bridge来转换。</p>
+<h6 id="contentGravity">contentGravity</h6><hr>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/* <span class="type">A</span> <span class="built_in">string</span> defining how the contents <span class="keyword">of</span> the layer is mapped into its</span><br><span class="line"> * bounds rect. <span class="type">Options</span> are `center', `top', `bottom', `left',</span><br><span class="line"> * `right', `topLeft', `topRight', `bottomLeft', `bottomRight',</span><br><span class="line"> * `resize', `resizeAspect', `resizeAspectFill'. <span class="type">The</span> default <span class="keyword">value</span> is</span><br><span class="line"> * `resize'. <span class="type">Note</span> that <span class="string">"bottom"</span> always means <span class="string">"Minimum Y"</span> <span class="keyword">and</span> <span class="string">"top"</span></span><br><span class="line"> * always means <span class="string">"Maximum Y"</span>. */</span><br></pre></td></tr></table></figure>
+<p>这个和UIImageView 的contentMode 是一样的。下面对照图片可以看出来</p>
+<p><img src="/images/2016-1-15-iOS-Core-Animation-1-1.png" width="335" height="188"><br><img src="/images/2016-1-15-iOS-Core-Animation-1-2.png" width="335" height="188"></p>
+<h6 id="contentsScale">contentsScale</h6><hr>
+<p>控制backing image(寄宿图) 的像素和试图大小的比例，但是他总不会寄宿图有影响，如果你尝试的改变他的值，如果你设置了contentsGravity 属性为(<code>resize&#39;,</code>resizeAspect’, `resizeAspectFill’) ，那么你会发现根本没有起到任何的作用。但是并不代表放大图片就走不通了，还可以通过transform和affineTransform 属性来达到这个目的。在后面会详细做介绍。</p>
+<p>contentsScale 设置为1.0， 试图将会以每个点1个像素值来绘制图片，如果是2.0，就会按照每个点2个像素来绘制图片了，这就是我们所说的Retina屏幕和非Retain图片的区别了。Paintcode网站上这篇博文说的不错 <a href="http://www.paintcodeapp.com/news/iphone-6-screens-demystified" target="_blank" rel="external">iphone-6-screens-demystified</a></p>
+<p>因为contentsScale defaults in one 将contentsGravity 设置为center，那么我们做小面的对比，scale分别是1.0，2.0，3.0</p>
+<p><img src="/images/2016-1-15-iOS-Core-Animation-1-3.png" width="222" height="125"><br><img src="/images/2016-1-15-iOS-Core-Animation-1-4.png" width="222" height="125"><br><img src="/images/2016-1-15-iOS-Core-Animation-1-5.png" width="222" height="125"></p>
+<p>如果你要根据当前屏幕分辨率放大倍数来给contentScale赋值的话，代码如下</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">layer.contentsScale = [UIScreen mainScreen].scale<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<h6 id="maskToBounds">maskToBounds</h6><hr>
+<p>这个属性在我们设置试图的圆角的时候会用的。masksToBounds还有个功能是和UIView中的clipsToBounds 功能是一样的，它用来决定是否显示超出图层显示范围的内容。</p>
+<h6 id="contentsRect">contentsRect</h6><p>—<br>contentsRect可以让我们只显示寄宿图片的一部分，可以控制图片是怎么显示和拉伸的。默认值是{0, 0, 1, 1}，如果我们想要指定一个小一点的矩形图片显示区域，图片就会像下图一样被裁减</p>
+<p><img src="/images/2016-1-15-iOS-Core-Animation-1-6.png"></p>
+<p>当然你可以设置大于{1，1}的尺寸，这样的话图片占图层的区域会小一点。这个功能在游戏图片拼合上面用处比较大。</p>
+<h6 id="contentsCenter">contentsCenter</h6><hr>
+<p>这个属性的命名方式个人觉得在apple中是不合理的，起初我以为是一个pointer。没想到是一个CGRect类型，它的作用是指定图层可拉伸的区域。效果和UIImage里的- resizableImageWithCapInsets: 方法效果非常类似</p>
+<p><img src="/images/2016-1-15-iOS-Core-Animation-1-7.png" width="222"><br><img src="/images/2016-1-15-iOS-Core-Animation-1-8.png" width="222"></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> () </span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIView</span> *button1; </span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIView</span> *button2; </span><br><span class="line"><span class="keyword">@end</span> </span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line">- (<span class="keyword">void</span>)addStretchableImage:(<span class="built_in">UIImage</span> *)image</span><br><span class="line">          withContentCenter:(<span class="built_in">CGRect</span>)rect</span><br><span class="line">                    toLayer:(<span class="built_in">CALayer</span> *)layer &#123;</span><br><span class="line">  <span class="comment">// set image</span></span><br><span class="line">  layer<span class="variable">.contents</span> = (__bridge <span class="keyword">id</span>)image<span class="variable">.CGImage</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// set contentsCenter</span></span><br><span class="line">  layer<span class="variable">.contentsCenter</span> = rect;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">  [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// load button image</span></span><br><span class="line">  <span class="built_in">UIImage</span> *image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"Button.png"</span>];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// set button 1</span></span><br><span class="line">  [<span class="keyword">self</span> addStretchableImage:image</span><br><span class="line">          withContentCenter:<span class="built_in">CGRectMake</span>(<span class="number">0.25</span>, <span class="number">0.25</span>, <span class="number">0.5</span>, <span class="number">0.5</span>)</span><br><span class="line">                    toLayer:<span class="keyword">self</span><span class="variable">.button1</span><span class="variable">.layer</span>];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// set button 2</span></span><br><span class="line">  [<span class="keyword">self</span> addStretchableImage:image</span><br><span class="line">          withContentCenter:<span class="built_in">CGRectMake</span>(<span class="number">0.25</span>, <span class="number">0.25</span>, <span class="number">0.5</span>, <span class="number">0.5</span>)</span><br><span class="line">                    toLayer:<span class="keyword">self</span><span class="variable">.button2</span><span class="variable">.layer</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h6 id="Custom_Drawing">Custom Drawing</h6><hr>
+<p>给一个layer设置一张寄宿图片，除了contents设置CGImage的方法外，当然还可以用Core Graphics直接绘制寄宿图，通过继承UIView并实现 -drawRect:方法来自定义绘制。</p>
+<p>-drawRect: 方法没有默认的实现，因为对UIView来说，寄宿图并不是必须的，它不在意那到底是单调 的颜色还是有一个图片的实例。如果UIView检测到 -drawRect: 方法被调用了，它就会为视图分配一个寄 宿图，这个寄宿图的像素尺寸等于视图大小乘以 contentsScale 的值。</p>
+<p>如果你不需要展示寄宿图的话就不要重构这方法，它会造成CPU资源和内存的浪费，apple公司的文档也是这么建议的：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">method</span> <span class="keyword">in</span> your layer subclasses <span class="keyword">if</span> you don’t intend to <span class="keyword">do</span> <span class="type">any</span> custom drawing.</span><br></pre></td></tr></table></figure>
+<p>虽然-drawRect: 方法是UIView方法，事实上都是底层CALayer安排重绘工作和保存因此产生的图片。</p>
+<p>当然CALayer也是有自己重绘的方式的，CALayer有一个delegate属性，实现了CALayerDelegate协议，这是一个非正式协议，你只需要调用非正式协议（类别中方法）CALayer就会帮你做剩下的事情了。</p>
+<p>当需要重绘的时候，CALayer会请求他的代理给他一个寄宿图来显示，通过下面方法来实现</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="pp">- <span class="params">(void)</span>displayLayer:<span class="params">(<span class="variable">CALayer</span> *)</span>layer</span></span><br></pre></td></tr></table></figure>
+<p>如果没有实现上面方法，CALayer会去尝试调用下面这个方法</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="pp">- <span class="params">(void)</span>drawLayer:<span class="params">(<span class="variable">CALayer</span> *)</span>layer inContext:<span class="params">(<span class="variable">CGContextRef</span>)</span>ctx</span></span><br></pre></td></tr></table></figure>
+<p>实现CALayerDelegate</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">  [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line"></span><br><span class="line">  _blueView = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">200</span>, <span class="number">200</span>)];</span><br><span class="line">  _blueView<span class="variable">.center</span> = <span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetWidth</span>(<span class="keyword">self</span><span class="variable">.view</span><span class="variable">.bounds</span>) / <span class="number">2.0</span>,</span><br><span class="line">                                 <span class="built_in">CGRectGetHeight</span>(<span class="keyword">self</span><span class="variable">.view</span><span class="variable">.bounds</span>) / <span class="number">2.0</span>);</span><br><span class="line">  _blueView<span class="variable">.backgroundColor</span> = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">  [<span class="keyword">self</span><span class="variable">.view</span> addSubview:_blueView];</span><br><span class="line"></span><br><span class="line">  <span class="built_in">CALayer</span> *blueLayer = [[<span class="built_in">CALayer</span> alloc] init];</span><br><span class="line">  blueLayer<span class="variable">.frame</span> = <span class="built_in">CGRectMake</span>(<span class="number">50</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">  blueLayer<span class="variable">.contentsScale</span> = [<span class="built_in">UIScreen</span> mainScreen]<span class="variable">.scale</span>;</span><br><span class="line">  blueLayer<span class="variable">.backgroundColor</span> = [<span class="built_in">UIColor</span> blueColor]<span class="variable">.CGColor</span>;</span><br><span class="line">  blueLayer<span class="variable">.delegate</span> = <span class="keyword">self</span>;</span><br><span class="line">  [_blueView<span class="variable">.layer</span> addSublayer:blueLayer];</span><br><span class="line">  [blueLayer display];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#pragma mark - CALayerDelegate</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//- (void)displayLayer:(CALayer *)layer &#123;</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)drawLayer:(<span class="built_in">CALayer</span> *)layer inContext:(<span class="built_in">CGContextRef</span>)ctx &#123;</span><br><span class="line">  <span class="built_in">CGContextSetLineWidth</span>(ctx, <span class="number">5.0</span>);</span><br><span class="line">  <span class="built_in">CGContextSetStrokeColorWithColor</span>(ctx, [<span class="built_in">UIColor</span> redColor]<span class="variable">.CGColor</span>);</span><br><span class="line">  <span class="built_in">CGContextStrokeEllipseInRect</span>(ctx, layer<span class="variable">.bounds</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/2016-1-15-iOS-Core-Animation-1-9.png"></p>
+
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/QuartzCore/"> #QuartzCore </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/07/iOS-打点统计代码实现/">iOS 打点统计代码实现</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2016/01/19/iOS-Core-Animation-Advanced-Techniques-一/"
+               data-title="iOS Core Animation Advanced Techniques (一)" data-url="http://yoursite.com/2016/01/19/iOS-Core-Animation-Advanced-Techniques-一/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="LeeHu" />
+          <p class="site-author-name">LeeHu</p>
+        </div>
+        <p class="site-description motion-element">学习总结 思考感悟 知识管理</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-name">分類</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">標籤</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+        
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIView"><span class="nav-number">2.</span> <span class="nav-text">UIView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CALayer"><span class="nav-number">3.</span> <span class="nav-text">CALayer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关系"><span class="nav-number">4.</span> <span class="nav-text">关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CALayer的能力"><span class="nav-number">5.</span> <span class="nav-text">CALayer的能力</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#contents"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">contents</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#contentGravity"><span class="nav-number">5.0.0.2.</span> <span class="nav-text">contentGravity</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#contentsScale"><span class="nav-number">5.0.0.3.</span> <span class="nav-text">contentsScale</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#maskToBounds"><span class="nav-number">5.0.0.4.</span> <span class="nav-text">maskToBounds</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#contentsRect"><span class="nav-number">5.0.0.5.</span> <span class="nav-text">contentsRect</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#contentsCenter"><span class="nav-number">5.0.0.6.</span> <span class="nav-text">contentsCenter</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Custom_Drawing"><span class="nav-number">5.0.0.7.</span> <span class="nav-text">Custom Drawing</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">LeeHu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.3"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.3"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.3" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.3" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"LeeHu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+
+</body>
+</html>

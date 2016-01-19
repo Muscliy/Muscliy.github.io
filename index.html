@@ -164,6 +164,79 @@
           
           
             
+              <a class="post-title-link" href="/2016/01/19/iOS-Core-Animation-Advanced-Techniques-一/">
+                iOS Core Animation Advanced Techniques (一)
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          發表於 2016-01-19
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/01/19/iOS-Core-Animation-Advanced-Techniques-一/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/19/iOS-Core-Animation-Advanced-Techniques-一/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h3 id="引言">引言</h3><p>这只是一篇看完《iOS Core Animation Advanced Techniques》书的一个摘要，并不是一篇翻译，书籍的可读性非常高，很多基础不扎实的iOS 开发者都缺少的一块知识的补充。</p>
+<h3 id="UIView">UIView</h3><p>在iOS界面开发中离不开UIView(视图), 所有的可视化控件基本继承来自UIView，UIView就是在屏幕上显示的一个矩形块(比如文字、图片、视频)。可以处理触摸时间，可以支持CoreGraphics绘图，可以做动画。</p>
+<h3 id="CALayer">CALayer</h3><p>CALayer(图层)在概念上和UIView类似，同样是一些被层级关系管理的矩形块，同样也可以包含(比如文字、图片、视频)这些信息。和UIView最大的不同就是不能处理用户的交互</p>
+<h3 id="关系">关系</h3><p>每一个UIView 都有一个CALayer，从代码的角度来分析，应该是试图管理者图层，所有的UIView的动画其实CALayer才是真正的始作俑者，UIView仅仅只是对它的一个封装，而UIView知识体统了iOS中处理触摸的具体功能，还有Core Animation底层方法的高级接口。在MAC开发中我们用的NSView也是如此，那么苹果为什么要在两个不同平台上去封装两个不同类，这主要是试图对用户的动作处理的区别，UIView处理的主要是用户多点触控，NSView处理的是针对对电脑键盘和鼠标的事件。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/19/iOS-Core-Animation-Advanced-Techniques-一/#more">
+              閱讀全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2016/01/07/iOS-打点统计代码实现/">
                 iOS 打点统计代码实现
               </a>
@@ -219,74 +292,6 @@
               閱讀全文 &raquo;
             </a>
           </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/30/UIView和CALayer/">
-                UIView和CALayer
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          發表於 2015-12-30
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/12/30/UIView和CALayer/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/30/UIView和CALayer/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h3 id="UIView">UIView</h3><p>在iOS界面开发中离不开UIView(视图), 所有的可视化控件基本继承来自UIView，UIView就是在屏幕上显示的一个矩形块(比如文字、图片、视频)。可以处理触摸时间，可以支持CoreGraphics绘图，可以做动画。</p>
-<h3 id="CALayer">CALayer</h3><p>CALayer(图层)在概念上和UIView类似，同样是一些被层级关系管理的矩形块，同样也可以包含(比如文字、图片、视频)这些信息。和UIView最大的不同就是不能处理用户的交互</p>
-<h3 id="关系">关系</h3><p>每一个UIView 都有一个CALayer，从代码的角度来分析，应该是试图管理者图层，所有的UIView的动画其实CALayer才是真正的始作俑者，UIView仅仅只是对它的一个封装，而UIView知识体统了iOS中处理触摸的具体功能，还有Core Animation底层方法的高级接口。在MAC开发中我们用的NSView也是如此，那么苹果为什么要在两个不同平台上去封装两个不同类，这主要是试图对用户的动作处理的区别，UIView处理的主要是用户多点触控，NSView处理的是针对对电脑键盘和鼠标的事件。</p>
-<h3 id="CALayer的能力">CALayer的能力</h3>
         
       
     </div>
@@ -1023,7 +1028,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">標籤</span>
               </a>
           </div>
