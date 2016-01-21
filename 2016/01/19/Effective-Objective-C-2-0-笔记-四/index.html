@@ -1,0 +1,636 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="学习总结 思考感悟 知识管理" />
+
+
+
+  <meta name="keywords" content="Effective Objective-C,Objective-C," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      google: ''
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?8c7d0a701bffd6b100d7b0d874d9f6b3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> Effective Objective-C 2.0 笔记(四) // LeeHu的博客 </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">LeeHu的博客</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            關於
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Effective Objective-C 2.0 笔记(四)
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          發表於 2016-01-19
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分類於
+            
+              <a href="/categories/iOS/">iOS</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/01/19/Effective-Objective-C-2-0-笔记-四/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/19/Effective-Objective-C-2-0-笔记-四/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <h3 id="通过委托与数据源协议进行对象间通信">通过委托与数据源协议进行对象间通信</h3><hr>
+<p>委托（delegate）与 数据源（data source）， 在iOS控件中最为代表性的控件就是UITableView，它定义了一套接口， 某个对象想要接受UITableView 的委托就需要遵从这些接口，这样的话UITableview就可以给委托对象回传一些消息，比如cell的点击相应。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>, nullable) <span class="keyword">id</span> &lt;<span class="built_in">UITableViewDataSource</span>&gt; dataSource;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>, nullable) <span class="keyword">id</span> &lt;<span class="built_in">UITableViewDelegate</span>&gt; delegate;</span><br></pre></td></tr></table></figure>
+<p>检查某个委托的对象是否相应特定的选择子，通常是这样实现</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">if</span> ([delegate <span class="attribute">respondsToSelector</span>:<span class="variable">@selector</span>(someClassDidSomething)]) &#123;</span><br><span class="line">    <span class="attr_selector">[delegate someClassDidSomething]</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>但是如果我们频繁执行此操作的话，那么除了第一次检测的结果有用之外，后续的检测可能都是多余的。鉴于此，我们通常把委托对象能否响应某个协议方法这一信息缓存起来，以优化程序效率。apple官方通常使用结构来缓存。</p>
+<a id="more"></a>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">struct &#123;</span><br><span class="line">        <span class="typename">int</span> <span class="string">tableViewHeightForRowAtIndexPath :</span> <span class="number">1</span>;</span><br><span class="line">        <span class="typename">int</span> <span class="string">tableViewHeightForHeaderInSection :</span> <span class="number">1</span>;</span><br><span class="line">        <span class="typename">int</span> <span class="string">tableViewHeightForFooterInSection :</span> <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="typename">int</span> <span class="string">tableViewViewForHeaderInSection :</span> <span class="number">1</span>;</span><br><span class="line">        <span class="typename">int</span> <span class="string">tableViewViewForFooterInSection :</span> <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="typename">int</span> <span class="string">tableViewWillDisplayCellForRowAtIndexPath :</span> <span class="number">1</span>;</span><br><span class="line">        <span class="typename">int</span> <span class="string">tableViewDidEndDisplayingCellForRowAtIndexPath :</span> <span class="number">1</span>;</span><br><span class="line">        <span class="typename">int</span> <span class="string">tableViewDidEndDisplayingHeaderViewForSection :</span> <span class="number">1</span>;</span><br><span class="line">        <span class="typename">int</span> <span class="string">tableViewDidEndDisplayingFooterViewForSection :</span> <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="typename">int</span> <span class="string">tableViewWillSelectRowAtIndexPath :</span> <span class="number">1</span>;</span><br><span class="line">        <span class="typename">int</span> <span class="string">tableViewDidSelectRowAtIndexPath :</span> <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="typename">int</span> <span class="string">tableViewWillDeselectRowAtIndexPath :</span> <span class="number">1</span>;</span><br><span class="line">        <span class="typename">int</span> <span class="string">tableViewDidDeselectRowAtIndexPath :</span> <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="typename">int</span> <span class="string">tableViewEditingStyleForRowAtIndexPath :</span> <span class="number">1</span>;</span><br><span class="line">    &#125; _delegateRespondsTo;</span><br></pre></td></tr></table></figure>
+<p>实现缓存功能的代码可以在写delegate属性对应的函数中实现</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="typename">void</span>)<span class="string">setDelegate:</span>(id&lt;UITableViewDelegate&gt;)delegate &#123;</span><br><span class="line">  [<span class="keyword">super</span> <span class="string">setDelegate:</span>delegate];</span><br><span class="line"></span><br><span class="line">  _delegateRespondsTo.tableViewHeightForRowAtIndexPath = [delegate</span><br><span class="line"><span class="label">      respondsToSelector:</span><span class="annotation">@selector</span>(<span class="string">tableView:</span><span class="string">heightForRowAtIndexPath:</span>)];</span><br><span class="line">  _delegateRespondsTo.tableViewHeightForHeaderInSection = [delegate</span><br><span class="line"><span class="label">      respondsToSelector:</span><span class="annotation">@selector</span>(<span class="string">tableView:</span><span class="string">heightForHeaderInSection:</span>)];</span><br><span class="line">  _delegateRespondsTo.tableViewHeightForFooterInSection = [delegate</span><br><span class="line"><span class="label">      respondsToSelector:</span><span class="annotation">@selector</span>(<span class="string">tableView:</span><span class="string">heightForFooterInSection:</span>)];</span><br><span class="line"></span><br><span class="line">  _delegateRespondsTo.tableViewViewForHeaderInSection = [delegate</span><br><span class="line"><span class="label">      respondsToSelector:</span><span class="annotation">@selector</span>(<span class="string">tableView:</span><span class="string">viewForHeaderInSection:</span>)];</span><br><span class="line">  _delegateRespondsTo.tableViewViewForFooterInSection = [delegate</span><br><span class="line"><span class="label">      respondsToSelector:</span><span class="annotation">@selector</span>(<span class="string">tableView:</span><span class="string">viewForFooterInSection:</span>)];</span><br><span class="line"></span><br><span class="line">  _delegateRespondsTo.tableViewWillDisplayCellForRowAtIndexPath =</span><br><span class="line">      [delegate <span class="string">respondsToSelector:</span><span class="annotation">@selector</span>(<span class="string">tableView:</span></span><br><span class="line"><span class="label">                                         willDisplayCell:</span></span><br><span class="line"><span class="label">                                       forRowAtIndexPath:</span>)];</span><br><span class="line">  _delegateRespondsTo.tableViewDidEndDisplayingCellForRowAtIndexPath =</span><br><span class="line">      [delegate <span class="string">respondsToSelector:</span><span class="annotation">@selector</span>(<span class="string">tableView:</span></span><br><span class="line"><span class="label">                                       didEndDisplayingCell:</span></span><br><span class="line"><span class="label">                                          forRowAtIndexPath:</span>)];</span><br><span class="line"></span><br><span class="line">  _delegateRespondsTo.tableViewWillSelectRowAtIndexPath = [delegate</span><br><span class="line"><span class="label">      respondsToSelector:</span><span class="annotation">@selector</span>(<span class="string">tableView:</span><span class="string">willSelectRowAtIndexPath:</span>)];</span><br><span class="line">  _delegateRespondsTo.tableViewDidSelectRowAtIndexPath = [delegate</span><br><span class="line"><span class="label">      respondsToSelector:</span><span class="annotation">@selector</span>(<span class="string">tableView:</span><span class="string">didSelectRowAtIndexPath:</span>)];</span><br><span class="line">  _delegateRespondsTo.tableViewDidEndDisplayingHeaderViewForSection =</span><br><span class="line">      [delegate <span class="string">respondsToSelector:</span><span class="annotation">@selector</span>(<span class="string">tableView:</span></span><br><span class="line"><span class="label">                                       didEndDisplayingHeaderView:</span></span><br><span class="line"><span class="label">                                                       forSection:</span>)];</span><br><span class="line">  _delegateRespondsTo.tableViewDidEndDisplayingFooterViewForSection =</span><br><span class="line">      [delegate <span class="string">respondsToSelector:</span><span class="annotation">@selector</span>(<span class="string">tableView:</span></span><br><span class="line"><span class="label">                                       didEndDisplayingFooterView:</span></span><br><span class="line"><span class="label">                                                       forSection:</span>)];</span><br><span class="line"></span><br><span class="line">  _delegateRespondsTo.tableViewWillDeselectRowAtIndexPath = [delegate</span><br><span class="line"><span class="label">      respondsToSelector:</span><span class="annotation">@selector</span>(<span class="string">tableView:</span><span class="string">willDeselectRowAtIndexPath:</span>)];</span><br><span class="line">  _delegateRespondsTo.tableViewDidDeselectRowAtIndexPath = [delegate</span><br><span class="line"><span class="label">      respondsToSelector:</span><span class="annotation">@selector</span>(<span class="string">tableView:</span><span class="string">didDeselectRowAtIndexPath:</span>)];</span><br><span class="line"></span><br><span class="line">  _delegateRespondsTo.tableViewEditingStyleForRowAtIndexPath = [delegate</span><br><span class="line"><span class="label">      respondsToSelector:</span><span class="annotation">@selector</span>(<span class="string">tableView:</span><span class="string">editingStyleForRowAtIndexPath:</span>)];</span><br><span class="line"></span><br><span class="line">  [self _setNeedsReload];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="将类的实现代码分散到便于管理的数个分类之中">将类的实现代码分散到便于管理的数个分类之中</h3><hr>
+<p>经常我们会遇到一个类，会出来很多的函数。所有的代码都可能写在一个大文件中，如果还向类中添加方法的话，那么源代码文件会越来越大，代码的可读性也对来越差，拿UIView举个例子。</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> <span class="function">UIView</span>(UIViewGeometry)</span><br><span class="line"><span class="comment">//和位置坐标相关的操作函数</span></span><br><span class="line"><span class="variable">@end</span></span><br><span class="line"></span><br><span class="line"><span class="variable">@interface</span> <span class="function">UIView</span>(UIViewHierarchy)</span><br><span class="line"><span class="comment">//和试图结构层次相关的函数</span></span><br><span class="line"><span class="variable">@end</span></span><br><span class="line"></span><br><span class="line"><span class="variable">@interface</span> <span class="function">UIView</span>(UIViewAnimation)</span><br><span class="line"><span class="comment">//和动画相关的函数</span></span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>
+<p>即使类本身不是太大，我们也可以使用分类机制将其切割成几块，把相应代码归入不同的“功能区”中。</p>
+<h3 id="总是为第三方类的分类名称前加前缀">总是为第三方类的分类名称前加前缀</h3><p>如果是你自己需要给一个类添加类别，那么在他的方法名称前加前缀。例如你要给NSString 添加一个HTTP的类别方法避免使用下面方式</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> <span class="function">NSString</span>(HTTP)</span><br><span class="line"></span><br><span class="line">- (NSString *) urlEncodeString</span><br><span class="line"></span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>
+<p>一个是因为容易和第三方库中的其他NSString类别中的urlEncodeString方法造成冲突。还有个是objective-c版本升级之后再他是实现方法中可能会有这个方法，下面的方式才是推荐的</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> <span class="function">NSString</span>(ABC_HTTP)</span><br><span class="line"></span><br><span class="line">- (NSString *) abc_urlEncodeString</span><br><span class="line"></span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>
+<h3 id="勿在分类中声明属性">勿在分类中声明属性</h3><hr>
+<p>在平时开发中我自己也经常在分类中添加方法，比如在给一个UIView定义一个eventId,可以用作打点统计，如果不在类别中添加，那么需要将UIView在封装一层，添加一个属性了，而且你每次需要创建打点事件的view时你都需要先继承你封装过后的View，更麻烦的是当你遇到cell的时候你不得不在封一次。这样的做法可能很愚蠢，虽然标题中说不要在分类中声明属性，我想应该是尽量避免，毕竟在类别中定义一个属性是被允许的，那么好东西都是要用在刀刃上的，而且现在是ARC的时代了，不用手动去管理内存，文章中说道“给类别添加一个属性，在内存管理问题上容易出错，因为在实现存取的时候经常会忘记遵从其内存管理语义”。</p>
+<h3 id="使用“class-continuation分类”隐藏实现细节">使用“class-continuation分类”隐藏实现细节</h3><hr>
+<p>“class-continuation分类”，一个没有名字的类别</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> <span class="function">ECOPerson</span>()</span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>
+<p>用法一：可以在“class-continuation分类”中定义一些实例变量、私有的方法，只有类的内部能看到这些属性的，做到保密性。代码的可读性也比较高。<br>用法二：将public接口中声明为只读的属性，扩展为“可读写”，这样在实现文件中就可以任意修改属性的值了，但是该属性需要做同步机制，因为当观察者正在读取属性值而内部代码又在写入该属性时，可能引发“竞争条件”。</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> <span class="attribute">ECOPerson</span>:NSObject</span><br><span class="line"></span><br><span class="line"><span class="variable">@property</span> (nonatomic, readonly) NSString *firstName;</span><br><span class="line"></span><br><span class="line"><span class="variable">@end</span></span><br><span class="line"></span><br><span class="line"><span class="variable">@interface</span> <span class="function">ECOPerson</span>()</span><br><span class="line"></span><br><span class="line"><span class="variable">@property</span> (nonatomic, readwrite) NSString *firstName;</span><br><span class="line"></span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>
+<p>用法三：协议私有性，有时我们并不希望在公共的接口中泄露了类遵从了摸个协议，比方说ECOPerson遵从了ECOSecretDelegate协议，如果声明在公共接口里就像下面的</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> <span class="attribute">ECOPerson</span>:NSObject&lt;ECOSecretDelegate&gt;</span><br><span class="line"></span><br><span class="line"><span class="variable">@property</span> (nonatomic, readonly) NSString *firstName;</span><br><span class="line"></span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>
+<p>这样写的话你还需要import “ECOSecretDelegate.h”到你头文件中，有人说可以使用@protocol ECOSecretDelegate来避免写import， 但是只要引入ECOPerson头文件的地方，编译器都会给出下面的警告</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">warnin<span class="variable">g:</span> cannot <span class="keyword">find</span> protocol definition <span class="keyword">for</span> <span class="string">"ECOSecretDelegate"</span></span><br></pre></td></tr></table></figure>
+<p>如果将delegate声明在class-continuation中就可以避免这些问题了</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> <span class="function">ECOPerson</span>()&lt;ECOSecretDelegate&gt;</span><br><span class="line"></span><br><span class="line"><span class="variable">@property</span> (nonatomic, readwrite) NSString *firstName;</span><br><span class="line"></span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>
+<h3 id="理解引用计数">理解引用计数</h3><hr>
+<p>随着Objective-C的更新和优化，现在使用非ARC已经很少了，但是这块东西始终不能忘记，因为它对学号Objective-C来说十分重要。很多细节如果说清楚可能需要写一本好长好长的博客，我们只需要理顺书本中所说的内容就可以了如果想深入理解引用计数的原理请看<a href="http://yulingtianxia.com/blog/2015/12/06/The-Principle-of-Refenrence-Counting/" target="_blank" rel="external">玉令天下的博客</a>。</p>
+<p><img src="/images/2016-1-21-effective-4-1.png"></p>
+<p>如上图中，ObjectB 与 ObjectC都引用了ObjectA。若ObjectB与ObjectC都不在使用ObjectA， 则其保留计数降为0， 于是便可摧毁了，还有其他对象想令ObjectB与ObjectC继续存活，而应用程序里又有另外一些对象想令那些对象继续存活。如果按“引用树”回溯，那么最终会发现一个“根对象”在Mac OS X应用程序中，此对象就是NSApplication对象，而在iOS应用程序中，则是UIApplication对象。两者都是应用程序启动创建的单例。</p>
+<h3 id="ARC下在dealloc方法中只释放引用并解除监听">ARC下在dealloc方法中只释放引用并解除监听</h3><hr>
+<p>ARC会自动生成.cxx_destruct方法，在dealloc中会自动释放对象，但是有几种情况需要我们手动去释放，</p>
+<ul>
+<li>CoreFoundation对象，因为他是纯C的API所生成的，</li>
+<li>清理通知的对象订阅</li>
+<li>清理KVO中的观察行为</li>
+<li>对象持有文件描述符资源也需要在dealloc中释放([scokect close])</li>
+</ul>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">- </span>(void)dealloc</span><br><span class="line">&#123;</span><br><span class="line"><span class="code">	CFRelease(coreFoundationObject)l</span></span><br><span class="line"><span class="code">	[[NSNotificationCenter defaultCenter] removeObserver:self];</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="code">```</span> </span><br><span class="line"></span><br><span class="line"><span class="header">###编写“异常安全代码”时留意内存管理问题</span><br><span class="line">---</span></span><br><span class="line">Objective-C 和 C++ 一样提供异常处理机制，如果先在try块中保留某个对象， 然后在释放前又抛出异常，那么除非catch能处理此问题，否则对象所占用的内存将泄漏。</span><br></pre></td></tr></table></figure>
+<p>@try {<br>    ECOSomeClass *obj = [[ECOSomeClass alloc] init];<br>    [obj doSomethingThatMayThrow];<br>    [obj release];<br>}<br>@catch(…) {</p>
+<p>}<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">代码看上去没有什么问题，但是如果当<span class="tag">obj</span>在调用<span class="tag">doSomethingThatMayThrow</span>抛出异常，<span class="attr_selector">[obj release]</span>将不会被调用，那么对象就泄漏了，最好的解决办法是讲<span class="tag">release</span>代码放在<span class="at_rule">@<span class="keyword">finally中调用</span></span></span><br></pre></td></tr></table></figure></p>
+<p>ECOSomeClass *obj<br>@try {<br>    obj = [[ECOSomeClass alloc] init];<br>    [obj doSomethingThatMayThrow];<br>}<br>@catch(…) {</p>
+<p>} @finally {<br>    [obj release];<br>}<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">上面说的是非ARC的环境下，大家在ARC环境下默认以为在<span class="keyword">try</span>处理异常程序中ARC会自动处理。但实际上ARC不会自动处理</span><br></pre></td></tr></table></figure></p>
+<p>@try {<br>    ECOSomeClass *obj = [[ECOSomeClass alloc] init];<br>    [obj doSomethingThatMayThrow];<br>}<br>@catch(…) {</p>
+<p>}<br>```<br>如果代码中出现try处理异常，就需要将“-fobjc-arc-exceptions”这个编译器标志打开，Objective-C ++ 中是默认打开的，因为Objective-C++ 程序员会频繁使用C++中的异常处理代码。</p>
+<h3 id="以弱引用避免保留环">以弱引用避免保留环</h3><hr>
+<p>用unsafe_unretained 修饰的属性特质，其语义同assign特质等价。然而，assign通常只用于“整体类型”（int， float， 结构体等）， unsafe_unretained则多用于对象类型。weak属性特质和unsafe_unretained的作用完全相同， 只要系统把属性回收，属性值就会自动设为nil。</p>
+
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Effective-Objective-C/"> #Effective Objective-C </a>
+          
+            <a href="/tags/Objective-C/"> #Objective-C </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/19/iOS-Core-Animation-Advanced-Techniques-一/">iOS Core Animation Advanced Techniques (一)</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2016/01/19/Effective-Objective-C-2-0-笔记-四/"
+               data-title="Effective Objective-C 2.0 笔记(四)" data-url="http://yoursite.com/2016/01/19/Effective-Objective-C-2-0-笔记-四/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="LeeHu" />
+          <p class="site-author-name">LeeHu</p>
+        </div>
+        <p class="site-description motion-element">学习总结 思考感悟 知识管理</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-name">分類</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">標籤</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+        
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过委托与数据源协议进行对象间通信"><span class="nav-number">1.</span> <span class="nav-text">通过委托与数据源协议进行对象间通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将类的实现代码分散到便于管理的数个分类之中"><span class="nav-number">2.</span> <span class="nav-text">将类的实现代码分散到便于管理的数个分类之中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总是为第三方类的分类名称前加前缀"><span class="nav-number">3.</span> <span class="nav-text">总是为第三方类的分类名称前加前缀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#勿在分类中声明属性"><span class="nav-number">4.</span> <span class="nav-text">勿在分类中声明属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用“class-continuation分类”隐藏实现细节"><span class="nav-number">5.</span> <span class="nav-text">使用“class-continuation分类”隐藏实现细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理解引用计数"><span class="nav-number">6.</span> <span class="nav-text">理解引用计数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARC下在dealloc方法中只释放引用并解除监听"><span class="nav-number">7.</span> <span class="nav-text">ARC下在dealloc方法中只释放引用并解除监听</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以弱引用避免保留环"><span class="nav-number">8.</span> <span class="nav-text">以弱引用避免保留环</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">LeeHu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.3"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.3"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.3" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.3" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"LeeHu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+
+</body>
+</html>

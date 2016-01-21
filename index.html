@@ -164,6 +164,92 @@
           
           
             
+              <a class="post-title-link" href="/2016/01/19/Effective-Objective-C-2-0-笔记-四/">
+                Effective Objective-C 2.0 笔记(四)
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          發表於 2016-01-19
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分類於
+            
+              <a href="/categories/iOS/">iOS</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/01/19/Effective-Objective-C-2-0-笔记-四/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/19/Effective-Objective-C-2-0-笔记-四/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h3 id="通过委托与数据源协议进行对象间通信">通过委托与数据源协议进行对象间通信</h3><hr>
+<p>委托（delegate）与 数据源（data source）， 在iOS控件中最为代表性的控件就是UITableView，它定义了一套接口， 某个对象想要接受UITableView 的委托就需要遵从这些接口，这样的话UITableview就可以给委托对象回传一些消息，比如cell的点击相应。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>, nullable) <span class="keyword">id</span> &lt;<span class="built_in">UITableViewDataSource</span>&gt; dataSource;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>, nullable) <span class="keyword">id</span> &lt;<span class="built_in">UITableViewDelegate</span>&gt; delegate;</span><br></pre></td></tr></table></figure>
+<p>检查某个委托的对象是否相应特定的选择子，通常是这样实现</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">if</span> ([delegate <span class="attribute">respondsToSelector</span>:<span class="variable">@selector</span>(someClassDidSomething)]) &#123;</span><br><span class="line">    <span class="attr_selector">[delegate someClassDidSomething]</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>但是如果我们频繁执行此操作的话，那么除了第一次检测的结果有用之外，后续的检测可能都是多余的。鉴于此，我们通常把委托对象能否响应某个协议方法这一信息缓存起来，以优化程序效率。apple官方通常使用结构来缓存。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/19/Effective-Objective-C-2-0-笔记-四/#more">
+              閱讀全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2016/01/19/iOS-Core-Animation-Advanced-Techniques-一/">
                 iOS Core Animation Advanced Techniques (一)
               </a>
@@ -893,89 +979,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/07/用appledoc生成文档/">
-                用appledoc生成文档
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          發表於 2015-08-07
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分類於
-            
-              <a href="/categories/iOS/">iOS</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/08/07/用appledoc生成文档/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/07/用appledoc生成文档/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h3 id="安装">安装</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/tomaz/appledoc.git</span><br><span class="line"><span class="keyword">cd</span> ./appledoc</span><br><span class="line">sudo <span class="keyword">sh</span> install-appledoc.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
-<p>检验是否安装成功</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ appledoc --<span class="built_in">version</span></span><br><span class="line">appledoc <span class="built_in">version</span>: <span class="number">2.2</span>.<span class="number">1</span> <span class="params">(build <span class="number">1333</span>)</span></span><br></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/08/07/用appledoc生成文档/#more">
-              閱讀全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1014,7 +1017,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
