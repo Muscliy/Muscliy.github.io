@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="Effective Objective-C,Objective-C," />
+  <meta name="keywords" content="Swift," />
 
 
 
@@ -59,7 +59,7 @@
 
 
 
-  <title> Effective Objective-C 2.0 笔记(一) // LeeHu的博客 </title>
+  <title> typealias 探究 // LeeHu的博客 </title>
 </head>
 
 <body>
@@ -162,7 +162,7 @@
           
           
             
-              Effective Objective-C 2.0 笔记(一)
+              typealias 探究
             
           
         </h1>
@@ -170,7 +170,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-12-11
+          發表於 2016-02-18
         </span>
 
         
@@ -190,8 +190,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/12/11/Effective-Objective-C-2-0-笔记-一/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/11/Effective-Objective-C-2-0-笔记-一/"></span>
+            <a href="/2016/02/18/typealias/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/18/typealias/"></span>
             </a>
           </span>
           
@@ -205,32 +205,18 @@
       
 
       
-        <h3 id="Objective-C_变量、对象、结构">Objective-C 变量、对象、结构</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">NSString</span> *someString = @<span class="string">"the string"</span>;</span><br><span class="line"><span class="title">someString</span> : 变量</span><br><span class="line">@<span class="string">"the string"</span> : 实例 也是对象</span><br></pre></td></tr></table></figure>
-<p><img src="/images/2015-12-10-effective-1-1.png"></p>
-<p>变量是指向NSString的指针，变量内存分配在“栈”上，对象内存分配在“堆”上，结构体的内存分布在“数据块”中（CGRect,如果改用对象，性能会受影响）</p>
-<h3 id="在类的头文件中尽量减少引用其他头文件">在类的头文件中尽量减少引用其他头文件</h3><pre><code>-<span class="ruby"> 减轻编译的负担
-</span>-<span class="ruby"> 使用<span class="variable">@class</span> <span class="constant">Employer</span>（向前声明 ）的方法</span>
-</code></pre><a id="more"></a>
-<h3 id="多用字面量意思的方法对变量赋值">多用字面量意思的方法对变量赋值</h3><p>For example:</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSArray *<span class="variable">names =</span> @[@<span class="string">"Brian"</span>, @<span class="string">"Matt"</span>, @<span class="string">"Chris"</span>, @<span class="string">"Alex"</span>, @<span class="string">"Steve"</span>, @<span class="string">"Paul"</span>];</span><br><span class="line">NSDictionary *<span class="variable">productManagers =</span> @&#123;@<span class="string">"iPhone"</span> : @<span class="string">"Kate"</span>, @<span class="string">"iPad"</span> : @<span class="string">"Kamal"</span>, @<span class="string">"Mobile Web"</span> : @<span class="string">"Bill"</span>&#125;;</span><br><span class="line">NSNumber *<span class="variable">shouldUseLiterals =</span> @YES;</span><br><span class="line">NSNumber *<span class="variable">buildingZIPCode =</span> @<span class="number">10018</span>;</span><br></pre></td></tr></table></figure>
-<p>Not:</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *names = [<span class="built_in">NSArray</span> arrayWithObjects:<span class="string">@"Brian"</span>, <span class="string">@"Matt"</span>, <span class="string">@"Chris"</span>, <span class="string">@"Alex"</span>, <span class="string">@"Steve"</span>, <span class="string">@"Paul"</span>, <span class="literal">nil</span>];</span><br><span class="line"><span class="built_in">NSDictionary</span> *productManagers = [<span class="built_in">NSDictionary</span> dictionaryWithObjectsAndKeys: <span class="string">@"Kate"</span>, <span class="string">@"iPhone"</span>, <span class="string">@"Kamal"</span>, <span class="string">@"iPad"</span>, <span class="string">@"Bill"</span>, <span class="string">@"Mobile Web"</span>, <span class="literal">nil</span>];</span><br><span class="line"><span class="built_in">NSNumber</span> *shouldUseLiterals = [<span class="built_in">NSNumber</span> numberWithBool:<span class="literal">YES</span>];</span><br><span class="line"><span class="built_in">NSNumber</span> *buildingZIPCode = [<span class="built_in">NSNumber</span> numberWithInteger:<span class="number">10018</span>];</span><br></pre></td></tr></table></figure>
-<h3 id="多用类型常量、少用#define预处理指令">多用类型常量、少用#define预处理指令</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hexcolor">#def</span>ine ANIMTION_DURATION <span class="number">0.3</span></span><br><span class="line">static const NSTimeInterval kAnimationDuration = <span class="number">0.3</span></span><br></pre></td></tr></table></figure>
-<p>define 相比常量的缺点</p>
-<ul>
-<li>没有类型信息</li>
-<li>预处理会将所有ANIMTION_DURATION 都处理成0.3，这样需要避免重命名</li>
-</ul>
-<p>在Objective-c 中常量通常是局限在于某“编译单元”（translation unit 也是就是 实现文件中），则在前面加字母k，若常量在类之外可见，则通常需要以类名为前缀.比如我们Objective-C中的UIApplication类中就有很多对外可见的变量</p>
-<p>UIApplication.h</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidEnterBackgroundNotification</span>       <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">4</span>_0);</span><br><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationWillEnterForegroundNotification</span>      <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">4</span>_0);</span><br><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidFinishLaunchingNotification</span>;</span><br><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidBecomeActiveNotification</span>;</span><br><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationWillResignActiveNotification</span>;</span><br><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidReceiveMemoryWarningNotification</span>;</span><br><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationWillTerminateNotification</span>;</span><br><span class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationSignificantTimeChangeNotification</span>;</span><br></pre></td></tr></table></figure>
-<p>UIApplication.m</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidEnterBackgroundNotification</span> = <span class="string">@"UIApplicationDidEnterBackgroundNotification"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationWillEnterForegroundNotification</span> = <span class="string">@"UIApplicationWillEnterForegroundNotification"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidFinishLaunchingNotification</span> = <span class="string">@"UIApplicationDidFinishLaunchingNotification"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidBecomeActiveNotification</span> = <span class="string">@"UIApplicationDidBecomeActiveNotification"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationWillResignActiveNotification</span> = <span class="string">@"UIApplicationWillResignActiveNotification"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationDidReceiveMemoryWarningNotification</span> = <span class="string">@"UIApplicationDidReceiveMemoryWarningNotification"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> <span class="built_in">UIApplicationWillTerminateNotification</span> = <span class="string">@"UIApplicationWillTerminateNotification"</span>;</span><br></pre></td></tr></table></figure>
-<p>此类变量需放在“全局符号表”中以便可以在定义常量的编译单元之外使用，还需要注意和static 和 const 位置的不同,此类常量必须要定义，而且只能定义一次，通常将其定义在与声明该常量的头文件相关的实现文件中。</p>
-<h3 id="枚举">枚举</h3><ul>
-<li>用NS_ENUM 与 NS_OPTIONS宏来定义枚举类型，并指明其底层的数据类型</li>
-<li>处理枚举类型的switch语句中不要实现default分支，这样的话，加入新枚举之后，编译器就会提示开发者：switch语句并没有处理所有枚举</li>
-</ul>
+        <p>typealias 是用来给已经存在的类型重新定义一个新的名字</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">typealias Sample <span class="subst">=</span> UInt32</span><br><span class="line"><span class="built_in">var</span> num <span class="subst">=</span> Sample<span class="built_in">.</span><span class="keyword">min</span></span><br><span class="line"></span><br><span class="line">typealias InputClosure <span class="subst">=</span> (<span class="built_in">String</span>) <span class="subst">-&gt; </span><span class="literal">Void</span></span><br><span class="line"><span class="built_in">var</span> closure: InputClosure<span class="subst">?</span></span><br><span class="line">closure<span class="subst">!</span>(<span class="string">"A"</span>)</span><br></pre></td></tr></table></figure>
+<p>这个和Objective-C中的关键字typedef很相似</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># define CGFLOAT_TYPE double</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">CGFLOAT_TYPE</span> <span class="built_in">CGFloat</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span> (^InputClosure)(<span class="built_in">NSString</span> *sourceString);</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>typealias 在给类型重新定义一个新名字的时候，同时可以使得代码可读性更强，而且语法也变的简单。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ApiClient</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ....</span></span><br><span class="line">  <span class="func"><span class="keyword">func</span> <span class="title">getUsers</span><span class="params">(success: <span class="params">(<span class="params">(result: AnyObject, operation: AFHTTPRequestOperation)</span></span></span></span> -&gt; <span class="type">Void</span>)? = <span class="literal">nil</span>,</span><br><span class="line">                error: ((error: <span class="type">NSError</span>, operation: <span class="type">AFHTTPRequestOperation</span>) -&gt; <span class="type">Bool</span>)? = <span class="literal">nil</span>,</span><br><span class="line">                finished: (() -&gt; <span class="type">Void</span>)? = <span class="literal">nil</span>) &#123;</span><br><span class="line">    <span class="comment">// Do stuff </span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">getUser</span><span class="params">(user: User, success: <span class="params">(<span class="params">(result: AnyObject, operation: AFHTTPRequestOperation)</span></span></span></span> -&gt; <span class="type">Void</span>)? = <span class="literal">nil</span>,</span><br><span class="line">             error: ((error: <span class="type">NSError</span>, operation: <span class="type">AFHTTPRequestOperation</span>) -&gt; <span class="type">Bool</span>)? = <span class="literal">nil</span>,</span><br><span class="line">             finished: (() -&gt; <span class="type">Void</span>)? = <span class="literal">nil</span>) &#123;</span><br><span class="line">    <span class="comment">// Do stuff </span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">getInvitations</span><span class="params">(success: <span class="params">(<span class="params">(result: AnyObject, operation: AFHTTPRequestOperation)</span></span></span></span> -&gt; <span class="type">Void</span>)? = <span class="literal">nil</span>,</span><br><span class="line">                    error: ((error: <span class="type">NSError</span>, operation: <span class="type">AFHTTPRequestOperation</span>) -&gt; <span class="type">Bool</span>)? = <span class="literal">nil</span>,</span><br><span class="line">                    finished: (() -&gt; <span class="type">Void</span>)? = <span class="literal">nil</span>) &#123;</span><br><span class="line">    <span class="comment">// Do stuff </span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码不仅读起来吃力，而且很多重复的，代码量也多<br>我们将typealias应用API client代码中</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ApiClient</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ....</span></span><br><span class="line">  <span class="keyword">typealias</span> <span class="type">SuccessHandler</span> = (result: <span class="type">AnyObject</span>, operation: <span class="type">AFHTTPRequestOperation</span>)</span><br><span class="line">    -&gt; <span class="type">Void</span></span><br><span class="line">  <span class="keyword">typealias</span> <span class="type">ErrorHandler</span> = (error: <span class="type">NSError</span>, operation: <span class="type">AFHTTPRequestOperation</span>)</span><br><span class="line">    -&gt; <span class="type">Void</span></span><br><span class="line">  <span class="keyword">typealias</span> <span class="type">FinishedHandler</span> = () -&gt; <span class="type">Void</span></span><br><span class="line">  <span class="func"><span class="keyword">func</span> <span class="title">getUsers</span><span class="params">(success: <span class="params">(SuccessHandler)</span></span></span>? = <span class="literal">nil</span>,</span><br><span class="line">                error: (<span class="type">ErrorHandler</span>)? = <span class="literal">nil</span>,</span><br><span class="line">                finished: (<span class="type">FinishedHandler</span>)? = <span class="literal">nil</span>) &#123;</span><br><span class="line">    <span class="comment">// Do stuff</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="func"><span class="keyword">func</span> <span class="title">getUsers</span><span class="params">(success: <span class="params">(SuccessHandler)</span></span></span>? = <span class="literal">nil</span>,</span><br><span class="line">                error: (<span class="type">ErrorHandler</span>)? = <span class="literal">nil</span>,</span><br><span class="line">                finished: (<span class="type">FinishedHandler</span>)? = <span class="literal">nil</span>) &#123;</span><br><span class="line">    <span class="comment">// Do stuff</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="func"><span class="keyword">func</span> <span class="title">getUser</span><span class="params">(user: User, success: <span class="params">(SuccessHandler)</span></span></span>? = <span class="literal">nil</span>,</span><br><span class="line">               error: (<span class="type">ErrorHandler</span>)? = <span class="literal">nil</span>,</span><br><span class="line">               finished: (<span class="type">FinishedHandler</span>)? = <span class="literal">nil</span>) &#123;</span><br><span class="line">    <span class="comment">// Do stuff</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种改动更方便读写，而且最棒的是，在调用函数的时候根本不需要任何的改动</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> api = <span class="type">ApiClient</span>()</span><br><span class="line">api.getUsers(&#123; (<span class="literal">result</span>, operation) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">	&lt;<span class="comment">#code#&gt;</span></span><br><span class="line">	&#125;, error: &#123; (error, operation) -&gt; <span class="type">Bool</span> <span class="keyword">in</span></span><br><span class="line">		&lt;<span class="comment">#code#&gt;</span></span><br><span class="line">	&#125;) &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">		&lt;<span class="comment">#code#&gt;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其他的例子也可以看 王巍的文章 <a href="http://swifter.tips/typealias/" target="_blank" rel="external">TYPEALIAS 和泛型接口</a>,其中讲到的更好理解更典型</p>
 
       
     </div>
@@ -239,9 +225,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Effective-Objective-C/"> #Effective Objective-C </a>
-          
-            <a href="/tags/Objective-C/"> #Objective-C </a>
+            <a href="/tags/Swift/"> #Swift </a>
           
         </div>
       
@@ -250,13 +234,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/12/Effective-Objective-C-2-0-笔记-二/">Effective Objective-C 2.0 笔记(二)</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/10/Find-the-current-top-view-controller/">Find the current top view controller</a>
+              <a href="/2016/01/19/Effective-Objective-C-2-0-笔记-四/">Effective Objective-C 2.0 笔记(四)</a>
             
           </div>
         </div>
@@ -276,8 +258,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/12/11/Effective-Objective-C-2-0-笔记-一/"
-               data-title="Effective Objective-C 2.0 笔记(一)" data-url="http://yoursite.com/2015/12/11/Effective-Objective-C-2-0-笔记-一/">
+          <div class="ds-thread" data-thread-key="2016/02/18/typealias/"
+               data-title="typealias 探究" data-url="http://yoursite.com/2016/02/18/typealias/">
           </div>
         
       </div>
@@ -366,7 +348,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Objective-C_变量、对象、结构"><span class="nav-number">1.</span> <span class="nav-text">Objective-C 变量、对象、结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在类的头文件中尽量减少引用其他头文件"><span class="nav-number">2.</span> <span class="nav-text">在类的头文件中尽量减少引用其他头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多用字面量意思的方法对变量赋值"><span class="nav-number">3.</span> <span class="nav-text">多用字面量意思的方法对变量赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多用类型常量、少用#define预处理指令"><span class="nav-number">4.</span> <span class="nav-text">多用类型常量、少用#define预处理指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举"><span class="nav-number">5.</span> <span class="nav-text">枚举</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目錄</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
