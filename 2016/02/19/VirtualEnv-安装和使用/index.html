@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="Foundation," />
+  <meta name="keywords" content="Python," />
 
 
 
@@ -59,7 +59,7 @@
 
 
 
-  <title> 探究NSUserDefaults // LeeHu的博客 </title>
+  <title> VirtualEnv 安装和使用 // LeeHu的博客 </title>
 </head>
 
 <body>
@@ -162,7 +162,7 @@
           
           
             
-              探究NSUserDefaults
+              VirtualEnv 安装和使用
             
           
         </h1>
@@ -170,14 +170,14 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-07-03
+          發表於 2016-02-19
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分類於
             
-              <a href="/categories/iOS/">iOS</a>
+              <a href="/categories/Tool/">Tool</a>
 
               
               
@@ -190,8 +190,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/03/探究NSUserDefaults/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/探究NSUserDefaults/"></span>
+            <a href="/2016/02/19/VirtualEnv-安装和使用/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/19/VirtualEnv-安装和使用/"></span>
             </a>
           </span>
           
@@ -205,39 +205,17 @@
       
 
       
-        <p>研究NSUserDefaults之前我们首先需要研究的是.plist文件，.plist文件首先是一种用来存储序列化后的对象的文件，对象包括objective-c中的6种基本类型（NSString、NSArray …)。当你在写程序的时候将一些关键数据使用NSUserDefaults保存之后我们会在.plist文件中一一找到它们。</p>
-<h4 id="NSUserDefaults工作原理">NSUserDefaults工作原理</h4><p>Apple 官方文档（一）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">At runtime, you <span class="operator"><span class="keyword">use</span> an NSUserDefaults object <span class="keyword">to</span> <span class="keyword">read</span> the defaults that your </span><br><span class="line">application uses <span class="keyword">from</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>. NSUserDefaults caches </span><br><span class="line">the information <span class="keyword">to</span> avoid <span class="keyword">having</span> <span class="keyword">to</span> <span class="keyword">open</span> the <span class="keyword">user</span>’s defaults <span class="keyword">database</span> </span><br><span class="line"><span class="keyword">each</span> <span class="keyword">time</span> you need a <span class="keyword">default</span> <span class="keyword">value</span>. The synchronize method, which <span class="keyword">is</span> </span><br><span class="line">automatically invoked <span class="keyword">at</span> periodic intervals, keeps the <span class="keyword">in</span>-memory <span class="keyword">cache</span>  </span><br><span class="line"><span class="keyword">in</span> sync <span class="keyword">with</span> a <span class="keyword">user</span>’s defaults <span class="keyword">database</span>.</span></span><br></pre></td></tr></table></figure>
+        <p>VirtualEnv用来创建隔离的Python环境的开源工具。<br>Python使用的人多了背后有个庞大的开源社区支持，但是有个缺点就是每个包的质量都是参差不齐， 如果我们想测试安装每个包，最后会堆积成一个庞大而复杂的第三方依赖。VirtualEnv就是为了解决这个问题而生的，可以用于在一台机器上创建多个独立的python运行环境</p>
+<h3 id="安装">安装</h3><p>可以使用easy_install和pip 安装,pip是一个安装python库很方便的东西，类似yum，pip search pip install，如果没wget的话，就用curl -O 另外也可以考虑用easy_install代替pip</p>
+<h6 id="安装easy_install">安装easy_install</h6><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>wget <span class="symbol">http:</span>/<span class="regexp">/python-distribute.org/distribute</span>_setup.py</span><br><span class="line"><span class="variable">$ </span>sudo python distribute_setup.py</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<p>根据文档(一)可以看出来，NSUserDefault是.plist文件的缓存，NSUserDefault会将访问到的key 缓存到内存中，下次访问时，如果缓存中有对应的key就直接访问，如果没有在从文件中载入？应用还会时不时调用</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[defaults synchronize]</span><br></pre></td></tr></table></figure>
-<p>方法来保证内存与文件中数据的一致性。上面文档说<br>中的最后一句表明了UserDefaults是根据时间戳定时的把缓存中的数据写入本地磁盘，而非即时写入。为了防止数据丢失，我们在对重要的数据保存时使用synchornize方法强制写入。但是也要注意，不用频繁的使用synchornize，这样毕竟影响性能和效率</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</span><br></pre></td></tr></table></figure>
-<p>NSUserDefaults是单例，同时也是线程安全的 </p>
-<h4 id="性能">性能</h4><p>从性能上分析，这种缓存的机制带来了一定的性能提升，通过一些网上的文章了解到在10万个Key的情况下，通过NSUserDefaults来读取value是1ms级别的，然而当你从plist文件中直接读取，需要100ms的级别开销，但是写是个相反的结果，要是你写1个10万条数据到plist文件中是1s级别的开销，而同时写入10万条NSUserDefaults键值对则需要10s级别的延迟。我们都知道在创建key/value时，程序需要在内存中也创建一个相应的映射关系，然后系统会时不时调用“synchronsize”方法同步数据，很多的方法会导致创建key/value pair被阻塞。</p>
-<p>总的来说，使用NSUserDefaults是比较高效的,但是不能大量的将数据通过NSUserDefaults中</p>
-<h4 id="存储">存储</h4><p>NSUserDefaults中并不是所有写入都是可以写入到文件中的。</p>
-<p>Apple 官方文档（二）</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">The <span class="property">contents</span> <span class="keyword">of</span> <span class="keyword">the</span> registration domain are <span class="keyword">not</span> written <span class="keyword">to</span> disk; you need </span><br><span class="line"><span class="keyword">to</span> call this method each <span class="property">time</span> your <span class="type">application</span> starts. You can place a plist </span><br><span class="line"><span class="type">file</span> <span class="keyword">in</span> <span class="keyword">the</span> <span class="type">application</span>'s Resources directory <span class="keyword">and</span> call registerDefaults: </span><br><span class="line"><span class="keyword">with</span> <span class="keyword">the</span> <span class="property">contents</span> <span class="keyword">that</span> you <span class="command">read</span> <span class="keyword">in</span> <span class="keyword">from</span> <span class="keyword">that</span> <span class="type">file</span>.</span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];</span><br></pre></td></tr></table></figure>
-<p>文档(二)中所说的registerDefaults方法添的内容不会保存到plist文件中，只在当前生命周期内使用，下面看一个程序</p>
-<pre><code><span class="built_in">NSDictionary</span> *dicDefault = [<span class="built_in">NSDictionary</span> dictionaryWithObjectsAndKeys: <span class="string">@"hslinux"</span>, <span class="string">@"Name"</span>,<span class="literal">nil</span>];
-
-[[<span class="built_in">NSUserDefaults</span> standardUserDefaults] registerDefaults:dicDefault];  
-
-<span class="built_in">NSString</span> *strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] stringForKey:<span class="string">@"Name"</span>];
-<span class="built_in">NSLog</span>(<span class="string">@" Name = [%@]"</span>, strName);
-
-[[<span class="built_in">NSUserDefaults</span> standardUserDefaults] setObject:<span class="string">@"?????"</span> forKey:<span class="string">@"Name"</span>];
-strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] stringForKey:<span class="string">@"Name"</span>];
-<span class="built_in">NSLog</span>(<span class="string">@" Name = [%@]"</span>, strName);
-
-[[<span class="built_in">NSUserDefaults</span> standardUserDefaults] removeObjectForKey:<span class="string">@"Name"</span>];
-<span class="built_in">NSString</span> *strDefault = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] stringForKey:<span class="string">@"Name"</span>];
-<span class="built_in">NSLog</span>(<span class="string">@"Default Name = [%@]"</span>, strDefault);
-</code></pre><p>打印结果是</p>
-<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2015-07-02</span> <span class="number">14:18:46.71</span>6 TestDemo[<span class="number">2217:167621</span>]  Name = [hslinux]</span><br><span class="line"><span class="number">2015-07-02</span> <span class="number">14:18:46.71</span>9 TestDemo[<span class="number">2217:167621</span>]  Name = [?????]</span><br><span class="line"><span class="number">2015-07-02</span> <span class="number">14:18:46.72</span>0 TestDemo[<span class="number">2217:167621</span>] Default Name = [hslinux]</span><br></pre></td></tr></table></figure>
-<p>由此可以看出来setObject 和 registerDefaults 是存在NSUserdefaults中两个不同区域，我们把两个区域分别叫持久缓存区和全局临时存储区，读的时候通过key会先查找持久缓存区读取value，如果没有，然后再从全局缓存区查找。两个缓存区有各自用处，比如我们需要一些数据在app运行时需要全局持有化是需要用到registerDefaults</p>
+<h6 id="安装pip">安装pip</h6><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">sudo</span> easy_install pip</span><br></pre></td></tr></table></figure>
+<h6 id="安装VirtualEnv">安装VirtualEnv</h6><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">方法一：sudo easy_install virtualenv</span><br><span class="line">方法二：pip <span class="keyword">install</span> virtualenv</span><br></pre></td></tr></table></figure>
+<h3 id="环境搭建">环境搭建</h3><h6 id="创建">创建</h6><p><img src="/images/2016-2-21-Python-Virtualenv-1.png"><br>viratualProject 就是我们创建的虚拟环境的目录了，该目录在安装就默认安装了本机相同的python版本了<br><img src="/images/2016-2-21-Python-Virtualenv-2.png"><br><img src="/images/2016-2-21-Python-Virtualenv-3.png"></p>
+<h6 id="activate&amp;deactivate">activate&amp;deactivate</h6><p><img src="/images/2016-2-21-Python-Virtualenv-4.png"><br>虚拟环境需要激活，就是所谓的启动，在安装目录下bin中有个activate就是用作启动使用的,有activate当然就有deactivate，关闭虚拟环境</p>
+<p><img src="/images/2016-2-21-Python-Virtualenv-9.png"><br>激活之后在看python所指向的路劲与未激活之前的区别</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  VirtualProject  which python</span><br><span class="line"><span class="regexp">/usr/</span>bin/python</span><br><span class="line"></span><br><span class="line">(VirtualProject)➜  VirtualProject  which python</span><br><span class="line"><span class="regexp">/Users/</span>leehu<span class="regexp">/Documents/</span>Python<span class="regexp">/VirtualProject/</span>bin/python</span><br></pre></td></tr></table></figure>
+<h3 id="使用">使用</h3><p>OK,    到这里就可以在虚拟环境中安装你需要的第三方开源库了。<br>CherryPy是一个Python的HTTP框架，可以用Python来处理HTTP请求然后返回结果。晚上也有很多资源讲解cherrypy的使用。<br><img src="/images/2016-2-21-Python-Virtualenv-5.png"><br>创建初始化文件<br><img src="/images/2016-2-21-Python-Virtualenv-6.png"><br>安装cherrypy<br><img src="/images/2016-2-21-Python-Virtualenv-7.png"><br>应用cherrypy<br><img src="/images/2016-2-21-Python-Virtualenv-8.png"></p>
 
       
     </div>
@@ -246,7 +224,7 @@ strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] s
       
         <div class="post-tags">
           
-            <a href="/tags/Foundation/"> #Foundation </a>
+            <a href="/tags/Python/"> #Python </a>
           
         </div>
       
@@ -255,13 +233,11 @@ strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] s
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/07/UIScrollView滚动停止监测/">UIScrollView滚动停止监测</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/03/写博客的初衷/">写博客的初衷</a>
+              <a href="/2016/02/18/typealias/">typealias 探究</a>
             
           </div>
         </div>
@@ -281,8 +257,8 @@ strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] s
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/07/03/探究NSUserDefaults/"
-               data-title="探究NSUserDefaults" data-url="http://yoursite.com/2015/07/03/探究NSUserDefaults/">
+          <div class="ds-thread" data-thread-key="2016/02/19/VirtualEnv-安装和使用/"
+               data-title="VirtualEnv 安装和使用" data-url="http://yoursite.com/2016/02/19/VirtualEnv-安装和使用/">
           </div>
         
       </div>
@@ -371,7 +347,7 @@ strName = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] s
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#NSUserDefaults工作原理"><span class="nav-number">1.</span> <span class="nav-text">NSUserDefaults工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性能"><span class="nav-number">2.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储"><span class="nav-number">3.</span> <span class="nav-text">存储</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#安装easy_install"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">安装easy_install</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#安装pip"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">安装pip</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#安装VirtualEnv"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">安装VirtualEnv</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境搭建"><span class="nav-number">2.</span> <span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#创建"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#activate&deactivate"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">activate&deactivate</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">3.</span> <span class="nav-text">使用</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

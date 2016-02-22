@@ -164,6 +164,90 @@
           
           
             
+              <a class="post-title-link" href="/2015/12/07/Objective-C消息机制/">
+                Objective-C消息机制
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          發表於 2015-12-07
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分類於
+            
+              <a href="/categories/iOS/">iOS</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/12/07/Objective-C消息机制/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/07/Objective-C消息机制/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>在OC 中给nil发送一个消息是不会发生任何事情了，但是给一个object发送一个没有定义实现的消息是回发生crash。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*** Terminating app due <span class="keyword">to</span> uncaught exception 'NSInvalidArgumentException', reason: '-[Son <span class="property">name</span>]: unrecognized selector sent <span class="keyword">to</span> instance</span><br></pre></td></tr></table></figure>
+<p>在OC中，调用一个对象的方法，实际上是给对象发了一条消息，在编译Objective－C函数调用的语法时，会被翻译成一个C的函数调用：objc_msgSend(),例如：</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">[<span class="keyword">jeep</span> name]<span class="comment">;</span></span><br><span class="line">objc_msgSend<span class="list">(<span class="keyword">jeep</span>, @selector<span class="list">(<span class="keyword">name</span>)</span>)</span><span class="comment">;</span></span></span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/07/Objective-C消息机制/#more">
+              閱讀全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/27/不同颜色的UINavigationBar的丝滑过度/">
                 UINavigationBar不同颜色的丝滑过度
               </a>
@@ -598,21 +682,21 @@ methods, but only <span class="keyword">if</span> animations are requested.
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">分類</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">標籤</span>
               </a>
           </div>
