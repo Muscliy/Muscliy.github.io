@@ -205,10 +205,12 @@
       
 
       
-        <h3 id="理解“属性”这一概念">理解“属性”这一概念</h3><p>“属性”是Objective-C 的一项特性，用于封装对象中的数据，Objective-C 对象通常会把其所需要的数据保存为各种实例变量。实例变量一般通过“存取方法”来访问。<br>Objective-C 中定义一个类通常使用@property语法来实现，他帮助属性自动合成（autosynthesis）”获取方法”和”设置方法”，合成方法(synthesized method)是过程的代码由编译器在编译期执行，除了生成代码代码以外，编译器还自动向类中添加适当类型的实例变量，并且在属性名前面加下划线，</p>
+        <p>用Objective-C等面向对象语言编程时，“对象”就是“基本构造单元”，开发者可以通过对象来存储并传递数据。在对象之间传递数据并执行任务的过程就叫做“消息传递”。若想编写出高效且易维护的代码，就一定要熟悉这两个特性的工作原理。<br>当应用程序运行起来以后，为其童工相关支持的代码叫做“Objective-C运行期环境”，它提供了一些使得对象之间能够传递消息的重要函数，并且包含创建类实例所用的全部逻辑。</p>
+<a id="more"></a>
+<h3 id="理解“属性”这一概念">理解“属性”这一概念</h3><p>“属性”是Objective-C 的一项特性，用于封装对象中的数据，Objective-C 对象通常会把其所需要的数据保存为各种实例变量。实例变量一般通过“存取方法”来访问。<br>Objective-C 中定义一个类通常使用@property语法来实现，他帮助属性自动合成（autosynthesis）”获取方法”和”设置方法”，合成方法(synthesized method)是过程的代码由编译器在编译期执行，除了生成代码代码以外，编译器还自动向类中添加适当类型的实例变量，并且在属性名前面加下划线，</p>
 <h5 id="synthesize关键字">synthesize关键字</h5><p>能指定实例变量的名字：</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@implementation</span> Person</span><br><span class="line"><span class="variable">@synthesize</span> firstName = _myFirstName;</span><br><span class="line"><span class="variable">@synthesize</span> lastName = _myLastName;</span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>
-<p>他将帮助生成实例变量命名为_myFirstName和_myLastName 而不再使用默认的名字。<br>若不想令编译器自动合成存取方法，则可以自己实现，<br>如果你实现了其中的一个存取方法，那么另外一个还是会有编译器来实现合成的。<br><a id="more"></a></p>
+<p>他将帮助生成实例变量命名为_myFirstName和_myLastName 而不再使用默认的名字。<br>若不想令编译器自动合成存取方法，则可以自己实现，<br>如果你实现了其中的一个存取方法，那么另外一个还是会有编译器来实现合成的。</p>
 <h5 id="@dynamic关键字">@dynamic关键字</h5><p>能阻止编译器自动合成存取方法</p>
 <h5 id="原子性">原子性</h5><p>在默认情况下，由编译器所合成的方法会通过锁定机制保存其原子性(atomicity)。如果属性具备nonatomic特质，则不使用同步锁。请注意，尽管没有名为”atomic”的特质（如果某属性不具备nanatomic特质，那它就是”原子的”（atomic）。<br>在一般情况下，所有的属性都声明为nonatomic。这样做的历史原因：在iOS中使用同步锁的开销较大，这会带来性能问题，一般情况下并不要求属性必须是”原子的”，因为这并不能保证”线程安全”，若要实现”线程安全”的操作，还需要采用更为深层的锁定机制才行，</p>
 <h5 id="assign">assign</h5><p>“设置方法”只会执行针对”纯量类型”比如：NSInteger、CGFloat等简单赋值操作。</p>

@@ -207,13 +207,13 @@
       
         <p>今天在做一个控件的动画，动画需求是这样的，当UICollectionView滚动开始和滚动结束的时候，一个底部控件需要做淡出淡入的效果。</p>
 <p>在iOS中使用UIScrollView的子类的时候，需要知道UIScrollView滚动动画是否结束，一般我们都是通过UIScrollViewDelegate中去寻找方法。</p>
+<a id="more"></a>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView</span><br></pre></td></tr></table></figure>
 <p>第一眼就相中它了，在我使用的过程中发现，在拖拽UIScrollView之后动画停止的时候，这个函数根本不会触发。翻看了apple给出的文档</p>
 <pre><code><span class="type">The</span> scroll view calls this <span class="keyword">method</span> at the <span class="keyword">end</span> <span class="keyword">of</span> its implementations <span class="keyword">of</span> 
 the setContentOffset:animated: <span class="keyword">and</span> scrollRectToVisible:animated: 
 methods, but only <span class="keyword">if</span> animations are requested.
-</code></pre><a id="more"></a>
-<p>文档中说明该函数只作用于 setContentOffset:animated: 和 scrollRectToVisible:animated: 这两个函数，调用时机是动画结束之后，并且只有当animated为YES的时候。后来查了一些资料发现还有一些函数也是会被调用的。归纳有以下几个</p>
+</code></pre><p>文档中说明该函数只作用于 setContentOffset:animated: 和 scrollRectToVisible:animated: 这两个函数，调用时机是动画结束之后，并且只有当animated为YES的时候。后来查了一些资料发现还有一些函数也是会被调用的。归纳有以下几个</p>
 <pre><code><span class="comment">// UIScrollView的setContentOffset:animated: </span>
 <span class="comment">// UIScrollView的scrollRectToVisible:animated:</span>
 <span class="comment">// UITableView的scrollToRowAtIndexPath:atScrollPosition:animated:</span>

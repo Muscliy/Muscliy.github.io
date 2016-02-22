@@ -211,8 +211,6 @@
       
         
           <p>VirtualEnv用来创建隔离的Python环境的开源工具。<br>Python使用的人多了背后有个庞大的开源社区支持，但是有个缺点就是每个包的质量都是参差不齐， 如果我们想测试安装每个包，最后会堆积成一个庞大而复杂的第三方依赖。VirtualEnv就是为了解决这个问题而生的，可以用于在一台机器上创建多个独立的python运行环境</p>
-<h3 id="安装">安装</h3><p>可以使用easy_install和pip 安装,pip是一个安装python库很方便的东西，类似yum，pip search pip install，如果没wget的话，就用curl -O 另外也可以考虑用easy_install代替pip</p>
-<h6 id="安装easy_install">安装easy_install</h6><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>wget <span class="symbol">http:</span>/<span class="regexp">/python-distribute.org/distribute</span>_setup.py</span><br><span class="line"><span class="variable">$ </span>sudo python distribute_setup.py</span><br></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/02/19/VirtualEnv-安装和使用/#more">
               閱讀全文 &raquo;
@@ -377,12 +375,7 @@
 
       
         
-          <h3 id="通过委托与数据源协议进行对象间通信">通过委托与数据源协议进行对象间通信</h3><hr>
-<p>委托（delegate）与 数据源（data source）， 在iOS控件中最为代表性的控件就是UITableView，它定义了一套接口， 某个对象想要接受UITableView 的委托就需要遵从这些接口，这样的话UITableview就可以给委托对象回传一些消息，比如cell的点击相应。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>, nullable) <span class="keyword">id</span> &lt;<span class="built_in">UITableViewDataSource</span>&gt; dataSource;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>, nullable) <span class="keyword">id</span> &lt;<span class="built_in">UITableViewDelegate</span>&gt; delegate;</span><br></pre></td></tr></table></figure>
-<p>检查某个委托的对象是否相应特定的选择子，通常是这样实现</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">if</span> ([delegate <span class="attribute">respondsToSelector</span>:<span class="variable">@selector</span>(someClassDidSomething)]) &#123;</span><br><span class="line">    <span class="attr_selector">[delegate someClassDidSomething]</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p>但是如果我们频繁执行此操作的话，那么除了第一次检测的结果有用之外，后续的检测可能都是多余的。鉴于此，我们通常把委托对象能否响应某个协议方法这一信息缓存起来，以优化程序效率。apple官方通常使用结构来缓存。</p>
+          <p>Objective-C语言有一项特性叫做“协议（protocol）”,他和java里面的“接口相似”。Objective-C不支持多重继承，因而我们把某个类应该实现的一系列方法定义在协议里面。协议最常见的用途是实现委托模式，不过也有其他用法。理解并善用协议可以令代码变得更易维护，因为协议这种方式很好地描述接口。<br>“分类（category）”也是Objective-C的一项重要特性，利用分类机制，我们无须继承子类即可直接为当前类添加方法，而其他的编程语言中则需要通过继承子类来实现。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/01/19/Effective-Objective-C-2-0-笔记-四/#more">
               閱讀全文 &raquo;
@@ -452,10 +445,7 @@
 
       
         
-          <h3 id="引言">引言</h3><p>这只是一篇看完《iOS Core Animation Advanced Techniques》书的一个摘要，并不是一篇翻译，书籍的可读性非常高，很多基础不扎实的iOS 开发者都缺少的一块知识的补充。</p>
-<h3 id="UIView">UIView</h3><p>在iOS界面开发中离不开UIView(视图), 所有的可视化控件基本继承来自UIView，UIView就是在屏幕上显示的一个矩形块(比如文字、图片、视频)。可以处理触摸时间，可以支持CoreGraphics绘图，可以做动画。</p>
-<h3 id="CALayer">CALayer</h3><p>CALayer(图层)在概念上和UIView类似，同样是一些被层级关系管理的矩形块，同样也可以包含(比如文字、图片、视频)这些信息。和UIView最大的不同就是不能处理用户的交互</p>
-<h3 id="关系">关系</h3><p>每一个UIView 都有一个CALayer，从代码的角度来分析，应该是试图管理者图层，所有的UIView的动画其实CALayer才是真正的始作俑者，UIView仅仅只是对它的一个封装，而UIView知识体统了iOS中处理触摸的具体功能，还有Core Animation底层方法的高级接口。在MAC开发中我们用的NSView也是如此，那么苹果为什么要在两个不同平台上去封装两个不同类，这主要是试图对用户的动作处理的区别，UIView处理的主要是用户多点触控，NSView处理的是针对对电脑键盘和鼠标的事件。</p>
+          <p>这只是一篇看完《iOS Core Animation Advanced Techniques》书的一个摘要，并不是一篇翻译，书籍的可读性非常高，很多基础不扎实的iOS 开发者都缺少的一块知识的补充。<br>在iOS界面开发中离不开UIView(视图), 所有的可视化控件基本继承来自UIView，UIView就是在屏幕上显示的一个矩形块(比如文字、图片、视频)。可以处理触摸时间，可以支持CoreGraphics绘图，可以做动画。<br>CALayer(图层)在概念上和UIView类似，同样是一些被层级关系管理的矩形块，同样也可以包含(比如文字、图片、视频)这些信息。和UIView最大的不同就是不能处理用户的交互</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/01/19/iOS-Core-Animation-Advanced-Techniques-一/#more">
               閱讀全文 &raquo;
@@ -536,10 +526,8 @@
 
       
         
-          <h3 id="启发">启发</h3><p>很早之前拜读了limboy 的<a href="http://limboy.me/ios/2015/09/09/ios-analytics.html">iOS 统计打点那些事</a>这篇文章，之后又了解了<a href="https://heapanalytics.com/docs/define-events#visualizer-for-ios-apps">heapanalytics</a>可视化全埋点，对我的帮助很大。</p>
-<h3 id="思路">思路</h3><p>前期的简单做法是UI设计完界面后标坐标的时候同时给所有可点击控件标一个event id。 这个id可以为一个递增数字, 也可以为控件内随机点一个点后取x,y的组合, 也可以用随机数的, 只要保证唯一就可以了。 event id可以一类控件用一个id, 也可以按照界面将一类控件分成多个id。 一类控件用多个id的好处是数据组好过滤。然后开发写代码的时候将这个id写进控件里面, 然后全局拦截所有的点击事件, 加入埋点处理的代码。为了与其他端保持一致的统计方式最后实现的格式如下</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;UIView <span class="variable">page =</span> <span class="string">"XMStoreScrollPageViewController"</span> <span class="variable">pageAttribute =</span></span><br><span class="line">     &#123;<span class="string">"shopId"</span> : <span class="string">"54131c6b0364b0ed8f1ffd90"</span>&#125;&gt;&lt;PTCollectionView&gt;&lt;</span><br><span class="line">    XMHomePageRootShelfModuleItemCell <span class="variable">eventId =</span> <span class="string">"40001"</span> <span class="variable">indexPath =</span> <span class="string">"&#123;4, 0&#125;"</span> <span class="variable">rect =</span></span><br><span class="line">        <span class="string">"&#123;0, 325.5, 276, 183&#125;"</span>&gt;&lt;/ XMHomePageRootShelfModuleItemCell&gt;&lt;/ PTCollectionView&gt;&lt;/ UIView&gt;</span><br></pre></td></tr></table></figure>
-<p>我们只统计到当前ViewController的层，当然如果view没有对应的viewController 那么就使用window当根节点。<br>
+          <p>很早之前拜读了limboy 的<a href="http://limboy.me/ios/2015/09/09/ios-analytics.html">iOS 统计打点那些事</a>这篇文章，之后又了解了<a href="https://heapanalytics.com/docs/define-events#visualizer-for-ios-apps">heapanalytics</a>可视化全埋点，对我的帮助很大。</p>
+<p>前期的简单做法是UI设计完界面后标坐标的时候同时给所有可点击控件标一个event id。 这个id可以为一个递增数字, 也可以为控件内随机点一个点后取x,y的组合, 也可以用随机数的, 只要保证唯一就可以了。 event id可以一类控件用一个id, 也可以按照界面将一类控件分成多个id。 一类控件用多个id的好处是数据组好过滤。然后开发写代码的时候将这个id写进控件里面, 然后全局拦截所有的点击事件, 加入埋点处理的代码。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/01/07/iOS-打点统计代码实现/#more">
               閱讀全文 &raquo;
@@ -704,8 +692,7 @@
 
       
         
-          <h3 id="用前缀避免命名空间冲突">用前缀避免命名空间冲突</h3><p>如果你写程序需要放到Github给别人用，那么所有的类名应该加前缀，前缀应该由3个大写字母组成，因为apple宣称其保留使用所有“两字母前缀”,比如之前有很多人用TW作为前缀，后来apple引入了TWRequest,请求调用Twitter API。</p>
-<h3 id="提供”全能初始化方法”">提供”全能初始化方法”</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSDate</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCopying</span>, <span class="title">NSSecureCoding</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>) <span class="built_in">NSTimeInterval</span> timeIntervalSinceReferenceDate;</span><br><span class="line"></span><br><span class="line">- (instancetype)init <span class="built_in">NS_DESIGNATED_INITIALIZER</span>;</span><br><span class="line">- (instancetype)initWithTimeIntervalSinceReferenceDate:(<span class="built_in">NSTimeInterval</span>)ti <span class="built_in">NS_DESIGNATED_INITIALIZER</span>;</span><br><span class="line">- (nullable instancetype)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder <span class="built_in">NS_DESIGNATED_INITIALIZER</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+          <p>我们在构建应用程序时，可能想将其中部分代码用于后续项目，也可能想把某些代码发布出去，供他人使用。即便现在还不想这么做，将来也总会有用到的时候。如果决定重用代码，那么我们在编写接口时就会将其设计成易于复用的形式。这需要用到Objective-C语言中常见的编程范式，同时还需要了解各种可能碰到的陷阱。<br>近年来，开源社区与开源组件随着iOS开发流行起来，所以我们经常会在开发自己的应用程序市，使用他人所写的代码。与此同时，别人也会用到你写的代码，所以要把代码写得清晰一些，以便于其他开发者能够迅速而方便地将其集成到他们的项目里。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/21/Effective-Objective-C-2-0-笔记-三/#more">
               閱讀全文 &raquo;
@@ -786,10 +773,7 @@
 
       
         
-          <h3 id="理解“属性”这一概念">理解“属性”这一概念</h3><p>“属性”是Objective-C 的一项特性，用于封装对象中的数据，Objective-C 对象通常会把其所需要的数据保存为各种实例变量。实例变量一般通过“存取方法”来访问。<br>Objective-C 中定义一个类通常使用@property语法来实现，他帮助属性自动合成（autosynthesis）”获取方法”和”设置方法”，合成方法(synthesized method)是过程的代码由编译器在编译期执行，除了生成代码代码以外，编译器还自动向类中添加适当类型的实例变量，并且在属性名前面加下划线，</p>
-<h5 id="synthesize关键字">synthesize关键字</h5><p>能指定实例变量的名字：</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@implementation</span> Person</span><br><span class="line"><span class="variable">@synthesize</span> firstName = _myFirstName;</span><br><span class="line"><span class="variable">@synthesize</span> lastName = _myLastName;</span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>
-<p>他将帮助生成实例变量命名为_myFirstName和_myLastName 而不再使用默认的名字。<br>若不想令编译器自动合成存取方法，则可以自己实现，<br>如果你实现了其中的一个存取方法，那么另外一个还是会有编译器来实现合成的。<br>
+          <p>用Objective-C等面向对象语言编程时，“对象”就是“基本构造单元”，开发者可以通过对象来存储并传递数据。在对象之间传递数据并执行任务的过程就叫做“消息传递”。若想编写出高效且易维护的代码，就一定要熟悉这两个特性的工作原理。<br>当应用程序运行起来以后，为其童工相关支持的代码叫做“Objective-C运行期环境”，它提供了一些使得对象之间能够传递消息的重要函数，并且包含创建类实例所用的全部逻辑。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/12/Effective-Objective-C-2-0-笔记-二/#more">
               閱讀全文 &raquo;
@@ -870,12 +854,7 @@
 
       
         
-          <h3 id="Objective-C_变量、对象、结构">Objective-C 变量、对象、结构</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">NSString</span> *someString = @<span class="string">"the string"</span>;</span><br><span class="line"><span class="title">someString</span> : 变量</span><br><span class="line">@<span class="string">"the string"</span> : 实例 也是对象</span><br></pre></td></tr></table></figure>
-<p><img src="/images/2015-12-10-effective-1-1.png"></p>
-<p>变量是指向NSString的指针，变量内存分配在“栈”上，对象内存分配在“堆”上，结构体的内存分布在“数据块”中（CGRect,如果改用对象，性能会受影响）</p>
-<h3 id="在类的头文件中尽量减少引用其他头文件">在类的头文件中尽量减少引用其他头文件</h3><pre><code>-<span class="ruby"> 减轻编译的负担
-</span>-<span class="ruby"> 使用<span class="variable">@class</span> <span class="constant">Employer</span>（向前声明 ）的方法</span>
-</code></pre>
+          <p>Obejctive-C通过一套全新的语法，在C语言基础上添加了面向对象特性。Objectice-C的语法中频繁使用方括号，而且不吝于写出极长的方法名，这通常令许多人觉得此语言较为冗长。其实这样写出来的代码十分易读，只是C++或者Java程序员不太适应。<br>Objective-C语言学起来很快，但有很多微妙细节需要注意，而且还有许多容易为人所忽略的特性。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/11/Effective-Objective-C-2-0-笔记-一/#more">
               閱讀全文 &raquo;

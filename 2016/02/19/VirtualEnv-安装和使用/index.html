@@ -206,9 +206,9 @@
 
       
         <p>VirtualEnv用来创建隔离的Python环境的开源工具。<br>Python使用的人多了背后有个庞大的开源社区支持，但是有个缺点就是每个包的质量都是参差不齐， 如果我们想测试安装每个包，最后会堆积成一个庞大而复杂的第三方依赖。VirtualEnv就是为了解决这个问题而生的，可以用于在一台机器上创建多个独立的python运行环境</p>
+<a id="more"></a>
 <h3 id="安装">安装</h3><p>可以使用easy_install和pip 安装,pip是一个安装python库很方便的东西，类似yum，pip search pip install，如果没wget的话，就用curl -O 另外也可以考虑用easy_install代替pip</p>
 <h6 id="安装easy_install">安装easy_install</h6><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>wget <span class="symbol">http:</span>/<span class="regexp">/python-distribute.org/distribute</span>_setup.py</span><br><span class="line"><span class="variable">$ </span>sudo python distribute_setup.py</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
 <h6 id="安装pip">安装pip</h6><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">sudo</span> easy_install pip</span><br></pre></td></tr></table></figure>
 <h6 id="安装VirtualEnv">安装VirtualEnv</h6><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">方法一：sudo easy_install virtualenv</span><br><span class="line">方法二：pip <span class="keyword">install</span> virtualenv</span><br></pre></td></tr></table></figure>
 <h3 id="环境搭建">环境搭建</h3><h6 id="创建">创建</h6><p><img src="/images/2016-2-21-Python-Virtualenv-1.png"><br>viratualProject 就是我们创建的虚拟环境的目录了，该目录在安装就默认安装了本机相同的python版本了<br><img src="/images/2016-2-21-Python-Virtualenv-2.png"><br><img src="/images/2016-2-21-Python-Virtualenv-3.png"></p>
