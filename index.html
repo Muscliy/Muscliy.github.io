@@ -164,6 +164,136 @@
           
           
             
+              <a class="post-title-link" href="/2016/03/08/jQuery-Selectors/">
+                jQuery Selectors
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          發表於 2016-03-08
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分類於
+            
+              <a href="/categories/jQuery/">jQuery</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/03/08/jQuery-Selectors/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/08/jQuery-Selectors/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h3 id="Basics">Basics</h3><pre><code><span class="variable">$(</span><span class="string">'div'</span>)
+<span class="variable">$(</span><span class="string">'#myid'</span>)
+<span class="variable">$(</span><span class="string">'.myclass'</span>)
+<span class="variable">$(</span><span class="string">'*'</span>)
+<span class="variable">$(</span><span class="string">'#myid,.myclass,div'</span>)
+</code></pre><h3 id="Hierarchy">Hierarchy</h3><pre><code><span class="variable">$(</span><span class="string">'div code'</span>)
+<span class="variable">$(</span><span class="string">'ul &gt; li'</span>)
+<span class="variable">$(</span><span class="string">'strong + em'</span>)
+<span class="variable">$(</span><span class="string">'strong ~ em'</span>)
+</code></pre><h3 id="Basics_Fliters">Basics Fliters</h3><pre><code><span class="variable">$(</span><span class="string">'li:first'</span>)                 所以li的第一项
+<span class="variable">$(</span><span class="string">'li:last'</span>)                    列表最后一项
+<span class="variable">$(</span><span class="string">'li:not(li:first)'</span>)        列表除第一项外
+<span class="variable">$(</span><span class="string">'li:even'</span>)                    所有偶数项
+<span class="variable">$(</span><span class="string">'li:odd'</span>)                    所有奇数项
+<span class="variable">$(</span><span class="string">'li:eq(1)'</span>)                    index为<span class="number">1</span>的现
+<span class="variable">$(</span><span class="string">'li:gt(2)'</span>)                    index &gt; <span class="number">2</span> 的项
+<span class="variable">$(</span><span class="string">'li:lt(3)'</span>)                    index &lt; <span class="number">3</span> 的现
+<span class="variable">$(</span><span class="string">':header'</span>)                    
+<span class="variable">$(</span><span class="string">':animated'</span>)
+</code></pre><h3 id="Content_Fliters">Content Fliters</h3><pre><code><span class="variable">$(</span><span class="string">'li:contains(edu)'</span>)         判断li中value是否包含edu
+<span class="variable">$(</span><span class="string">':empty'</span>)                    选择空tag    
+<span class="variable">$(</span><span class="string">'li:has(p)'</span>)                选择有p元素的li
+<span class="variable">$(</span><span class="string">'p:parent'</span>)                    和empty相反
+</code></pre><h3 id="Visibility_Fliters">Visibility Fliters</h3><pre><code>$(<span class="string">':hidden'</span>)                     <span class="attribute">display</span> is <span class="attribute">none</span>
+$(<span class="string">':visible'</span>)                    <span class="attribute">display</span> is not <span class="attribute">none</span>
+</code></pre><h3 id="Attributes_Fliters">Attributes Fliters</h3><pre><code>$('li[<span class="type">class</span>/<span class="property">id</span>/<span class="property">name</span>]')              包含<span class="type">class</span>或则<span class="property">id</span>或则<span class="property">name</span>
+$('a[calss=<span class="string">"self"</span>]')                same <span class="keyword">to</span> $('.myclass')
+$('a[xxx=<span class="string">"myxx"</span>])                    ep:$('a[calss='self']')
+$('a[rel!=<span class="string">"nofollow"</span>]')                包含rel不等于’nofollow‘
+$('[<span class="type">class</span>^=<span class="string">"my"</span>]')                    <span class="type">class</span>名为<span class="keyword">my</span>开始
+$('[<span class="type">class</span>$=<span class="string">"my"</span>]')                    <span class="type">class</span>名为<span class="keyword">my</span>结束
+$('a[href*=<span class="string">"zip"</span>])                    href中包含zip的
+$('a[rel][href][title=<span class="string">"blog"</span>]')    所有条件都需要满足
+</code></pre><h3 id="Child_Fliters">Child Fliters</h3><pre><code><span class="variable">$(</span><span class="string">'li:first-child'</span>)                    所有子元素的第一项，和<span class="variable">$(</span><span class="string">'li:first'</span>)不同
+<span class="variable">$(</span><span class="string">'li:last-child'</span>)                    最后一个子元素
+<span class="variable">$(</span><span class="string">'li:nth-child(even)'</span>)                所有子元素中的偶数项
+<span class="variable">$(</span><span class="string">'li:nth-child(odd)'</span>)                所有子元素中奇数项
+<span class="variable">$(</span><span class="string">'li:nth-child(2)'</span>)                所有child中第二个
+<span class="variable">$(</span><span class="string">'li:nth-child(2n)'</span>)                所有元素中<span class="number">2</span>*n个元素也可以写<span class="number">3</span>n+<span class="number">2</span>等等
+<span class="variable">$(</span><span class="string">'code:only-child'</span>)                元素只存在一个
+</code></pre><h3 id="Forms">Forms</h3><pre><code><span class="variable">$(</span><span class="string">':input'</span>)
+<span class="variable">$(</span><span class="string">':text'</span>)
+<span class="variable">$(</span><span class="string">':password'</span>)
+<span class="variable">$(</span><span class="string">':radio'</span>)
+<span class="variable">$(</span><span class="string">':checkbox'</span>)
+<span class="variable">$(</span><span class="string">':image'</span>)
+<span class="variable">$(</span><span class="string">':submit'</span>)
+<span class="variable">$(</span><span class="string">':reset'</span>)
+<span class="variable">$(</span><span class="string">':button'</span>)
+<span class="variable">$(</span><span class="string">':file'</span>)
+</code></pre><h3 id="Froms_Fliters">Froms Fliters</h3><pre><code><span class="variable">$(</span><span class="string">':input:enable'</span>)
+<span class="variable">$(</span><span class="string">':disable'</span>)
+<span class="variable">$(</span><span class="string">':checked'</span>)
+<span class="variable">$(</span><span class="string">':selected'</span>)
+</code></pre>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2016/02/19/VirtualEnv-安装和使用/">
                 VirtualEnv 安装和使用
               </a>
@@ -878,88 +1008,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/10/Find-the-current-top-view-controller/">
-                Find the current top view controller
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          發表於 2015-12-10
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分類於
-            
-              <a href="/categories/iOS/">iOS</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/12/10/Find-the-current-top-view-controller/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/10/Find-the-current-top-view-controller/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>Objective-C version</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="built_in">UIViewController</span> *)topViewController&#123;</span><br><span class="line">  <span class="keyword">return</span> [<span class="keyword">self</span> topViewController:[<span class="built_in">UIApplication</span> sharedApplication]<span class="variable">.keyWindow</span><span class="variable">.rootViewController</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIViewController</span> *)topViewController:(<span class="built_in">UIViewController</span> *)rootViewController</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (rootViewController<span class="variable">.presentedViewController</span> == <span class="literal">nil</span>) &#123;</span><br><span class="line">    <span class="built_in">UINavigationController</span> *navigationController =</span><br><span class="line">    (<span class="built_in">UINavigationController</span> *)rootViewController;</span><br><span class="line">    <span class="keyword">return</span> [[navigationController viewControllers] lastObject];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> ([rootViewController<span class="variable">.presentedViewController</span> isMemberOfClass:[<span class="built_in">UINavigationController</span> class]]) &#123;</span><br><span class="line">    <span class="built_in">UINavigationController</span> *navigationController = (<span class="built_in">UINavigationController</span> *)rootViewController<span class="variable">.presentedViewController</span>;</span><br><span class="line">    <span class="built_in">UIViewController</span> *lastViewController = [[navigationController viewControllers] lastObject];</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> topViewController:lastViewController];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">UIViewController</span> *presentedViewController = (<span class="built_in">UIViewController</span> *)rootViewController<span class="variable">.presentedViewController</span>;</span><br><span class="line">  <span class="keyword">return</span> [<span class="keyword">self</span> topViewController:presentedViewController];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/10/Find-the-current-top-view-controller/#more">
-              閱讀全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -998,14 +1046,14 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">分類</span>
               </a>
           </div>
