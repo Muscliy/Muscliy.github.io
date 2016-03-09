@@ -219,52 +219,12 @@
 <span class="variable">$(</span><span class="string">'ul &gt; li'</span>)
 <span class="variable">$(</span><span class="string">'strong + em'</span>)
 <span class="variable">$(</span><span class="string">'strong ~ em'</span>)
-</code></pre><h3 id="Basics_Fliters">Basics Fliters</h3><pre><code><span class="variable">$(</span><span class="string">'li:first'</span>)                 所以li的第一项
-<span class="variable">$(</span><span class="string">'li:last'</span>)                    列表最后一项
-<span class="variable">$(</span><span class="string">'li:not(li:first)'</span>)        列表除第一项外
-<span class="variable">$(</span><span class="string">'li:even'</span>)                    所有偶数项
-<span class="variable">$(</span><span class="string">'li:odd'</span>)                    所有奇数项
-<span class="variable">$(</span><span class="string">'li:eq(1)'</span>)                    index为<span class="number">1</span>的现
-<span class="variable">$(</span><span class="string">'li:gt(2)'</span>)                    index &gt; <span class="number">2</span> 的项
-<span class="variable">$(</span><span class="string">'li:lt(3)'</span>)                    index &lt; <span class="number">3</span> 的现
-<span class="variable">$(</span><span class="string">':header'</span>)                    
-<span class="variable">$(</span><span class="string">':animated'</span>)
-</code></pre><h3 id="Content_Fliters">Content Fliters</h3><pre><code><span class="variable">$(</span><span class="string">'li:contains(edu)'</span>)         判断li中value是否包含edu
-<span class="variable">$(</span><span class="string">':empty'</span>)                    选择空tag    
-<span class="variable">$(</span><span class="string">'li:has(p)'</span>)                选择有p元素的li
-<span class="variable">$(</span><span class="string">'p:parent'</span>)                    和empty相反
-</code></pre><h3 id="Visibility_Fliters">Visibility Fliters</h3><pre><code>$(<span class="string">':hidden'</span>)                     <span class="attribute">display</span> is <span class="attribute">none</span>
-$(<span class="string">':visible'</span>)                    <span class="attribute">display</span> is not <span class="attribute">none</span>
-</code></pre><h3 id="Attributes_Fliters">Attributes Fliters</h3><pre><code>$('li[<span class="type">class</span>/<span class="property">id</span>/<span class="property">name</span>]')              包含<span class="type">class</span>或则<span class="property">id</span>或则<span class="property">name</span>
-$('a[calss=<span class="string">"self"</span>]')                same <span class="keyword">to</span> $('.myclass')
-$('a[xxx=<span class="string">"myxx"</span>])                    ep:$('a[calss='self']')
-$('a[rel!=<span class="string">"nofollow"</span>]')                包含rel不等于’nofollow‘
-$('[<span class="type">class</span>^=<span class="string">"my"</span>]')                    <span class="type">class</span>名为<span class="keyword">my</span>开始
-$('[<span class="type">class</span>$=<span class="string">"my"</span>]')                    <span class="type">class</span>名为<span class="keyword">my</span>结束
-$('a[href*=<span class="string">"zip"</span>])                    href中包含zip的
-$('a[rel][href][title=<span class="string">"blog"</span>]')    所有条件都需要满足
-</code></pre><h3 id="Child_Fliters">Child Fliters</h3><pre><code><span class="variable">$(</span><span class="string">'li:first-child'</span>)                    所有子元素的第一项，和<span class="variable">$(</span><span class="string">'li:first'</span>)不同
-<span class="variable">$(</span><span class="string">'li:last-child'</span>)                    最后一个子元素
-<span class="variable">$(</span><span class="string">'li:nth-child(even)'</span>)                所有子元素中的偶数项
-<span class="variable">$(</span><span class="string">'li:nth-child(odd)'</span>)                所有子元素中奇数项
-<span class="variable">$(</span><span class="string">'li:nth-child(2)'</span>)                所有child中第二个
-<span class="variable">$(</span><span class="string">'li:nth-child(2n)'</span>)                所有元素中<span class="number">2</span>*n个元素也可以写<span class="number">3</span>n+<span class="number">2</span>等等
-<span class="variable">$(</span><span class="string">'code:only-child'</span>)                元素只存在一个
-</code></pre><h3 id="Forms">Forms</h3><pre><code><span class="variable">$(</span><span class="string">':input'</span>)
-<span class="variable">$(</span><span class="string">':text'</span>)
-<span class="variable">$(</span><span class="string">':password'</span>)
-<span class="variable">$(</span><span class="string">':radio'</span>)
-<span class="variable">$(</span><span class="string">':checkbox'</span>)
-<span class="variable">$(</span><span class="string">':image'</span>)
-<span class="variable">$(</span><span class="string">':submit'</span>)
-<span class="variable">$(</span><span class="string">':reset'</span>)
-<span class="variable">$(</span><span class="string">':button'</span>)
-<span class="variable">$(</span><span class="string">':file'</span>)
-</code></pre><h3 id="Froms_Fliters">Froms Fliters</h3><pre><code><span class="variable">$(</span><span class="string">':input:enable'</span>)
-<span class="variable">$(</span><span class="string">':disable'</span>)
-<span class="variable">$(</span><span class="string">':checked'</span>)
-<span class="variable">$(</span><span class="string">':selected'</span>)
 </code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/03/08/jQuery-Selectors/#more">
+              閱讀全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
