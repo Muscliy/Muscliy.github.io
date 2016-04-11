@@ -1,0 +1,612 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="学习总结 思考感悟 知识管理" />
+
+
+
+  <meta name="keywords" content="React Native," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      google: ''
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?8c7d0a701bffd6b100d7b0d874d9f6b3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> React Native 项目总结 // LeeHu的博客 </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">LeeHu的博客</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            關於
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              React Native 项目总结
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          發表於 2016-04-11
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/04/11/React-Native-项目总结/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/11/React-Native-项目总结/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <p>React Native这个框架出来，一直都受很多程序员的热捧。但是国内一直都是嘴上热捧，并没有那么多人几成到自己现有开发实际的项目，这段时间一直都在学习JS的内容，就试了试React Native，因为对android开发不熟悉，只能从一个iOS开发者来分析了。</p>
+<h3 id="背景">背景</h3><p>react native充分利用了Facebook的现有轮子，是一个很优秀的集成作品，并且我相信这个团队对前端的了解很深刻，否则不可能让Native code 退居二线。</p>
+<a id="more"></a>
+<h3 id="优点">优点</h3><ul>
+<li>无需编译，直接通过更新云端的js代码来实时更新应用app界面（这是最大的诱惑）</li>
+<li>降低了学习成本，所有native组件都是标签化的XML，对于一些前端程序员来说，降低了成本（但是，不懂Objective-C的话Brigde一些本地功能也是徒劳无功）</li>
+<li>有较强的扩展性，这是因为Native端提供的是基本控件，JS可以自由组合使用。</li>
+</ul>
+<h3 id="缺点">缺点</h3><ul>
+<li>没有Xcode那样一个可视化的IDE，不过看过一个<a href="https://www.decosoftware.com/?r=re8uu" target="_blank" rel="external"> DECO </a>还没有可以下载，视频介绍显示的很牛的样子</li>
+<li>对app性能优化方便，还没有十足的把握，比如在遇到列表数据的时候，会出现抖动，因为只要state中属性变化就会刷新页面，虽然这个可以通过shouldUpdateComponent函数来过滤，但是依旧不是很理想。</li>
+<li>传大数据的时候性能也是问题</li>
+<li>ios上面还一个大坑是三方app的js没法开启jit, 只有safari里面的js可以开启jit</li>
+</ul>
+<p>从上面看来好像缺点还是真多，就不用了？当然也不是，当然有各种大牛如果很热衷于此，都会慢慢攻破技术难题, 这里推荐国内牛人的博客 <a href="http://www.lcode.org/" target="_blank" rel="external">江清情的技术专栏</a>。那些对效果和性能不是要求很高的都可以用react native做, 那些与众不同的就不好用react native做了. react native相对h5而言有了很大的进步, 但react native和h5只能满足大家共用的需求, 比较特殊的需求的还得用原生做。</p>
+<h3 id="环境搭建">环境搭建</h3><p>大家一个React Native(下面简称RN)应用跟着官网来就行了，基本思想官网也有解释</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">npm</span> install -g react-<span class="reserved">native</span>-cli</span><br><span class="line">$ react-<span class="reserved">native</span> init AwesomeProject</span><br></pre></td></tr></table></figure>
+<h3 id="文件分析">文件分析</h3><p>在appdelegate中我们知道，应用启动第一个文件是指向index.ios.js这个文件就是我们需要管理的界面启动代码。分为三个部分(代码和原有生成的会不同)具体参考git开源的RN项目gitFeed</p>
+<h6 id="import组件">import组件</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> React = <span class="built_in">require</span>(<span class="string">'react-native'</span>);</span><br><span class="line"><span class="keyword">const</span> RootTab = <span class="built_in">require</span>(<span class="string">'./AppComponents/RootTabComponent'</span>);</span><br><span class="line"><span class="keyword">const</span> GHService = <span class="built_in">require</span>(<span class="string">'./networkService/GithubServices'</span>);</span><br><span class="line"><span class="keyword">const</span> &#123;</span><br><span class="line">	<span class="comment">//要使用到的组件</span></span><br><span class="line">  AppRegistry,</span><br><span class="line">  StyleSheet,</span><br><span class="line">  ActivityIndicatorIOS,</span><br><span class="line">&#125; = React;</span><br></pre></td></tr></table></figure>
+<p>就相当于OC中引用了一个类，并同时创建一个实例。</p>
+<h5 id="JS代码bridge自定义OC组件">JS代码bridge自定义OC组件</h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">"RCTBridgeModule.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">DXRNUtils</span> : <span class="title">NSObject</span>&lt;<span class="title">RCTBridgeModule</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#import <span class="title">"DXRNUtils.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> kAppId = <span class="string">@"1079873993"</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">DXRNUtils</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@synthesize</span> bridge = _bridge;</span><br><span class="line"></span><br><span class="line">RCT_EXPORT_MODULE()</span><br><span class="line"></span><br><span class="line">RCT_EXPORT_METHOD(clearCookies:(RCTResponseSenderBlock)callback) &#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">RCT_EXPORT_METHOD(trackClick:(nonnull <span class="built_in">NSString</span> *)eventName attributes:(<span class="built_in">NSDictionary</span> *)atr) &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">RCT_EXPORT_METHOD(appInfo:(RCTResponseSenderBlock)callback) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>创建的类需要准从RCTBridgeModule协议，RN是通过Module切换到客户端源码，必须要在implementation中实现RCT_EXPORT_MODULE()，并在需要module的methond方法前添加RCT_EXPORT_METHOD来定义。云端JS代码必须要有一个相同的类与之对应</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> React = <span class="built_in">require</span>(<span class="string">'react-native'</span>);</span><br><span class="line"><span class="reserved">const</span> Platform = <span class="built_in">require</span>(<span class="string">'Platform'</span>);</span><br><span class="line"></span><br><span class="line"><span class="reserved">var</span> &#123;</span><br><span class="line">  <span class="attribute">NativeModules</span>: &#123;</span><br><span class="line">    DXRNUtils,</span><br><span class="line">  &#125;</span><br><span class="line">&#125; = React;</span><br><span class="line"></span><br><span class="line"><span class="reserved">var</span> Uitls = &#123;</span><br><span class="line">  clearCookie(cb) &#123;</span><br><span class="line">    <span class="keyword">if</span> (Platform.OS === <span class="string">'android'</span>) &#123;</span><br><span class="line">      <span class="regexp">//</span> <span class="attribute">TODO</span>:</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Platform.OS === <span class="string">'ios'</span>) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'clear cookies'</span>);</span><br><span class="line">      DXRNUtils.clearCookies(<span class="function"><span class="params">(error, results)</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'clearCookie error occured'</span> + error);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  trackClick(name, atr) &#123;</span><br><span class="line">    <span class="keyword">if</span> (Platform.OS === <span class="string">'android'</span>) &#123;</span><br><span class="line">      <span class="regexp">//</span> <span class="attribute">TODO</span>:</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Platform.OS === <span class="string">'ios'</span>) &#123;</span><br><span class="line">      DXRNUtils.trackClick(name, atr);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  appInfo(cb) &#123;</span><br><span class="line">    <span class="keyword">if</span> (Platform.OS === <span class="string">'android'</span>) &#123;</span><br><span class="line">      <span class="regexp">//</span> <span class="attribute">TODO</span>:</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Platform.OS === <span class="string">'ios'</span>) &#123;</span><br><span class="line">      DXRNUtils.appInfo(<span class="function"><span class="params">(info)</span> =&gt;</span> &#123;</span><br><span class="line">        cb &amp;&amp; cb(info);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = Uitls;</span><br></pre></td></tr></table></figure>
+<p>在js中应用它是需要添加NativeModules关键字</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">var</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">NativeModules</span>:<span class="value"> &#123;</span><br><span class="line">    DXRNUtils,</span><br><span class="line">  &#125;</span><br><span class="line">&#125; = React</span></span>;</span></span><br></pre></td></tr></table></figure>
+<h6 id="创建组件">创建组件</h6><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const AwesomeProject = React.createClass<span class="params">(&#123;</span><br><span class="line">	getInitialState<span class="params">()</span> &#123;&#125;,</span><br><span class="line">	getInitialState<span class="params">()</span> &#123;&#125;,</span><br><span class="line">	...</span><br><span class="line">&#125;)</span>;</span><br></pre></td></tr></table></figure>
+<h6 id="公开组件">公开组件</h6><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">module</span>.<span class="title">exports</span> =</span> Uitls;</span><br></pre></td></tr></table></figure>
+<h3 id="组件管理">组件管理</h3><p>一个简单的RN的项目就能成功的跑起来了，项目的文件基本分布是这样：</p>
+<p>&lt;img src=”/images/2016-4-11-React-Native-Blog-1-2.png’&gt;</p>
+<p>学过ReactJS就知道，React在H5方面是一个非常好用的框架，很多的git开源出来的组件都是通过React封装的给开发者提高了开发效率，比如wechat出的weui就是基于React写的一组控件，还有material-ui 等等。当然随着RN的盛行，很多的大牛也不断在完善我们可能需要使用到的各种组件。</p>
+<p><img src="/images/2016-4-11-React-Native-Blog-1-3.png"></p>
+<p>在H5开发中，引用地方组件我们通过<link>标签来管理，在iOS开发中我们使用pod工具类管理要引用的第三方开源库，那么在RN中使用npm(node package manager)来管理。pod添加开源库是通过Podfile文件来添加依赖项目地址，并进行安装，安装之后生成pod文件夹，被安装的工程都在pod文件夹中。npm则通过package.json来管理需要依赖的项目，并且会安装在项目的nodes_module文件夹中</p>
+<p><img src="/images/2016-4-11-React-Native-Blog-1-1.png"></p>
+<p><img src="/images/2016-4-11-React-Native-Blog-1-4.png"></p>
+<h3 id="网络请求">网络请求</h3><p>使用链式函数的fetch,它就是就是为了提供更加强大、高效的网络请求而生。使用 fetch 的构造函数请求数据后，返回一个 Promise 对象，处理即可。</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">fetch(<span class="string">"http://blog.parryqiu.com"</span>)</span><br><span class="line">.<span class="keyword">then</span>(<span class="function"><span class="params">(response)</span> =&gt;</span> &#123;</span><br><span class="line">   <span class="regexp">//</span> <span class="keyword">do</span> something...</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">GHService.login(state.username, state.password)</span><br><span class="line">      .<span class="keyword">then</span>(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.props.navigator &amp;&amp; <span class="keyword">this</span>.props.navigator.pop();</span><br><span class="line">        <span class="keyword">this</span>.props.didLogin &amp;&amp; <span class="keyword">this</span>.props.didLogin();</span><br><span class="line"></span><br><span class="line">        <span class="reserved">const</span> nextPromise = <span class="keyword">this</span>.props.nextPromise &amp;&amp; <span class="keyword">this</span>.props.nextPromise();</span><br><span class="line">        <span class="keyword">return</span> nextPromise;</span><br><span class="line">      &#125;)</span><br><span class="line">      .<span class="keyword">catch</span>(err =&gt; &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'login error'</span>, err);</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">          <span class="attribute">loginError</span>: err,</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;)</span><br><span class="line">      .done(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">          <span class="attribute">logining</span>: <span class="literal">false</span>,</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;)</span><br><span class="line">`<span class="javascript"></span>``<span class="javascript">      </span><br><span class="line"></span><br><span class="line">###EVENTS</span><br><span class="line">使用框架 [events](https:<span class="comment">//nodejs.org/api/events.html)，便于理解和兼容 </span></span><br><span class="line">发送事件</span></span><br></pre></td></tr></table></figure>
+<p>SingleGHService.emit(‘didLogout’);</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">监听事件</span><br></pre></td></tr></table></figure>
+<p>GHService.addListener(‘didLogout’, () =&gt; {<br>        this.setState({<br>          userState: LoginState.unOnboard,<br>        });<br>      });</p>
+<p>```</p>
+<h3 id="依赖管理">依赖管理</h3><p>在实际开发过程中，经常需要同时运行和修改多个React Native工程，这样会带来了React Native自身的冗余，如果创建了十几个工程，那么多占用的空间轻松达到3GB以上，非常地不友好。我的解决思路是：用npm link替代npm install。可以参考下面文章 <a href="https://segmentfault.com/a/1190000004278414" target="_blank" rel="external">多React Native项目时依赖管理的最佳实践</a></p>
+
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React-Native/"> #React Native </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/08/jQuery-Selectors/">jQuery Selectors</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2016/04/11/React-Native-项目总结/"
+               data-title="React Native 项目总结" data-url="http://yoursite.com/2016/04/11/React-Native-项目总结/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="LeeHu" />
+          <p class="site-author-name">LeeHu</p>
+        </div>
+        <p class="site-description motion-element">学习总结 思考感悟 知识管理</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分類</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">標籤</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+        
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境搭建"><span class="nav-number">4.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件分析"><span class="nav-number">5.</span> <span class="nav-text">文件分析</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#import组件"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">import组件</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JS代码bridge自定义OC组件"><span class="nav-number">5.0.1.</span> <span class="nav-text">JS代码bridge自定义OC组件</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#创建组件"><span class="nav-number">5.0.1.1.</span> <span class="nav-text">创建组件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#公开组件"><span class="nav-number">5.0.1.2.</span> <span class="nav-text">公开组件</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件管理"><span class="nav-number">6.</span> <span class="nav-text">组件管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络请求"><span class="nav-number">7.</span> <span class="nav-text">网络请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖管理"><span class="nav-number">8.</span> <span class="nav-text">依赖管理</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">LeeHu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.3"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.3"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.3" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.3" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"LeeHu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+
+</body>
+</html>
