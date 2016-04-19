@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,next" />
+  <meta name="keywords" content="PHP," />
 
 
 
@@ -59,7 +59,7 @@
 
 
 
-  <title> jQuery Selectors // LeeHu的博客 </title>
+  <title> mac下搭建php服务器xampp+phpstorm+xdebug  // LeeHu的博客 </title>
 </head>
 
 <body>
@@ -162,7 +162,7 @@
           
           
             
-              jQuery Selectors
+              mac下搭建php服务器xampp+phpstorm+xdebug 
             
           
         </h1>
@@ -170,28 +170,17 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2016-03-08
+          發表於 2016-04-19
         </span>
 
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分類於
-            
-              <a href="/categories/jQuery/">jQuery</a>
-
-              
-              
-
-            
-          </span>
         
 
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2016/03/08/jQuery-Selectors/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/08/jQuery-Selectors/"></span>
+            <a href="/2016/04/19/mac下搭建php服务器xampp-phpstorm-xdebug/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/19/mac下搭建php服务器xampp-phpstorm-xdebug/"></span>
             </a>
           </span>
           
@@ -205,79 +194,41 @@
       
 
       
-        <h3 id="Basics">Basics</h3><pre><code><span class="variable">$(</span><span class="string">'div'</span>)
-<span class="variable">$(</span><span class="string">'#myid'</span>)
-<span class="variable">$(</span><span class="string">'.myclass'</span>)
-<span class="variable">$(</span><span class="string">'*'</span>)
-<span class="variable">$(</span><span class="string">'#myid,.myclass,div'</span>)
-</code></pre><h3 id="Hierarchy">Hierarchy</h3><pre><code><span class="variable">$(</span><span class="string">'div code'</span>)
-<span class="variable">$(</span><span class="string">'ul &gt; li'</span>)
-<span class="variable">$(</span><span class="string">'strong + em'</span>)
-<span class="variable">$(</span><span class="string">'strong ~ em'</span>)
-</code></pre><a id="more"></a>
-<h3 id="Basics_Fliters">Basics Fliters</h3><pre><code><span class="variable">$(</span><span class="string">'li:first'</span>)                 所以li的第一项
-<span class="variable">$(</span><span class="string">'li:last'</span>)                    列表最后一项
-<span class="variable">$(</span><span class="string">'li:not(li:first)'</span>)        列表除第一项外
-<span class="variable">$(</span><span class="string">'li:even'</span>)                    所有偶数项
-<span class="variable">$(</span><span class="string">'li:odd'</span>)                    所有奇数项
-<span class="variable">$(</span><span class="string">'li:eq(1)'</span>)                    index为<span class="number">1</span>的现
-<span class="variable">$(</span><span class="string">'li:gt(2)'</span>)                    index &gt; <span class="number">2</span> 的项
-<span class="variable">$(</span><span class="string">'li:lt(3)'</span>)                    index &lt; <span class="number">3</span> 的现
-<span class="variable">$(</span><span class="string">':header'</span>)                    
-<span class="variable">$(</span><span class="string">':animated'</span>)
-</code></pre><h3 id="Content_Fliters">Content Fliters</h3><pre><code><span class="variable">$(</span><span class="string">'li:contains(edu)'</span>)         判断li中value是否包含edu
-<span class="variable">$(</span><span class="string">':empty'</span>)                    选择空tag    
-<span class="variable">$(</span><span class="string">'li:has(p)'</span>)                选择有p元素的li
-<span class="variable">$(</span><span class="string">'p:parent'</span>)                    和empty相反
-</code></pre><h3 id="Visibility_Fliters">Visibility Fliters</h3><pre><code>$(<span class="string">':hidden'</span>)                     <span class="attribute">display</span> is <span class="attribute">none</span>
-$(<span class="string">':visible'</span>)                    <span class="attribute">display</span> is not <span class="attribute">none</span>
-</code></pre><h3 id="Attributes_Fliters">Attributes Fliters</h3><pre><code>$('li[<span class="type">class</span>/<span class="property">id</span>/<span class="property">name</span>]')              包含<span class="type">class</span>或则<span class="property">id</span>或则<span class="property">name</span>
-$('a[calss=<span class="string">"self"</span>]')                same <span class="keyword">to</span> $('.myclass')
-$('a[xxx=<span class="string">"myxx"</span>])                    ep:$('a[calss='self']')
-$('a[rel!=<span class="string">"nofollow"</span>]')                包含rel不等于’nofollow‘
-$('[<span class="type">class</span>^=<span class="string">"my"</span>]')                    <span class="type">class</span>名为<span class="keyword">my</span>开始
-$('[<span class="type">class</span>$=<span class="string">"my"</span>]')                    <span class="type">class</span>名为<span class="keyword">my</span>结束
-$('a[href*=<span class="string">"zip"</span>])                    href中包含zip的
-$('a[rel][href][title=<span class="string">"blog"</span>]')    所有条件都需要满足
-</code></pre><h3 id="Child_Fliters">Child Fliters</h3><pre><code><span class="variable">$(</span><span class="string">'li:first-child'</span>)                    所有子元素的第一项，和<span class="variable">$(</span><span class="string">'li:first'</span>)不同
-<span class="variable">$(</span><span class="string">'li:last-child'</span>)                    最后一个子元素
-<span class="variable">$(</span><span class="string">'li:nth-child(even)'</span>)                所有子元素中的偶数项
-<span class="variable">$(</span><span class="string">'li:nth-child(odd)'</span>)                所有子元素中奇数项
-<span class="variable">$(</span><span class="string">'li:nth-child(2)'</span>)                所有child中第二个
-<span class="variable">$(</span><span class="string">'li:nth-child(2n)'</span>)                所有元素中<span class="number">2</span>*n个元素也可以写<span class="number">3</span>n+<span class="number">2</span>等等
-<span class="variable">$(</span><span class="string">'code:only-child'</span>)                元素只存在一个
-</code></pre><h3 id="Forms">Forms</h3><pre><code><span class="variable">$(</span><span class="string">':input'</span>)
-<span class="variable">$(</span><span class="string">':text'</span>)
-<span class="variable">$(</span><span class="string">':password'</span>)
-<span class="variable">$(</span><span class="string">':radio'</span>)
-<span class="variable">$(</span><span class="string">':checkbox'</span>)
-<span class="variable">$(</span><span class="string">':image'</span>)
-<span class="variable">$(</span><span class="string">':submit'</span>)
-<span class="variable">$(</span><span class="string">':reset'</span>)
-<span class="variable">$(</span><span class="string">':button'</span>)
-<span class="variable">$(</span><span class="string">':file'</span>)
-</code></pre><h3 id="Froms_Fliters">Froms Fliters</h3><pre><code><span class="variable">$(</span><span class="string">':input:enable'</span>)
-<span class="variable">$(</span><span class="string">':disable'</span>)
-<span class="variable">$(</span><span class="string">':checked'</span>)
-<span class="variable">$(</span><span class="string">':selected'</span>)
-</code></pre>
+        <p>这两天在xampp上花了将近两天的时间才搭建成功，这是我效率最低的一次了。主要是遇到好多的坑，第一大坑就是百度，还有就是一些博客并没有那么专业，很多都是过时的错误。</p>
+<h3 id="XAMPP安装">XAMPP安装</h3><p>很多人图一时之快，使用了百度搜索第一页百度推荐的包(主要是下载快捷)。我们知道MAC上本身就自带了php和apache，百度推荐的xampp包是最新的，可能和系统的版本相互不兼容的。当时我下载下来之后研究了一天都没有攻破他，尤其是在xdebug配置的时候遇到了各种坑，最坑爹的百度下载的dmg文件安装好之后在xamppfiles/lib中只有少少的几个文件，你会发现和很多博主截图展示的都不一样（百度巨坑，建议还是用google吧，如果没有翻墙工具，这边推荐lantern和chrome插件SwitchyOmega来搭建vpn，免费哦）。<br><a href="https://www.apachefriends.org/index.html" target="_blank" rel="external">XAMPP下载地址</a><br>接下来的步骤会用mac的都会的，启动也不说了，简单的很，几个按钮点点就好了，启动成功之后在本地浏览器中输入localhost，搞定…<br><a id="more"></a></p>
+<h3 id="配置自己项目路径">配置自己项目路径</h3><p>当我们打开localhost的时候回看到如下页面<br><img src="/images/2016-4-19-xampp-phpstorm-1.png"><br>apache在httpd.cof配置文件中默认设置了启动的路劲,在你的安装路劲/Applications/XAMPP/etc中php.ini我们也会使用到<br><img src="/images/2016-4-19-xampp-phpstorm-2.png"></p>
+<p>http.conf可以找到apache的启动目录和跟文件目录，只要将这两项改为你自己制定的目录路劲就好了(注意：定制的目录路径不要放到用户目录的Document下否则会出现404错误，因为apache是没有权限访问当前用户下除了public的文件的，除非修改他们的文件权限，只要chmod 775一下就ok了，个人建议还是自己在用户目录下面新建一个文件夹来存放工程文件比较好，当然你可以设置用户权限允许文件apache用户访问)<br><img src="/images/2016-4-19-xampp-phpstorm-3.png"><br>重新启动apache服务器，这时候打开就可以直接看到你的目录路径了<br><img src="/images/2016-4-19-xampp-phpstorm-4.png"></p>
+<h3 id="配置Xdebug">配置Xdebug</h3><p>网上看到一些配置教程，我试了一遍都是好像有些都是有问题，在遇到这种情况下，还是看XAMPP的官方教程最给力了，在原来没有配置自己的启动路径的时候，打开默认的dashboard(可以把安装目录下htdoc中的文件拷贝到自己的配置的目录下，重新刷新localhost就有了)，右上角有个HOW-TO Guides 中有安装教程。<br><img src="/images/2016-4-19-xampp-phpstorm-5.png"><br><img src="/images/2016-4-19-xampp-phpstorm-6.png"><br>配置好之后，点击PHPInfo可以看到XDebug就配置成功了，在没有配置之前phpinfo中是没有xdebug的。<br><img src="/images/2016-4-19-xampp-phpstorm-12.png"></p>
+<h3 id="phpstorm配置">phpstorm配置</h3><p>为了在开放过程中方便调试，需要配置phpstorm。<br>1、打开 Applications/XAMPP/etc/php.ini 配置文件，在最末尾处加入以下内容。上一步已经添加过extension就需要添加其他配置选项就可以了</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[xdebug]</span><br><span class="line"><span class="variable">extension=</span>xdebug.so</span><br><span class="line">xdebug.<span class="variable">remote_autostart=</span>on</span><br><span class="line">xdebug.<span class="variable">remote_enable=</span>on</span><br><span class="line">xdebug.<span class="variable">remote_enable=</span><span class="number">1</span></span><br><span class="line">xdebug.<span class="variable">remote_mode=</span><span class="string">"req"</span></span><br><span class="line">xdebug.<span class="variable">remote_log=</span><span class="string">"/var/log/xdebug.log"</span></span><br><span class="line">xdebug.<span class="variable">remote_host=</span>localhost/<span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line">xdebug.<span class="variable">remote_port=</span><span class="number">9000</span></span><br><span class="line">xdebug.<span class="variable">remote_handler=</span><span class="string">"dbgp"</span></span><br><span class="line">xdebug.<span class="variable">idekey=</span><span class="string">"PhpStorm"</span></span><br></pre></td></tr></table></figure>
+<p>2、PHP 是解释型动态语言，所以必须设置 PHP Interpreters 解释器[位于 ../XAMPP/bin 目录中]，特别注意：由于受限于 PhpStorm 的内置的 PHP 版本，XAMPP 中的 PHP 版本不可过高，否则会出现无法识别 PHP Version 和 Debugger 的情况。配置完之后记得按照IDE中的提示，将extension改为zend_extension就完成了<br><img src="/images/2016-4-19-xampp-phpstorm-7.png"></p>
+<p>3、    添加 Web Application Debug 服务器。打开 Preferences&gt;Language &amp; Frameworks&gt;PHP&gt;Servers<br><img src="/images/2016-4-19-xampp-phpstorm-8.png"></p>
+<p>4、查看 Xdebug 配置信息，打开打开 Preferences&gt;Language &amp; Frameworks&gt;PHP&gt;Debug查看Xdebug中的端口号是否与php.ini中配置的xdebug.remote_port=9000端口号是否一致，或设置其他较大端口如：10000，只要二者相同即可。<br><img src="/images/2016-4-19-xampp-phpstorm-9.png"><br>5、配置DBGp Proxy ，打开Preferences&gt;Language &amp; Frameworks&gt;PHP&gt;Debug&gt;DBGp Proxy，IDE Key一定要和php.ini保持一致<br><img src="/images/2016-4-19-xampp-phpstorm-10.png"></p>
+<p>6、chrome下安装JetBrains IDE Support 插件</p>
+<h3 id="调试">调试</h3><p>配置完成后需要检验配置是否成功。首先激活 PHPStorm IDE 的 “Start Listen for PHP Debug Connections” 按钮(右上角 Debug 区类似电话的图标，带红色禁止小圆圈标志表示未激活，变绿表示正在监听中。在程序中打个断点然后按爬虫按钮就可以开始调试了，F7便可逐行进行断点调试，就不用什么echo或则print来调试了。完美<br><img src="/images/2016-4-19-xampp-phpstorm-11.png"></p>
+<h3 id="总结">总结</h3><p>珍爱生命，远离百度</p>
+
       
     </div>
 
     <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP/"> #PHP </a>
+          
+        </div>
       
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/11/React-Native-项目总结/">React Native 项目总结</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/02/19/VirtualEnv-安装和使用/">VirtualEnv 安装和使用</a>
+              <a href="/2016/04/11/React-Native-项目总结/">React Native 项目总结</a>
             
           </div>
         </div>
@@ -297,8 +248,8 @@ $('a[rel][href][title=<span class="string">"blog"</span>]')    所有条件都�
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2016/03/08/jQuery-Selectors/"
-               data-title="jQuery Selectors" data-url="http://yoursite.com/2016/03/08/jQuery-Selectors/">
+          <div class="ds-thread" data-thread-key="2016/04/19/mac下搭建php服务器xampp-phpstorm-xdebug/"
+               data-title="mac下搭建php服务器xampp+phpstorm+xdebug " data-url="http://yoursite.com/2016/04/19/mac下搭建php服务器xampp-phpstorm-xdebug/">
           </div>
         
       </div>
@@ -387,7 +338,7 @@ $('a[rel][href][title=<span class="string">"blog"</span>]')    所有条件都�
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Basics"><span class="nav-number">1.</span> <span class="nav-text">Basics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hierarchy"><span class="nav-number">2.</span> <span class="nav-text">Hierarchy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basics_Fliters"><span class="nav-number">3.</span> <span class="nav-text">Basics Fliters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Content_Fliters"><span class="nav-number">4.</span> <span class="nav-text">Content Fliters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Visibility_Fliters"><span class="nav-number">5.</span> <span class="nav-text">Visibility Fliters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Attributes_Fliters"><span class="nav-number">6.</span> <span class="nav-text">Attributes Fliters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Child_Fliters"><span class="nav-number">7.</span> <span class="nav-text">Child Fliters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Forms"><span class="nav-number">8.</span> <span class="nav-text">Forms</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Froms_Fliters"><span class="nav-number">9.</span> <span class="nav-text">Froms Fliters</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#XAMPP安装"><span class="nav-number">1.</span> <span class="nav-text">XAMPP安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置自己项目路径"><span class="nav-number">2.</span> <span class="nav-text">配置自己项目路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Xdebug"><span class="nav-number">3.</span> <span class="nav-text">配置Xdebug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#phpstorm配置"><span class="nav-number">4.</span> <span class="nav-text">phpstorm配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调试"><span class="nav-number">5.</span> <span class="nav-text">调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
