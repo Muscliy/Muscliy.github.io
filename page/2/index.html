@@ -16,8 +16,6 @@
 
 
 
-  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-
 
 <link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
 
@@ -109,7 +107,7 @@
         <li class="menu-item menu-item-home">
           <a href="/">
             <i class="menu-item-icon icon-home"></i> <br />
-            首頁
+            首页
           </a>
         </li>
       
@@ -117,7 +115,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives">
             <i class="menu-item-icon icon-archives"></i> <br />
-            歸檔
+            归档
           </a>
         </li>
       
@@ -125,7 +123,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags">
             <i class="menu-item-icon icon-tags"></i> <br />
-            標籤
+            标签
           </a>
         </li>
       
@@ -166,12 +164,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-12-12
+          发表于 2015-12-12
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -205,7 +203,7 @@
           <p>用Objective-C等面向对象语言编程时，“对象”就是“基本构造单元”，开发者可以通过对象来存储并传递数据。在对象之间传递数据并执行任务的过程就叫做“消息传递”。若想编写出高效且易维护的代码，就一定要熟悉这两个特性的工作原理。<br>当应用程序运行起来以后，为其童工相关支持的代码叫做“Objective-C运行期环境”，它提供了一些使得对象之间能够传递消息的重要函数，并且包含创建类实例所用的全部逻辑。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/12/Effective-Objective-C-2-0-笔记-二/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -247,12 +245,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-12-11
+          发表于 2015-12-11
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -286,7 +284,7 @@
           <p>Obejctive-C通过一套全新的语法，在C语言基础上添加了面向对象特性。Objectice-C的语法中频繁使用方括号，而且不吝于写出极长的方法名，这通常令许多人觉得此语言较为冗长。其实这样写出来的代码十分易读，只是C++或者Java程序员不太适应。<br>Objective-C语言学起来很快，但有很多微妙细节需要注意，而且还有许多容易为人所忽略的特性。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/11/Effective-Objective-C-2-0-笔记-一/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -328,12 +326,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-12-10
+          发表于 2015-12-10
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -368,7 +366,7 @@
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="built_in">UIViewController</span> *)topViewController&#123;</span><br><span class="line">  <span class="keyword">return</span> [<span class="keyword">self</span> topViewController:[<span class="built_in">UIApplication</span> sharedApplication]<span class="variable">.keyWindow</span><span class="variable">.rootViewController</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIViewController</span> *)topViewController:(<span class="built_in">UIViewController</span> *)rootViewController</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (rootViewController<span class="variable">.presentedViewController</span> == <span class="literal">nil</span>) &#123;</span><br><span class="line">    <span class="built_in">UINavigationController</span> *navigationController =</span><br><span class="line">    (<span class="built_in">UINavigationController</span> *)rootViewController;</span><br><span class="line">    <span class="keyword">return</span> [[navigationController viewControllers] lastObject];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> ([rootViewController<span class="variable">.presentedViewController</span> isMemberOfClass:[<span class="built_in">UINavigationController</span> class]]) &#123;</span><br><span class="line">    <span class="built_in">UINavigationController</span> *navigationController = (<span class="built_in">UINavigationController</span> *)rootViewController<span class="variable">.presentedViewController</span>;</span><br><span class="line">    <span class="built_in">UIViewController</span> *lastViewController = [[navigationController viewControllers] lastObject];</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> topViewController:lastViewController];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">UIViewController</span> *presentedViewController = (<span class="built_in">UIViewController</span> *)rootViewController<span class="variable">.presentedViewController</span>;</span><br><span class="line">  <span class="keyword">return</span> [<span class="keyword">self</span> topViewController:presentedViewController];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/10/Find-the-current-top-view-controller/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -410,12 +408,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-12-07
+          发表于 2015-12-07
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -452,7 +450,7 @@
 <figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">[<span class="keyword">jeep</span> name]<span class="comment">;</span></span><br><span class="line">objc_msgSend<span class="list">(<span class="keyword">jeep</span>, @selector<span class="list">(<span class="keyword">name</span>)</span>)</span><span class="comment">;</span></span></span><br></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/07/Objective-C消息机制/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -494,12 +492,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-08-27
+          发表于 2015-08-27
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -533,7 +531,7 @@
           <p>之前在QQ的app中发现他的用户主页的NavigationBar是透明的而且与上一个有颜色的NavigationBar的过度非常丝滑<br><img src="/images/2015-8-27-qq-navgationBar.gif" height="374" width="584" /></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/08/27/不同颜色的UINavigationBar的丝滑过度/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -575,12 +573,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-08-07
+          发表于 2015-08-07
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -616,7 +614,7 @@
 <figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ appledoc --<span class="built_in">version</span></span><br><span class="line">appledoc <span class="built_in">version</span>: <span class="number">2.2</span>.<span class="number">1</span> <span class="params">(build <span class="number">1333</span>)</span></span><br></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/08/07/用appledoc生成文档/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -658,12 +656,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-07-07
+          发表于 2015-07-07
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -698,7 +696,7 @@
 <p>在iOS中使用UIScrollView的子类的时候，需要知道UIScrollView滚动动画是否结束，一般我们都是通过UIScrollViewDelegate中去寻找方法。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/07/07/UIScrollView滚动停止监测/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -740,12 +738,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          發表於 2015-07-03
+          发表于 2015-07-03
         </span>
 
         
           <span class="post-category">
-            &nbsp; | &nbsp; 分類於
+            &nbsp; | &nbsp; 分类于
             
               <a href="/categories/iOS/">iOS</a>
 
@@ -779,7 +777,7 @@
           <p>研究NSUserDefaults之前我们首先需要研究的是.plist文件，.plist文件首先是一种用来存储序列化后的对象的文件，对象包括objective-c中的6种基本类型（NSString、NSArray …)。当你在写程序的时候将一些关键数据使用NSUserDefaults保存之后我们会在.plist文件中一一找到它们。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/07/03/探究NSUserDefaults/#more">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -839,21 +837,21 @@
           <div class="site-state-item site-state-posts">
             <a href="/archives">
               <span class="site-state-item-count">18</span>
-              <span class="site-state-item-name">文章</span>
+              <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             
               <span class="site-state-item-count">3</span>
-              <span class="site-state-item-name">分類</span>
+              <span class="site-state-item-name">分类</span>
               
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
               <span class="site-state-item-count">12</span>
-              <span class="site-state-item-name">標籤</span>
+              <span class="site-state-item-name">标签</span>
               </a>
           </div>
 
@@ -895,11 +893,11 @@
 </div>
 
 <div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
-  主題 -
+  主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
   </a>
