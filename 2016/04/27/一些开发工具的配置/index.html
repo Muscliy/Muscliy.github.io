@@ -80,15 +80,25 @@
 
 
 
-<meta name="description" content="学习总结 思考感悟 知识管理">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LeeHu的博客">
-<meta property="og:url" content="http://yoursite.com/tags/QuartzCore/index.html">
+<meta name="description" content="sublime + iterm看是否存在subl命令能打开你的sublime
+1open /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl
+设置一个链接到sublime，名字为subl:
+1ln -s &quot;/Applications/Sublime Text.app/Contents/SharedSupport/bin/s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一些开发工具的配置">
+<meta property="og:url" content="http://yoursite.com/2016/04/27/一些开发工具的配置/index.html">
 <meta property="og:site_name" content="LeeHu的博客">
-<meta property="og:description" content="学习总结 思考感悟 知识管理">
+<meta property="og:description" content="sublime + iterm看是否存在subl命令能打开你的sublime
+1open /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl
+设置一个链接到sublime，名字为subl:
+1ln -s &quot;/Applications/Sublime Text.app/Contents/SharedSupport/bin/s">
+<meta property="og:updated_time" content="2016-04-27T03:01:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeeHu的博客">
-<meta name="twitter:description" content="学习总结 思考感悟 知识管理">
+<meta name="twitter:title" content="一些开发工具的配置">
+<meta name="twitter:description" content="sublime + iterm看是否存在subl命令能打开你的sublime
+1open /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl
+设置一个链接到sublime，名字为subl:
+1ln -s &quot;/Applications/Sublime Text.app/Contents/SharedSupport/bin/s">
 
 
 
@@ -106,7 +116,7 @@
   };
 </script>
 
-  <title> 标签: QuartzCore | LeeHu的博客 </title>
+  <title> 一些开发工具的配置 | LeeHu的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -137,7 +147,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -215,46 +225,129 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        QuartzCore
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                一些开发工具的配置
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-27T10:51:39+08:00" content="2016-04-27">
+              2016-04-27
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/27/一些开发工具的配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/27/一些开发工具的配置/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h3 id="sublime_+_iterm">sublime + iterm</h3><p>看是否存在subl命令能打开你的sublime</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open <span class="regexp">/Applications/</span>Sublime\ Text.app<span class="regexp">/Contents/</span>SharedSupport<span class="regexp">/bin/</span>subl</span><br></pre></td></tr></table></figure>
+<p>设置一个链接到sublime，名字为subl:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln <span class="operator">-s</span> <span class="string">"/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"</span> /usr/<span class="built_in">local</span>/bin/subl</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>配置环境信息，打开~/.zshrc加入下面内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#sublime + iterm configration</span></span><br><span class="line"><span class="built_in">alias</span> subl=<span class="string">"open -a /Applications/Sublime\ Text.app"</span></span><br><span class="line"><span class="built_in">export</span> PATH=/usr/<span class="built_in">local</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+<p>最后装载下你们环境变量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure>
 
-      <h1 class="post-title">
+      
+    </div>
+    
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/01/19/iOS-Core-Animation-Advanced-Techniques-一/" itemprop="url">
-              
-                <span itemprop="name">iOS Core Animation Advanced Techniques (一)</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
+      
+    </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-01-19T14:16:47+08:00"
-              content="2016-01-19" >
-          01-19
-        </time>
-      </div>
+    <footer class="post-footer">
+      
 
-    </header>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/19/mac下搭建php服务器xampp-phpstorm-xdebug/" rel="next" title="mac下搭建php服务器xampp+phpstorm+xdebug ">
+                <i class="fa fa-chevron-left"></i> mac下搭建php服务器xampp+phpstorm+xdebug 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -262,6 +355,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/27/一些开发工具的配置/"
+           data-title="一些开发工具的配置" data-url="http://yoursite.com/2016/04/27/一些开发工具的配置/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -281,8 +382,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -354,6 +464,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#sublime_+_iterm"><span class="nav-number">1.</span> <span class="nav-text">sublime + iterm</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -450,6 +571,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
