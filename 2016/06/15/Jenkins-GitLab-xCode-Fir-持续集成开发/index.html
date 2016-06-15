@@ -1,0 +1,664 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins+GitLab+xCode+Fir 持续集成开发">
+<meta property="og:url" content="http://yoursite.com/2016/06/15/Jenkins-GitLab-xCode-Fir-持续集成开发/index.html">
+<meta property="og:site_name" content="LeeHu的博客">
+<meta property="og:description">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/681d8e1egw1f4w0qpf3dxj20rr0h0wkr.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/681d8e1egw1f4vynxzviej20ks016dfs.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/681d8e1egw1f4vypgk4d1j20jd01c3ym.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/681d8e1egw1f4vzddwg8pj20km01lt8t.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/681d8e1egw1f4w0te44bxj20kp01pwei.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/681d8e1egw1f4vytya8r0j20x806474q.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/681d8e1egw1f4vyy22gyjj20x90bpacg.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/681d8e1egw1f4vzjc5bcuj20oy0a1wfa.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/681d8e1egw1f4vz2qvfp0j20wy0aldj5.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/681d8e1egw1f4vzrn9wixj20re0860th.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/681d8e1egw1f4vzsr1nhej20s305rwex.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/681d8e1egw1f4vztxeu96j20s80cegm8.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/681d8e1egw1f4vzwoau8vj20s40eqwfm.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/681d8e1egw1f4w01ofrdvj20sm0d5wg8.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/681d8e1egw1f4w08a1sz3j20sa07jacr.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/681d8e1egw1f4w05ifr0uj20s109gdgx.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/681d8e1egw1f4w06hxr1jj20s405daaq.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/681d8e1egw1f4w09vgqs8j20ry08ugmf.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/681d8e1egw1f4w0a6udzdj20rn0dz0uq.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/681d8e1egw1f4w0bh7s7hj20rt05mt99.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/681d8e1egw1f4w0dzpp6dj20s50dvta2.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/681d8e1egw1f4w0kj48hkj20uh0gwq4p.jpg">
+<meta property="og:updated_time" content="2016-06-15T09:56:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jenkins+GitLab+xCode+Fir 持续集成开发">
+<meta name="twitter:description">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Jenkins+GitLab+xCode+Fir 持续集成开发 | LeeHu的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?8c7d0a701bffd6b100d7b0d874d9f6b3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LeeHu的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Coding | iOS</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Jenkins+GitLab+xCode+Fir 持续集成开发
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-15T17:54:44+08:00" content="2016-06-15">
+              2016-06-15
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/15/Jenkins-GitLab-xCode-Fir-持续集成开发/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/15/Jenkins-GitLab-xCode-Fir-持续集成开发/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://ww4.sinaimg.cn/large/681d8e1egw1f4w0qpf3dxj20rr0h0wkr.jpg" alt=""></p>
+<a id="more"></a>
+<h3 id="插件准备">插件准备</h3><p>Manage Jenkins -&gt; Manage Plugins -&gt; Available -&gt; Filter<br>安装Git Plugin、Xcode Plugin、GitLab Plugin、<br>Environment Injector Plugin四个插件</p>
+<p><img src="http://ww3.sinaimg.cn/large/681d8e1egw1f4vynxzviej20ks016dfs.jpg" alt=""></p>
+<p><img src="http://ww2.sinaimg.cn/large/681d8e1egw1f4vypgk4d1j20jd01c3ym.jpg" alt=""></p>
+<p><img src="http://ww2.sinaimg.cn/large/681d8e1egw1f4vzddwg8pj20km01lt8t.jpg" alt=""></p>
+<p><img src="http://ww2.sinaimg.cn/large/681d8e1egw1f4w0te44bxj20kp01pwei.jpg" alt=""></p>
+<h3 id="jenkins配置">jenkins配置</h3><p>Manage Jenkins -&gt; Configure System<br>配置Git</p>
+<p><img src="http://ww2.sinaimg.cn/large/681d8e1egw1f4vytya8r0j20x806474q.jpg" alt=""></p>
+<p>配置Keychain</p>
+<p><img src="http://ww4.sinaimg.cn/large/681d8e1egw1f4vyy22gyjj20x90bpacg.jpg" alt=""></p>
+<p>配置GitLab</p>
+<p><img src="http://ww3.sinaimg.cn/large/681d8e1egw1f4vzjc5bcuj20oy0a1wfa.jpg" alt=""></p>
+<p>Gitlab配置部分，填写Gitlab host URL（例如：<a href="http://gitlab）、API" target="_blank" rel="external">http://gitlab）、API</a> Token（查看Gitlab个人账号里面的API Token值），勾选Ignore SSL Certificate Errors</p>
+<h3 id="job配置">job配置</h3><p>创建job<br><img src="http://ww3.sinaimg.cn/large/681d8e1egw1f4vz2qvfp0j20wy0aldj5.jpg" alt=""><br>第一次使用Freestyle project 下次可以直接copy这个项目的配置</p>
+<p>配置gitlab connetion 和 job name</p>
+<p><img src="http://ww1.sinaimg.cn/large/681d8e1egw1f4vzrn9wixj20re0860th.jpg" alt=""></p>
+<p>设置jenkins版本保留时间</p>
+<p><img src="http://ww1.sinaimg.cn/large/681d8e1egw1f4vzsr1nhej20s305rwex.jpg" alt=""></p>
+<p>配置要编译的版本choices就是你远程库对应的分支名称</p>
+<p><img src="http://ww1.sinaimg.cn/large/681d8e1egw1f4vztxeu96j20s80cegm8.jpg" alt=""></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">remotes<span class="regexp">/origin/</span>dev_build</span><br><span class="line">remotes<span class="regexp">/origin/m</span>aster</span><br><span class="line">remotes<span class="regexp">/origin/</span>test</span><br><span class="line">remotes<span class="regexp">/origin/</span>tmp</span><br><span class="line">remotes<span class="regexp">/origin/</span>v1.<span class="number">1.0</span></span><br><span class="line">remotes<span class="regexp">/origin/</span>v1.<span class="number">2.0</span></span><br><span class="line">remotes<span class="regexp">/origin/</span>v1.<span class="number">3.0</span></span><br><span class="line">remotes<span class="regexp">/origin/</span>v1.<span class="number">3.0</span>_dev</span><br><span class="line">remotes<span class="regexp">/origin/</span>v1.<span class="number">4.0</span>_dev</span><br><span class="line">remotes<span class="regexp">/origin/</span>v1.<span class="number">5.0</span>_dev</span><br></pre></td></tr></table></figure>
+<p>配置远程仓库对应的地址，和授权用户</p>
+<p><img src="http://ww2.sinaimg.cn/large/681d8e1egw1f4vzwoau8vj20s40eqwfm.jpg" alt=""></p>
+<p>配置环境变量<br><img src="http://ww3.sinaimg.cn/large/681d8e1egw1f4w01ofrdvj20sm0d5wg8.jpg" alt=""><br>注意target 名称不能有空格，否则编译之后脚本运行会出错，当时这边我使用项目原有的target去Duplicate一个新的target之后,workspace 会生成一个target copy的scheme，这个scheme要改掉，中间不能有空格，我改成了target_dev</p>
+<p>控制编译版本实现自增形式来区分每个构建的不同</p>
+<p><img src="http://ww4.sinaimg.cn/large/681d8e1egw1f4w08a1sz3j20sa07jacr.jpg" alt=""><br>这里为了给测试人员区分debug和release版本，原来计划通过更改bundleid，后来发现不是最优的，因为测试人员要求debug和release版本要有不同的icon，这样我不得不在build的时候去更改的appicon，需要些一堆的脚本，想想都麻烦的要死具体怎么做可以看这里<a href="https://www.raywenderlich.com/105641/change-app-icon-build-time" target="_blank" rel="external">How To Change Your App Icon at Build Time</a>。后来选择另一种方法，在项目原有的target Duplicate出一个target来区分。</p>
+<p>xcode 构建设置<br><img src="http://ww1.sinaimg.cn/large/681d8e1egw1f4w05ifr0uj20s109gdgx.jpg" alt=""></p>
+<p><img src="http://ww2.sinaimg.cn/large/681d8e1egw1f4w06hxr1jj20s405daaq.jpg" alt=""></p>
+<p><img src="http://ww1.sinaimg.cn/large/681d8e1egw1f4w09vgqs8j20ry08ugmf.jpg" alt=""></p>
+<p><img src="http://ww1.sinaimg.cn/large/681d8e1egw1f4w0a6udzdj20rn0dz0uq.jpg" alt=""><br>不同的bundleid需要对应不用的provisioning file,在jenkins环境中的/Users/{username}/Library/MobileDevice/Provisioning Profiles目录下面</p>
+<p>将生成的app打包成ipa</p>
+<p><img src="http://ww2.sinaimg.cn/large/681d8e1egw1f4w0bh7s7hj20rt05mt99.jpg" alt=""></p>
+<p>将打包好的ipa上传到fir，具体怎么操作可以去fir.im的官网Tool下看具体教程<br><a href="http://blog.fir.im/jenkins/" target="_blank" rel="external">fir.im Jenkins 插件使用方法</a>，这里上传fir可以能会遇到413的错误，主要是运行jenkins的nginx给的上传的大小太小了,只要去nginx里面的配置文件吧client_max_body_size 改大一点就OK了</p>
+<p><img src="http://ww1.sinaimg.cn/large/681d8e1egw1f4w0dzpp6dj20s50dvta2.jpg" alt=""><br>第一次build是会报出sode sign的错误，这是你需要去你的jenkins所以电脑上的工程路径中编译一次，然后系统会弹出证书是否允许访问的玩意，点击始终允许就OK了。如果在编译的时候收到no scheme的错误提示，需要到所在的工程目录下运行如下命令，会列出错有scheme要是没有需要在你的工程中的manage scheme 将所有的scheme都勾选上就可以了</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">KingxiqueWorkPlatform_Dev-Info.plist test-reports</span><br><span class="line">tudadeMac-Pro:<span class="keyword">workspace</span> tuda$ xcodebuild -list -<span class="keyword">workspace</span> KingxiqueWorkPlatform.xcworkspace</span><br><span class="line">Information <span class="keyword">about</span> <span class="keyword">workspace</span> <span class="string">"KingxiqueWorkPlatform"</span>:</span><br><span class="line">    Schemes:</span><br><span class="line">        KingxiqueWorkPlatform</span><br><span class="line">        KingxiqueWorkPlatform_Dev</span><br><span class="line">        AFNetworking</span><br><span class="line">        BlocksKit</span><br><span class="line">        CocoaSecurity</span><br></pre></td></tr></table></figure>
+<p>到这里就大功告成</p>
+<p><img src="http://ww2.sinaimg.cn/large/681d8e1egw1f4w0kj48hkj20uh0gwq4p.jpg" alt=""></p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/27/一些开发工具的配置/" rel="next" title="一些开发工具的配置">
+                <i class="fa fa-chevron-left"></i> 一些开发工具的配置
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/15/Jenkins-GitLab-xCode-Fir-持续集成开发/"
+           data-title="Jenkins+GitLab+xCode+Fir 持续集成开发" data-url="http://yoursite.com/2016/06/15/Jenkins-GitLab-xCode-Fir-持续集成开发/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="LeeHu" />
+          <p class="site-author-name" itemprop="name">LeeHu</p>
+          <p class="site-description motion-element" itemprop="description">学习总结 思考感悟 知识管理</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element">
+            <div class="links-of-blogroll-title">
+              <i class="fa fa-globe fa-fw"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://bailaohe.github.io" title="bailaohe" target="_blank">bailaohe</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://mokaikai.github.io" title="mokaikai" target="_blank">mokaikai</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="www.lamborryan.com" title="lamborryan" target="_blank">lamborryan</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#插件准备"><span class="nav-number">1.</span> <span class="nav-text">插件准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jenkins配置"><span class="nav-number">2.</span> <span class="nav-text">jenkins配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#job配置"><span class="nav-number">3.</span> <span class="nav-text">job配置</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeeHu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"LeeHu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
