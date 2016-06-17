@@ -80,17 +80,18 @@
 
 
 
-<meta name="description" content="Obejctive-C通过一套全新的语法，在C语言基础上添加了面向对象特性。Objectice-C的语法中频繁使用方括号，而且不吝于写出极长的方法名，这通常令许多人觉得此语言较为冗长。其实这样写出来的代码十分易读，只是C++或者Java程序员不太适应。Objective-C语言学起来很快，但有很多微妙细节需要注意，而且还有许多容易为人所忽略的特性。">
+<meta name="description">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Effective Objective-C 2.0 笔记(一)">
 <meta property="og:url" content="http://yoursite.com/2015/12/11/Effective-Objective-C-2-0-笔记-一/index.html">
 <meta property="og:site_name" content="LeeHu的博客">
-<meta property="og:description" content="Obejctive-C通过一套全新的语法，在C语言基础上添加了面向对象特性。Objectice-C的语法中频繁使用方括号，而且不吝于写出极长的方法名，这通常令许多人觉得此语言较为冗长。其实这样写出来的代码十分易读，只是C++或者Java程序员不太适应。Objective-C语言学起来很快，但有很多微妙细节需要注意，而且还有许多容易为人所忽略的特性。">
+<meta property="og:description">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/681d8e1egw1f4xyq6kanyj21go0wa1bk.jpg">
 <meta property="og:image" content="http://yoursite.com/images/2015-12-10-effective-1-1.png">
-<meta property="og:updated_time" content="2016-02-22T06:50:42.000Z">
+<meta property="og:updated_time" content="2016-06-17T01:27:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective Objective-C 2.0 笔记(一)">
-<meta name="twitter:description" content="Obejctive-C通过一套全新的语法，在C语言基础上添加了面向对象特性。Objectice-C的语法中频繁使用方括号，而且不吝于写出极长的方法名，这通常令许多人觉得此语言较为冗长。其实这样写出来的代码十分易读，只是C++或者Java程序员不太适应。Objective-C语言学起来很快，但有很多微妙细节需要注意，而且还有许多容易为人所忽略的特性。">
+<meta name="twitter:description">
 
 
 
@@ -304,8 +305,9 @@
       
 
       
-        <p>Obejctive-C通过一套全新的语法，在C语言基础上添加了面向对象特性。Objectice-C的语法中频繁使用方括号，而且不吝于写出极长的方法名，这通常令许多人觉得此语言较为冗长。其实这样写出来的代码十分易读，只是C++或者Java程序员不太适应。<br>Objective-C语言学起来很快，但有很多微妙细节需要注意，而且还有许多容易为人所忽略的特性。</p>
+        <p><img src="http://ww3.sinaimg.cn/large/681d8e1egw1f4xyq6kanyj21go0wa1bk.jpg" alt=""></p>
 <a id="more"></a>
+<p>Obejctive-C通过一套全新的语法，在C语言基础上添加了面向对象特性。Objectice-C的语法中频繁使用方括号，而且不吝于写出极长的方法名，这通常令许多人觉得此语言较为冗长。其实这样写出来的代码十分易读，只是C++或者Java程序员不太适应。<br>Objective-C语言学起来很快，但有很多微妙细节需要注意，而且还有许多容易为人所忽略的特性。</p>
 <h3 id="Objective-C_变量、对象、结构">Objective-C 变量、对象、结构</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">NSString</span> *someString = @<span class="string">"the string"</span>;</span><br><span class="line"><span class="title">someString</span> : 变量</span><br><span class="line">@<span class="string">"the string"</span> : 实例 也是对象</span><br></pre></td></tr></table></figure>
 <p><img src="/images/2015-12-10-effective-1-1.png"></p>
 <p>变量是指向NSString的指针，变量内存分配在“栈”上，对象内存分配在“堆”上，结构体的内存分布在“数据块”中（CGRect,如果改用对象，性能会受影响）</p>

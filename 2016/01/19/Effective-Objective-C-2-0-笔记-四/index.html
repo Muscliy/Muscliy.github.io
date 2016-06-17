@@ -80,17 +80,18 @@
 
 
 
-<meta name="description" content="Objective-C语言有一项特性叫做“协议（protocol）”,他和java里面的“接口相似”。Objective-C不支持多重继承，因而我们把某个类应该实现的一系列方法定义在协议里面。协议最常见的用途是实现委托模式，不过也有其他用法。理解并善用协议可以令代码变得更易维护，因为协议这种方式很好地描述接口。“分类（category）”也是Objective-C的一项重要特性，利用分类机制，我们">
+<meta name="description">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Effective Objective-C 2.0 笔记(四)">
 <meta property="og:url" content="http://yoursite.com/2016/01/19/Effective-Objective-C-2-0-笔记-四/index.html">
 <meta property="og:site_name" content="LeeHu的博客">
-<meta property="og:description" content="Objective-C语言有一项特性叫做“协议（protocol）”,他和java里面的“接口相似”。Objective-C不支持多重继承，因而我们把某个类应该实现的一系列方法定义在协议里面。协议最常见的用途是实现委托模式，不过也有其他用法。理解并善用协议可以令代码变得更易维护，因为协议这种方式很好地描述接口。“分类（category）”也是Objective-C的一项重要特性，利用分类机制，我们">
+<meta property="og:description">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/681d8e1egw1f4xyq6kanyj21go0wa1bk.jpg">
 <meta property="og:image" content="http://yoursite.com/images/2016-1-21-effective-4-1.png">
-<meta property="og:updated_time" content="2016-02-22T06:44:51.000Z">
+<meta property="og:updated_time" content="2016-06-17T01:28:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective Objective-C 2.0 笔记(四)">
-<meta name="twitter:description" content="Objective-C语言有一项特性叫做“协议（protocol）”,他和java里面的“接口相似”。Objective-C不支持多重继承，因而我们把某个类应该实现的一系列方法定义在协议里面。协议最常见的用途是实现委托模式，不过也有其他用法。理解并善用协议可以令代码变得更易维护，因为协议这种方式很好地描述接口。“分类（category）”也是Objective-C的一项重要特性，利用分类机制，我们">
+<meta name="twitter:description">
 
 
 
@@ -304,8 +305,10 @@
       
 
       
-        <p>Objective-C语言有一项特性叫做“协议（protocol）”,他和java里面的“接口相似”。Objective-C不支持多重继承，因而我们把某个类应该实现的一系列方法定义在协议里面。协议最常见的用途是实现委托模式，不过也有其他用法。理解并善用协议可以令代码变得更易维护，因为协议这种方式很好地描述接口。<br>“分类（category）”也是Objective-C的一项重要特性，利用分类机制，我们无须继承子类即可直接为当前类添加方法，而其他的编程语言中则需要通过继承子类来实现。</p>
+        <p><img src="http://ww3.sinaimg.cn/large/681d8e1egw1f4xyq6kanyj21go0wa1bk.jpg" alt=""></p>
 <a id="more"></a>
+<p>Objective-C语言有一项特性叫做“协议（protocol）”,他和java里面的“接口相似”。Objective-C不支持多重继承，因而我们把某个类应该实现的一系列方法定义在协议里面。协议最常见的用途是实现委托模式，不过也有其他用法。理解并善用协议可以令代码变得更易维护，因为协议这种方式很好地描述接口。<br>“分类（category）”也是Objective-C的一项重要特性，利用分类机制，我们无须继承子类即可直接为当前类添加方法，而其他的编程语言中则需要通过继承子类来实现。</p>
+<!--more-->
 <h3 id="通过委托与数据源协议进行对象间通信">通过委托与数据源协议进行对象间通信</h3><hr>
 <p>委托（delegate）与 数据源（data source）， 在iOS控件中最为代表性的控件就是UITableView，它定义了一套接口， 某个对象想要接受UITableView 的委托就需要遵从这些接口，这样的话UITableview就可以给委托对象回传一些消息，比如cell的点击相应。</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>, nullable) <span class="keyword">id</span> &lt;<span class="built_in">UITableViewDataSource</span>&gt; dataSource;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>, nullable) <span class="keyword">id</span> &lt;<span class="built_in">UITableViewDelegate</span>&gt; delegate;</span><br></pre></td></tr></table></figure>

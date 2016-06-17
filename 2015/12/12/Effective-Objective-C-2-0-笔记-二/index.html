@@ -80,16 +80,17 @@
 
 
 
-<meta name="description" content="用Objective-C等面向对象语言编程时，“对象”就是“基本构造单元”，开发者可以通过对象来存储并传递数据。在对象之间传递数据并执行任务的过程就叫做“消息传递”。若想编写出高效且易维护的代码，就一定要熟悉这两个特性的工作原理。当应用程序运行起来以后，为其童工相关支持的代码叫做“Objective-C运行期环境”，它提供了一些使得对象之间能够传递消息的重要函数，并且包含创建类实例所用的全部逻辑。">
+<meta name="description">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Effective Objective-C 2.0 笔记(二)">
 <meta property="og:url" content="http://yoursite.com/2015/12/12/Effective-Objective-C-2-0-笔记-二/index.html">
 <meta property="og:site_name" content="LeeHu的博客">
-<meta property="og:description" content="用Objective-C等面向对象语言编程时，“对象”就是“基本构造单元”，开发者可以通过对象来存储并传递数据。在对象之间传递数据并执行任务的过程就叫做“消息传递”。若想编写出高效且易维护的代码，就一定要熟悉这两个特性的工作原理。当应用程序运行起来以后，为其童工相关支持的代码叫做“Objective-C运行期环境”，它提供了一些使得对象之间能够传递消息的重要函数，并且包含创建类实例所用的全部逻辑。">
-<meta property="og:updated_time" content="2016-02-22T07:00:05.000Z">
+<meta property="og:description">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/681d8e1egw1f4xyq6kanyj21go0wa1bk.jpg">
+<meta property="og:updated_time" content="2016-06-17T01:28:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective Objective-C 2.0 笔记(二)">
-<meta name="twitter:description" content="用Objective-C等面向对象语言编程时，“对象”就是“基本构造单元”，开发者可以通过对象来存储并传递数据。在对象之间传递数据并执行任务的过程就叫做“消息传递”。若想编写出高效且易维护的代码，就一定要熟悉这两个特性的工作原理。当应用程序运行起来以后，为其童工相关支持的代码叫做“Objective-C运行期环境”，它提供了一些使得对象之间能够传递消息的重要函数，并且包含创建类实例所用的全部逻辑。">
+<meta name="twitter:description">
 
 
 
@@ -303,8 +304,9 @@
       
 
       
-        <p>用Objective-C等面向对象语言编程时，“对象”就是“基本构造单元”，开发者可以通过对象来存储并传递数据。在对象之间传递数据并执行任务的过程就叫做“消息传递”。若想编写出高效且易维护的代码，就一定要熟悉这两个特性的工作原理。<br>当应用程序运行起来以后，为其童工相关支持的代码叫做“Objective-C运行期环境”，它提供了一些使得对象之间能够传递消息的重要函数，并且包含创建类实例所用的全部逻辑。</p>
+        <p><img src="http://ww3.sinaimg.cn/large/681d8e1egw1f4xyq6kanyj21go0wa1bk.jpg" alt=""></p>
 <a id="more"></a>
+<p>用Objective-C等面向对象语言编程时，“对象”就是“基本构造单元”，开发者可以通过对象来存储并传递数据。在对象之间传递数据并执行任务的过程就叫做“消息传递”。若想编写出高效且易维护的代码，就一定要熟悉这两个特性的工作原理。<br>当应用程序运行起来以后，为其童工相关支持的代码叫做“Objective-C运行期环境”，它提供了一些使得对象之间能够传递消息的重要函数，并且包含创建类实例所用的全部逻辑。</p>
 <h3 id="理解“属性”这一概念">理解“属性”这一概念</h3><p>“属性”是Objective-C 的一项特性，用于封装对象中的数据，Objective-C 对象通常会把其所需要的数据保存为各种实例变量。实例变量一般通过“存取方法”来访问。<br>Objective-C 中定义一个类通常使用@property语法来实现，他帮助属性自动合成（autosynthesis）”获取方法”和”设置方法”，合成方法(synthesized method)是过程的代码由编译器在编译期执行，除了生成代码代码以外，编译器还自动向类中添加适当类型的实例变量，并且在属性名前面加下划线，</p>
 <h5 id="synthesize关键字">synthesize关键字</h5><p>能指定实例变量的名字：</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@implementation</span> Person</span><br><span class="line"><span class="variable">@synthesize</span> firstName = _myFirstName;</span><br><span class="line"><span class="variable">@synthesize</span> lastName = _myLastName;</span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>

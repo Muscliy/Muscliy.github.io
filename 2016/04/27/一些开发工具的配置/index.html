@@ -80,25 +80,17 @@
 
 
 
-<meta name="description" content="sublime + iterm看是否存在subl命令能打开你的sublime
-1open /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl
-设置一个链接到sublime，名字为subl:
-1ln -s &quot;/Applications/Sublime Text.app/Contents/SharedSupport/bin/s">
+<meta name="description">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一些开发工具的配置">
 <meta property="og:url" content="http://yoursite.com/2016/04/27/一些开发工具的配置/index.html">
 <meta property="og:site_name" content="LeeHu的博客">
-<meta property="og:description" content="sublime + iterm看是否存在subl命令能打开你的sublime
-1open /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl
-设置一个链接到sublime，名字为subl:
-1ln -s &quot;/Applications/Sublime Text.app/Contents/SharedSupport/bin/s">
-<meta property="og:updated_time" content="2016-04-27T03:01:24.000Z">
+<meta property="og:description">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/681d8e1ejw1f4xy9h6slbj21gu0w2qor.jpg">
+<meta property="og:updated_time" content="2016-06-17T01:11:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些开发工具的配置">
-<meta name="twitter:description" content="sublime + iterm看是否存在subl命令能打开你的sublime
-1open /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl
-设置一个链接到sublime，名字为subl:
-1ln -s &quot;/Applications/Sublime Text.app/Contents/SharedSupport/bin/s">
+<meta name="twitter:description">
 
 
 
@@ -293,11 +285,12 @@
       
 
       
-        <h3 id="sublime_+_iterm">sublime + iterm</h3><p>看是否存在subl命令能打开你的sublime</p>
+        <p><img src="http://ww3.sinaimg.cn/large/681d8e1ejw1f4xy9h6slbj21gu0w2qor.jpg" alt=""></p>
+<a id="more"></a>
+<h3 id="sublime_+_iterm">sublime + iterm</h3><p>看是否存在subl命令能打开你的sublime</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open <span class="regexp">/Applications/</span>Sublime\ Text.app<span class="regexp">/Contents/</span>SharedSupport<span class="regexp">/bin/</span>subl</span><br></pre></td></tr></table></figure>
 <p>设置一个链接到sublime，名字为subl:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln <span class="operator">-s</span> <span class="string">"/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"</span> /usr/<span class="built_in">local</span>/bin/subl</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
 <p>配置环境信息，打开~/.zshrc加入下面内容</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#sublime + iterm configration</span></span><br><span class="line"><span class="built_in">alias</span> subl=<span class="string">"open -a /Applications/Sublime\ Text.app"</span></span><br><span class="line"><span class="built_in">export</span> PATH=/usr/<span class="built_in">local</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
 <p>最后装载下你们环境变量</p>
