@@ -100,15 +100,14 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/681d8e1egw1f4vztxeu96j20s80cegm8.jpg">
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/681d8e1egw1f4vzwoau8vj20s40eqwfm.jpg">
 <meta property="og:image" content="http://ww3.sinaimg.cn/large/681d8e1egw1f4w01ofrdvj20sm0d5wg8.jpg">
-<meta property="og:image" content="http://ww4.sinaimg.cn/large/681d8e1egw1f4w08a1sz3j20sa07jacr.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006y8lVagw1fbmoh79kc5j30yw07gtc2.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/681d8e1egw1f4w05ifr0uj20s109gdgx.jpg">
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/681d8e1egw1f4w06hxr1jj20s405daaq.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/681d8e1egw1f4w09vgqs8j20ry08ugmf.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/681d8e1egw1f4w0a6udzdj20rn0dz0uq.jpg">
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/681d8e1egw1f4w0bh7s7hj20rt05mt99.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/681d8e1egw1f4w0dzpp6dj20s50dvta2.jpg">
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/681d8e1egw1f4w0kj48hkj20uh0gwq4p.jpg">
-<meta property="og:updated_time" content="2016-06-15T09:56:11.000Z">
+<meta property="og:updated_time" content="2017-01-11T06:41:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins+GitLab+xCode+Fir 持续集成开发">
 <meta name="twitter:description">
@@ -332,15 +331,16 @@
 <p><img src="http://ww2.sinaimg.cn/large/681d8e1egw1f4vzwoau8vj20s40eqwfm.jpg" alt=""></p>
 <p>配置环境变量<br><img src="http://ww3.sinaimg.cn/large/681d8e1egw1f4w01ofrdvj20sm0d5wg8.jpg" alt=""><br>注意target 名称不能有空格，否则编译之后脚本运行会出错，当时这边我使用项目原有的target去Duplicate一个新的target之后,workspace 会生成一个target copy的scheme，这个scheme要改掉，中间不能有空格，我改成了target_dev</p>
 <p>控制编译版本实现自增形式来区分每个构建的不同</p>
-<p><img src="http://ww4.sinaimg.cn/large/681d8e1egw1f4w08a1sz3j20sa07jacr.jpg" alt=""><br>这里为了给测试人员区分debug和release版本，原来计划通过更改bundleid，后来发现不是最优的，因为测试人员要求debug和release版本要有不同的icon，这样我不得不在build的时候去更改的appicon，需要些一堆的脚本，想想都麻烦的要死具体怎么做可以看这里<a href="https://www.raywenderlich.com/105641/change-app-icon-build-time" target="_blank" rel="external">How To Change Your App Icon at Build Time</a>。后来选择另一种方法，在项目原有的target Duplicate出一个target来区分。</p>
+<p><img src="http://ww3.sinaimg.cn/large/006y8lVagw1fbmoh79kc5j30yw07gtc2.jpg" alt=""><br>这里为了给测试人员区分debug和release版本，原来计划通过更改bundleid，后来发现不是最优的，因为测试人员要求debug和release版本要有不同的icon，这样我不得不在build的时候去更改的appicon，需要些一堆的脚本，想想都麻烦的要死,具体怎么做可以看这里<a href="https://www.raywenderlich.com/105641/change-app-icon-build-time" target="_blank" rel="external">How To Change Your App Icon at Build Time</a>。后来选择另一种方法，在项目原有的target Duplicate出一个target来区分。</p>
 <p>xcode 构建设置<br><img src="http://ww1.sinaimg.cn/large/681d8e1egw1f4w05ifr0uj20s109gdgx.jpg" alt=""></p>
 <p><img src="http://ww2.sinaimg.cn/large/681d8e1egw1f4w06hxr1jj20s405daaq.jpg" alt=""></p>
 <p><img src="http://ww1.sinaimg.cn/large/681d8e1egw1f4w09vgqs8j20ry08ugmf.jpg" alt=""></p>
-<p><img src="http://ww1.sinaimg.cn/large/681d8e1egw1f4w0a6udzdj20rn0dz0uq.jpg" alt=""><br>不同的bundleid需要对应不用的provisioning file,在jenkins环境中的/Users/{username}/Library/MobileDevice/Provisioning Profiles目录下面</p>
+<p><img src="http://ww1.sinaimg.cn/large/681d8e1egw1f4w0a6udzdj20rn0dz0uq.jpg" alt=""><br>不同的bundleid需要对应不用的provisioning file,在jenkins环境中的/Users/{username}/Library/MobileDevice/Provisioning Profiles目录下面，这里也可以不填写对应的provisioning file 名称，因为build的时候会自动去找最新的file来完成进行签名</p>
 <p>将生成的app打包成ipa</p>
 <p><img src="http://ww2.sinaimg.cn/large/681d8e1egw1f4w0bh7s7hj20rt05mt99.jpg" alt=""></p>
-<p>将打包好的ipa上传到fir，具体怎么操作可以去fir.im的官网Tool下看具体教程<br><a href="http://blog.fir.im/jenkins/" target="_blank" rel="external">fir.im Jenkins 插件使用方法</a>，这里上传fir可以能会遇到413的错误，主要是运行jenkins的nginx给的上传的大小太小了,只要去nginx里面的配置文件吧client_max_body_size 改大一点就OK了</p>
-<p><img src="http://ww1.sinaimg.cn/large/681d8e1egw1f4w0dzpp6dj20s50dvta2.jpg" alt=""><br>第一次build是会报出sode sign的错误，这是你需要去你的jenkins所以电脑上的工程路径中编译一次，然后系统会弹出证书是否允许访问的玩意，点击始终允许就OK了。如果在编译的时候收到no scheme的错误提示，需要到所在的工程目录下运行如下命令，会列出错有scheme要是没有需要在你的工程中的manage scheme 将所有的scheme都勾选上就可以了</p>
+<p>将打包好的ipa上传到fir，具体怎么操作可以去fir.im的官网Tool下看具体教程<br><a href="http://blog.fir.im/jenkins/" target="_blank" rel="external">fir.im Jenkins 插件使用方法</a>，</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">fir</span> publish <span class="variable">$&#123;BUILD_DIR&#125;</span>/<span class="variable">$&#123;TARGET&#125;</span>.ipa -p -T fca939....cde93</span><br></pre></td></tr></table></figure>
+<p>第一次build是会报出sode sign的错误，这是你需要去你的jenkins所以电脑上的工程路径中编译一次，然后系统会弹出证书是否允许访问的玩意，点击始终允许就OK了。如果在编译的时候收到no scheme的错误提示，需要到所在的工程目录下运行如下命令，会列出错有scheme要是没有需要在你的工程中的manage scheme 将所有的scheme都勾选上就可以了</p>
 <figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">KingxiqueWorkPlatform_Dev-Info.plist test-reports</span><br><span class="line">tudadeMac-Pro:<span class="keyword">workspace</span> tuda$ xcodebuild -list -<span class="keyword">workspace</span> KingxiqueWorkPlatform.xcworkspace</span><br><span class="line">Information <span class="keyword">about</span> <span class="keyword">workspace</span> <span class="string">"KingxiqueWorkPlatform"</span>:</span><br><span class="line">    Schemes:</span><br><span class="line">        KingxiqueWorkPlatform</span><br><span class="line">        KingxiqueWorkPlatform_Dev</span><br><span class="line">        AFNetworking</span><br><span class="line">        BlocksKit</span><br><span class="line">        CocoaSecurity</span><br></pre></td></tr></table></figure>
 <p>到这里就大功告成</p>
 <p><img src="http://ww2.sinaimg.cn/large/681d8e1egw1f4w0kj48hkj20uh0gwq4p.jpg" alt=""></p>
@@ -536,7 +536,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
